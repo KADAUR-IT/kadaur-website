@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    offers: Offer;
+    navbarLinks: NavbarLink;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +79,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    offers: OffersSelect<false> | OffersSelect<true>;
+    navbarLinks: NavbarLinksSelect<false> | NavbarLinksSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -158,6 +162,51 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "offers".
+ */
+export interface Offer {
+  id: string;
+  name: string;
+  icon: string;
+  description?: string | null;
+  usp?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  extraActionButtonLabel?: string | null;
+  extraActionButtonUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbarLinks".
+ */
+export interface NavbarLink {
+  id: string;
+  links?:
+    | {
+        label: string;
+        link?: string | null;
+        isButton?: boolean | null;
+        subLinks?:
+          | {
+              label: string;
+              link?: string | null;
+              isButton?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -170,6 +219,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'offers';
+        value: string | Offer;
+      } | null)
+    | ({
+        relationTo: 'navbarLinks';
+        value: string | NavbarLink;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -252,6 +309,49 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "offers_select".
+ */
+export interface OffersSelect<T extends boolean = true> {
+  name?: T;
+  icon?: T;
+  description?: T;
+  usp?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  extraActionButtonLabel?: T;
+  extraActionButtonUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbarLinks_select".
+ */
+export interface NavbarLinksSelect<T extends boolean = true> {
+  links?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        isButton?: T;
+        subLinks?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+              isButton?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

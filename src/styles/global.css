@@ -6,10 +6,30 @@
 }
 
 @font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
     font-family: "Open Sans";
     src: url("../assets/fonts/OpenSans.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+}
+
+html {
+  font-size: 16px;
+  line-height: 32px;
+
+  background: #F5F5F5;
+  -webkit-font-smoothing: antialiased;
 }
 
 a
@@ -44,32 +64,7 @@ h1, h2, h3, h4, h5, h6 {
         display: flex;
         gap: 16px;
         font-size: 16px !important;
-
-        a
-        {
-            text-decoration: none;
-            color: #1c3856;
-            font-weight: 600;
-            font-size: 16px !important;
-        }
-
-        button
-        {
-            background-color: #1c3856;
-            color : #b08f62;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 500ms ease;
-            font-size: 16px !important; 
-
-            &:hover
-            {
-                background-color: #16314a;
-            }
-        }
+        text-transform: capitalize;
     }
 
 }
@@ -106,6 +101,8 @@ h1, h2, h3, h4, h5, h6 {
 
     @media (max-width: 980px) {
         width: 90%;
+        height: auto;
+
     }
 }
 
@@ -113,6 +110,112 @@ h1, h2, h3, h4, h5, h6 {
 {
     display: none;
 }
+
+.navbar-link
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #1c3856;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-transform: capitalize;
+    background-color: transparent;
+    padding: 0;
+    font-family: "Open-Sans", sans-serif;
+    width: max-content;
+
+    .subnavbar-links
+    {
+        position: absolute;
+        top: calc(100% + 25px);
+        background-color: #F5F5F5;
+        padding: 8px 16px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width : 980px) {
+        flex-direction: column;
+        align-items: flex-end;
+        font-size: 20px;
+        padding: 8px 0;
+        margin: 8px;
+
+        .subnavbar-links
+        {
+            position: relative;
+            background-color: transparent;
+            padding: 16px 16px 0;
+            box-shadow: none;
+            border-radius: 0;
+            gap: 16px;
+            border-right: solid 2px #1c3856;
+        }
+    }
+        
+
+    
+}
+
+.subnavbar-links
+{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    a
+    {
+        width: max-content;
+    }
+
+    &.hide
+    {
+        display: none;
+    }
+
+    @media (max-width : 980px) {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0;
+
+        a
+        {
+            width: 100%;
+        }
+    }
+}
+
+.navbar-button
+{
+    background-color: #1c3856;
+    color : #b08f62;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 500ms ease;
+    font-size: 16px;
+    font-family: "Open-Sans", sans-serif;
+    text-decoration: none;
+    text-transform: capitalize;
+
+    &:hover
+    {
+        background-color: #16314a;
+    }
+
+    @media (max-width : 980px) {
+        font-size: 20px;
+    }
+}
+
+
 
 .hero-section
 {
@@ -143,10 +246,17 @@ h1, h2, h3, h4, h5, h6 {
 
     p{
         font-size: 20px;
-        margin: 48px;
+        margin: 48px 0 0 0 ;
         text-align: center;
         font-family: "Open Sans", sans-serif;
         font-weight: bold;
+    }
+
+    svg
+    {
+        font-weight: bold;
+        height: 35px;
+        width: auto;
     }
 
     img{
@@ -186,8 +296,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .kadaur-button
 {
-    background-color: #1c3856;
-    color: white;
+    
     border: none;
     border-radius: 10px;
     padding: 0.5rem 2rem;
@@ -197,12 +306,35 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 500ms ease;
     font-size: 18px;
     margin: 16px 0 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.blue
+    {
+        background-color: #1c3856;
+        color: white;
+
+        &:hover
+        {
+            background-color: #16314a;
+        }
+    }
+
+    &.white
+    {
+        background-color: #F5F5F5;
+        color: #1c3856;
+
+        &:hover
+        {
+            background-color: #d9d9d9;
+        }
+    }
 }
 
-.kadaur-button:hover
-{
-    background-color: #16314a;
-}
+
+
 
 .footer
 {
@@ -342,4 +474,44 @@ h1, h2, h3, h4, h5, h6 {
 .section-subtitle
 {
     margin: 0 0 16px 0;
+    color: #333333;
+    text-align: center;
+}
+
+.mobile-only
+{
+    display: none;
+}
+
+.desktop-only
+{
+    display: initial;
+}
+
+@media (max-width : 980px)
+{
+    .mobile-only
+    {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .desktop-only
+    {
+        display: none !important;
+    }
+
+    .navbar-button-mobile
+    {
+        padding: 8px 16px;
+        width: 100%;
+
+        svg
+        {
+            height: 35px;
+            width: auto;
+        }
+
+    }
 }

@@ -2,16 +2,14 @@ import { headers as getHeaders } from 'next/headers.js'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import React from 'react'
-import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
 import './styles.css'
 import Button from '@/components/ui/Button'
-import { faBuilding, faCar, faCarSide, faDumbbell, faExpand, faHandshake, faLifeRing, faLightbulb, faSearch, faStairs } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faCarSide, faChevronDown, faExpand, faHandshake, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SectionTitle from '@/components/ui/SectionTitle'
 import SectionSubtitle from '@/components/ui/SectionSubtitle'
-import OfferCard from './_components/OfferCard'
 import MethodeStep from './_components/MethodeStep'
 import OfferSlider from './_components/OfferSlider'
 import ClientSlide from './_components/ClientSlide'
@@ -22,8 +20,6 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
-
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
 
   return (
@@ -38,6 +34,15 @@ export default async function HomePage() {
         <h1>Débloquez le potentiel de vos projets IT avec l'accompagnement expert KADAUR.</h1>
         <Button>Demandez votre diagnostic</Button>
         <p>Découvrez la méthode KADAUR</p>
+        <FontAwesomeIcon icon={faChevronDown} style={{
+          fontSize:"bold"
+        }} />
+      </div>
+
+      <div className='valeurs-slide'>
+          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
+          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
+          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
       </div>
 
       <div className='methode-section section'>

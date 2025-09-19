@@ -22,7 +22,7 @@ export default function OfferCard({ title, description, icon, color, ref, id }: 
             </div>
             <h3>{title}</h3>
             <p>{description}</p>
-            <Button>En savoir plus</Button>
+            <Button buttonColor="white">En savoir plus</Button>
           </div>
     );
 }
