@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactNode } from "react";
 import "./styles.css";
 
@@ -7,11 +9,18 @@ interface SubmitFormProps
 {
     children: ReactNode;
     buttonStyle?: ButtonStyle;
+    onClick?: () => void
 }
 
-export default function SubmitForm({buttonStyle = "blue", children} : SubmitFormProps)
+export default function SubmitForm({buttonStyle = "blue", children, onClick} : SubmitFormProps)
 {
+    function handleClick()
+    {
+        if(onClick)
+            onClick();
+    }
+
     return (
-        <button className={buttonStyle} >{children}</button>
+        <button role={onClick ? "button" : "submit"} onClick={handleClick} className={buttonStyle}>{children}</button>
     )
 }

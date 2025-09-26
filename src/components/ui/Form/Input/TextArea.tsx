@@ -14,7 +14,7 @@ export default function TextArea({id, label, rows = 5, placeholder = ""} : TextA
     return (
         <div className="input-group">
             <label>{label}</label>
-            <textarea id={id} rows={rows} placeholder={placeholder}></textarea>
+            <textarea id={id} name={id} rows={rows} placeholder={placeholder}></textarea>
         </div>
     )
 }

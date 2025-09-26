@@ -4,7 +4,8 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ES2022"
+      "ES2022",
+      "ESNext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,6 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "types": ["react", "react-dom"],
     "incremental": true,
     "plugins": [
       {

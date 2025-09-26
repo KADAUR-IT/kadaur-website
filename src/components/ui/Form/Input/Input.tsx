@@ -14,7 +14,7 @@ export default function Input({id, label, type = "text", placeholder = ""} : Inp
     return (
         <div className="input-group">
             <label>{label}</label>
-            <input id={id} type={type} placeholder={placeholder}></input>
+            <input id={id} name={id} type={type} placeholder={placeholder}></input>
         </div>
     )
 }

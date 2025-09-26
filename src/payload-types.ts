@@ -71,6 +71,8 @@ export interface Config {
     media: Media;
     offers: Offer;
     navbarLinks: NavbarLink;
+    pages: Page;
+    article: Article;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +83,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     offers: OffersSelect<false> | OffersSelect<true>;
     navbarLinks: NavbarLinksSelect<false> | NavbarLinksSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    article: ArticleSelect<false> | ArticleSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -207,6 +211,161 @@ export interface NavbarLink {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  slug: string;
+  block?: (TextImageBlock | TitleBlock | QuoteBlock | EnumBlock | SubtitleBlock)[] | null;
+  test?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageBlock".
+ */
+export interface TextImageBlock {
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: string | Media;
+  reverse?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TextImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleBlock".
+ */
+export interface TitleBlock {
+  text: string;
+  header?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Title';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EnumBlock".
+ */
+export interface EnumBlock {
+  items?:
+    | {
+        text: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Enum';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubtitleBlock".
+ */
+export interface SubtitleBlock {
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Subtitle';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "article".
+ */
+export interface Article {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  thumbnail: string | Media;
+  text: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -227,6 +386,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'navbarLinks';
         value: string | NavbarLink;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'article';
+        value: string | Article;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -350,6 +517,92 @@ export interface NavbarLinksSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  slug?: T;
+  block?:
+    | T
+    | {
+        TextImage?: T | TextImageBlockSelect<T>;
+        Title?: T | TitleBlockSelect<T>;
+        Quote?: T | QuoteBlockSelect<T>;
+        Enum?: T | EnumBlockSelect<T>;
+        Subtitle?: T | SubtitleBlockSelect<T>;
+      };
+  test?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageBlock_select".
+ */
+export interface TextImageBlockSelect<T extends boolean = true> {
+  text?: T;
+  image?: T;
+  reverse?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleBlock_select".
+ */
+export interface TitleBlockSelect<T extends boolean = true> {
+  text?: T;
+  header?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock_select".
+ */
+export interface QuoteBlockSelect<T extends boolean = true> {
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EnumBlock_select".
+ */
+export interface EnumBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        text?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SubtitleBlock_select".
+ */
+export interface SubtitleBlockSelect<T extends boolean = true> {
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "article_select".
+ */
+export interface ArticleSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  thumbnail?: T;
+  text?: T;
   updatedAt?: T;
   createdAt?: T;
 }

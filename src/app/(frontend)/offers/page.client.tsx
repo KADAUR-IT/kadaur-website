@@ -10,6 +10,7 @@ import SubmitForm from "@/components/ui/Form/Submit/SubmitForm";
 import OfferInfos, { Offer } from "./_components/OfferInfos/OfferInfos";
 import OfferSliderButton from "./_components/OfferSliderButton";
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
+import useWindowDimensions from "../_hooks/useWindowDimensions";
 
 interface OffersPageClientProps
 {
@@ -20,6 +21,7 @@ export default function OffersPageClient({ offers } : OffersPageClientProps)
 {
     const [offerVisible, setOfferVisible] = useState(offers[0].id)
     const slidesBtnRef : React.Ref<HTMLAnchorElement>[] = []
+    const {height, width} = useWindowDimensions() ?? {}
 
     const offerButtonList = offers.map( (offer) => {
 
@@ -55,12 +57,13 @@ export default function OffersPageClient({ offers } : OffersPageClientProps)
     //console.log(visibleIds)
 
     useEffect(() => {
-        
+        if(width > 980) return
+
         let visibleId = visibleIds[0] as string
         //console.log(visibleId.replaceAll("-btn", ""))
 
-        if(visibleId)
-            handleVisible(visibleId.replaceAll("-btn", ""))
+        if(visibleId) handleVisible(visibleId.replaceAll("-btn", ""))
+
     }, [visibleIds]);
 
     return (

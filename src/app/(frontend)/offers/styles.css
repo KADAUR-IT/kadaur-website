@@ -125,7 +125,7 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: auto;
     scrollbar-color: transparent transparent;
-    scrollbar-width: 0px;
+    scrollbar-width: none;
 
     .offer-infos
     {

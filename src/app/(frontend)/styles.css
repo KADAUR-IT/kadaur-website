@@ -3,7 +3,6 @@
 }
 
 html,
-body,
 #app {
   height: 100%;
 }
@@ -481,19 +480,53 @@ h1 {
     display: flex;
     align-items: center;
     overflow: hidden;
-    gap: 10px;
+    gap: 40px;
+    position: relative;
 
-    p
+    &::before, &::after
     {
-      color: #b08f62;
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      z-index: 1;
+    }
+
+    &::before{
+      left: 0;
+      background: linear-gradient(to right , #1c3856, transparent) ;
+    }
+
+    &::after{
+      right: 0;
+      background: linear-gradient(to left , #1c3856, transparent) ;
+    }
+
+    .texts-slide
+    {
+      /*color: #b08f62;*/
+      color: #F5F5F5;
       display: flex;
+      align-items: center;
       white-space: nowrap;
-      animation: 30s slide infinite linear;
+      animation: 60s slide infinite linear;
       max-width: max-content;
       margin: 0;
       font-size: 36px;
-      font-family: "Open-Sans", sans-serif;
-      font-style: italic;
-      font-weight: bold;
+      font-family: "Poppins", sans-serif;
+      /*font-style: italic;*/
+      /*font-weight: bold;*/
+      gap: 40px;
+
+      svg
+      {
+        color: #F5F5F5;
+      }
+
+      /*p::after{
+        content: "•";
+        margin-left: 40px;
+      }*/
     }
   }

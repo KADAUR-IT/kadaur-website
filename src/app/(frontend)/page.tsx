@@ -6,7 +6,7 @@ import React from 'react'
 import config from '@/payload.config'
 import './styles.css'
 import Button from '@/components/ui/Button'
-import { faBuilding, faCarSide, faChevronDown, faExpand, faHandshake, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faCarSide, faChevronDown, faCrosshairs, faExpand, faEye, faHandHoldingHeart, faHandshake, faHandshakeAngle, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SectionTitle from '@/components/ui/SectionTitle'
 import SectionSubtitle from '@/components/ui/SectionSubtitle'
@@ -14,6 +14,7 @@ import MethodeStep from './_components/MethodeStep'
 import OfferSlider from './_components/OfferSlider'
 import ClientSlide from './_components/ClientSlide'
 import AvisSlider from './_components/AvisSlider'
+import ItemSlider from './_components/ItemSlider'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -38,11 +39,38 @@ export default async function HomePage() {
           fontSize:"bold"
         }} />
       </div>
-
+      
       <div className='valeurs-slide'>
-          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
-          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
-          <p>RESPECT • TRANSPARENCE • BIENVEILLANCE • RIGUEUR • </p>
+        <div className='texts-slide'>
+          <p>RESPECT</p>
+          <FontAwesomeIcon icon={faHandshakeAngle} />
+          <p>TRANSPARENCE</p>
+          <FontAwesomeIcon icon={faEye} />
+          <p>BIENVEILLANCE</p>
+          <FontAwesomeIcon icon={faHandHoldingHeart} />
+          <p>RIGUEUR</p>
+          <FontAwesomeIcon icon={faCrosshairs} />
+        </div>
+        <div className='texts-slide'>
+          <p>RESPECT</p>
+          <FontAwesomeIcon icon={faHandshakeAngle} />
+          <p>TRANSPARENCE</p>
+          <FontAwesomeIcon icon={faEye} />
+          <p>BIENVEILLANCE</p>
+          <FontAwesomeIcon icon={faHandHoldingHeart} />
+          <p>RIGUEUR</p>
+          <FontAwesomeIcon icon={faCrosshairs} />
+        </div>
+        <div className='texts-slide'>
+          <p>RESPECT</p>
+          <FontAwesomeIcon icon={faHandshakeAngle} />
+          <p>TRANSPARENCE</p>
+          <FontAwesomeIcon icon={faEye} />
+          <p>BIENVEILLANCE</p>
+          <FontAwesomeIcon icon={faHandHoldingHeart} />
+          <p>RIGUEUR</p>
+          <FontAwesomeIcon icon={faCrosshairs} />
+        </div>
       </div>
 
       <div className='methode-section section'>
