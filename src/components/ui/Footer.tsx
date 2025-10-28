@@ -11,9 +11,9 @@ export default function Footer() {
                 <div className="footer-left">
                     <Image
                         alt="Kadaur Logo"
-                        height={64}
-                        src="/api/media/file/logo-kadaur.png"
-                        width={245}
+                        width={1366}
+                        height={485}
+                        src="/api/media/file/logo_kadaur_blanc"
                     />
                     <p>Nous sommes les maillons d'une même chaîne</p>
                     <div className="footer-social-media">

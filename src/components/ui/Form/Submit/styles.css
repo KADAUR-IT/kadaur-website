@@ -1,27 +1,29 @@
-button
-{
-    border: none;
-    padding: 0.5rem;
-    margin: 0.5rem;
-    width: calc(100% - 1rem);
-    box-sizing: border-box;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 24px;
-    cursor: pointer;
+form{
+    button
+    {
+        border: none;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 24px;
+        cursor: pointer;
 
-    &.gold {
-        background-color: #b08f62;
-        color: #f9f9f9;
-    }
+        &.gold {
+            background-color: #b08f62;
+            color: #f9f9f9;
+        }
 
-    &.white {
-        background-color: #f9f9f9;
-        color: #1c3856;
-    }
+        &.white {
+            background-color: #f9f9f9;
+            color: #1c3856;
+        }
 
-    &.blue {
-        background-color: #1c3856;
-        color: #f9f9f9;
+        &.blue {
+            background-color: #1c3856;
+            color: #f9f9f9;
+        }
     }
 }

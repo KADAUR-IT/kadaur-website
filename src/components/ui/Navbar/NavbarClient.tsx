@@ -3,15 +3,16 @@
 import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 
 interface NavbarProps
 {
-    mappedLinks: ReactNode[]
+    mappedLinks: ReactNode[], 
+    isAuth: boolean
 }
 
-export default function NavbarClient({mappedLinks} : NavbarProps)
+export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
 {
     const [subOpen, setOpen] = useState(false)
 
@@ -20,7 +21,6 @@ export default function NavbarClient({mappedLinks} : NavbarProps)
 
     function handleClickMobile()
     {
-        console.log("tesxt")
         setOpen(!subOpen)
     }
 
@@ -31,19 +31,20 @@ export default function NavbarClient({mappedLinks} : NavbarProps)
                     <a href="/">
                         <Image
                             alt="Kadaur Logo"
-                            height={64}
+                            height={208}
                             src="/api/media/file/logo-kadaur.png"
-                            width={245}
+                            width={800}
                         />
                     </a>
                 </div>
                 <div className='navbar-links desktop-only'>
-                {mappedLinks}
+                    {mappedLinks}
+                    <a href={isAuth ? "/dashboard" : "/login"} className="navbar-link"><FontAwesomeIcon icon={faUser} /></a>
                 </div>
                 <div className="mobile-only">
-                <Button className="navbar-button-mobile" onClick={handleClickMobile}>
-                    <FontAwesomeIcon icon={faBars} />
-                </Button>
+                    <Button className="navbar-button-mobile" onClick={handleClickMobile}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </Button>
                 </div>
             </div>
             <div className={classnameSub}>

@@ -3,6 +3,9 @@ import {CollectionConfig} from "payload"
 
 export const Article: CollectionConfig = {
     slug: "article",
+    admin: {
+        useAsTitle: 'title',
+    },
     fields: [
         {
             name: "title",

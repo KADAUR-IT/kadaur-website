@@ -1,6 +1,7 @@
 .dyn-pages
 {
     margin-top: 100px;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;

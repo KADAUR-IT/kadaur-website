@@ -1,0 +1,53 @@
+
+form{
+    button
+    {
+        border: none;
+        padding: 0.5rem;
+        margin: 0.5rem;
+        width: calc(100% - 1rem);
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 24px;
+        cursor: pointer;
+
+        &.gold {
+            background-color: #b08f62;
+            color: #f9f9f9;
+        }
+
+        &.white {
+            background-color: #f9f9f9;
+            color: #1c3856;
+        }
+
+        &.blue {
+            background-color: #1c3856;
+            color: #f9f9f9;
+        }
+    }
+}
+
+.error-form
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background-color: #f8c5c5;
+    color: #dd3737;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 0 8px;
+
+    &.hide
+    {
+        display: none;
+    }
+
+    p {
+        margin: 0
+    }
+}

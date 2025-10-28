@@ -7,6 +7,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import {seoPlugin} from '@payloadcms/plugin-seo'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -14,18 +15,19 @@ import { Offers } from './collections/Offers'
 import { NavbarLinks } from './collections/NavbarLinks'
 import { Pages } from './collections/Pages'
 import { Article } from './collections/Article'
+import { Admins } from './collections/Admins'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: Admins.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Offers, NavbarLinks, Pages, Article],
+  collections: [Users, Media, Offers, NavbarLinks, Pages, Article, Admins],
   editor: lexicalEditor({
     features: ({defaultFeatures}) => [
       ...defaultFeatures,
@@ -42,6 +44,11 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
+    seoPlugin({
+      collections: ["pages"],
+      uploadsCollection: "media",
+      generateTitle: ({doc}) => `KADAUR - ${doc.title}`
+    })
     // storage-adapter-placeholder
   ],
   email: nodemailerAdapter({
@@ -55,5 +62,5 @@ export default buildConfig({
         pass: process.env.SMTP_PASS,
       }
     }
-  })
+  }),
 })

@@ -5,6 +5,7 @@ import { getPayload } from "payload";
 import config from '@payload-config'
 import NavbarLink, { Link } from "./Navbar/NavbarLink";
 import NavbarClient from "./Navbar/NavbarClient";
+import { headers } from "next/headers";
 
 export default async function Navbar() {
   const payload = await getPayload( {config} );
@@ -13,6 +14,8 @@ export default async function Navbar() {
     collection : "navbarLinks", 
     limit : 1
   })
+
+  const user = await payload.auth({ headers: await headers(), canSetHeaders: false });
 
   const links = res.docs[0].links;
   
@@ -30,7 +33,7 @@ export default async function Navbar() {
 
     return (
         <div className='navbar-wrapper'>
-            <NavbarClient mappedLinks={mappedLinks} />
+            <NavbarClient mappedLinks={mappedLinks} isAuth={!!user.user} />
           </div>
     )
 }

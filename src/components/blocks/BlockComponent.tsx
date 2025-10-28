@@ -1,14 +1,15 @@
 import { Block } from "payload";
 import React from "react";
 import TitleBlockComponent from "./TitleBlockComponent";
-import { EnumBlock, QuoteBlock, SubtitleBlock, TextImageBlock, TitleBlock } from "@/payload-types";
+import { EnumBlock, QuestionAnswerBlock, QuoteBlock, SubtitleBlock, TextImageBlock, TitleBlock } from "@/payload-types";
 import SubtitleBlockComponent from "./SubtitleBlockComponent";
 import TextImageBlockFront from "./TextImageBlockFront";
 import QuoteBlockComponent from "./QuoteBlockComponent";
 import EnumBlockComponent from "./EnumBlockComponent";
+import QuestionAnswerBlockComponent from "./QuestionAnswerBlockComponent";
 
 interface BlockProps{
-    block: TitleBlock | SubtitleBlock | TextImageBlock | QuoteBlock | EnumBlock,
+    block: TitleBlock | SubtitleBlock | TextImageBlock | QuoteBlock | EnumBlock | QuestionAnswerBlock,
     id: string
 }
 
@@ -31,6 +32,9 @@ export default function BlockComponent({block, id} : BlockProps)
             break;
         case "Enum":
             blockRender.push(<EnumBlockComponent key={id} block={block as EnumBlock} />)
+            break;
+        case "QuestionAnswer":
+            blockRender.push(<QuestionAnswerBlockComponent key={id} block={block as QuestionAnswerBlock} />)
             break;
     }
 

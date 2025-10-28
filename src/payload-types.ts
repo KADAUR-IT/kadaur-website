@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    admins: AdminAuthOperations;
   };
   blocks: {};
   collections: {
@@ -73,6 +74,7 @@ export interface Config {
     navbarLinks: NavbarLink;
     pages: Page;
     article: Article;
+    admins: Admin;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +87,7 @@ export interface Config {
     navbarLinks: NavbarLinksSelect<false> | NavbarLinksSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     article: ArticleSelect<false> | ArticleSelect<true>;
+    admins: AdminsSelect<false> | AdminsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -95,9 +98,13 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Admin & {
+        collection: 'admins';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -121,12 +128,37 @@ export interface UserAuthOperations {
     password: string;
   };
 }
+export interface AdminAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: string;
+  firstName: string;
+  lastName: string;
+  token?: {
+    hash?: string | null;
+    salt?: string | null;
+    expiresAt?: number | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -215,8 +247,9 @@ export interface NavbarLink {
  */
 export interface Page {
   id: string;
+  title: string;
   slug: string;
-  block?: (TextImageBlock | TitleBlock | QuoteBlock | EnumBlock | SubtitleBlock)[] | null;
+  block?: (TextImageBlock | TitleBlock | QuoteBlock | EnumBlock | SubtitleBlock | QuestionAnswerBlock)[] | null;
   test?: {
     root: {
       type: string;
@@ -232,6 +265,14 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -338,6 +379,32 @@ export interface SubtitleBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuestionAnswerBlock".
+ */
+export interface QuestionAnswerBlock {
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  icon: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'QuestionAnswer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "article".
  */
 export interface Article {
@@ -363,6 +430,30 @@ export interface Article {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins".
+ */
+export interface Admin {
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -394,12 +485,21 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'article';
         value: string | Article;
+      } | null)
+    | ({
+        relationTo: 'admins';
+        value: string | Admin;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'admins';
+        value: string | Admin;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -409,10 +509,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'admins';
+        value: string | Admin;
+      };
   key?: string | null;
   value?:
     | {
@@ -442,6 +547,15 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  token?:
+    | T
+    | {
+        hash?: T;
+        salt?: T;
+        expiresAt?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -525,6 +639,7 @@ export interface NavbarLinksSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  title?: T;
   slug?: T;
   block?:
     | T
@@ -534,8 +649,16 @@ export interface PagesSelect<T extends boolean = true> {
         Quote?: T | QuoteBlockSelect<T>;
         Enum?: T | EnumBlockSelect<T>;
         Subtitle?: T | SubtitleBlockSelect<T>;
+        QuestionAnswer?: T | QuestionAnswerBlockSelect<T>;
       };
   test?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -595,6 +718,17 @@ export interface SubtitleBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuestionAnswerBlock_select".
+ */
+export interface QuestionAnswerBlockSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  icon?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "article_select".
  */
 export interface ArticleSelect<T extends boolean = true> {
@@ -605,6 +739,28 @@ export interface ArticleSelect<T extends boolean = true> {
   text?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admins_select".
+ */
+export interface AdminsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
