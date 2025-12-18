@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import './styles.css'
 import { getPayload } from "payload";
 import config from '@payload-config';
@@ -34,7 +34,9 @@ export default async function OffersPage()
 
     return (
         <>
-            <OffersPageClient offers={offers as Offer[]} />
+            <Suspense>
+                <OffersPageClient offers={offers as Offer[]} />
+            </Suspense>
         </>
     )
 }

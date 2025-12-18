@@ -25,7 +25,7 @@ export const metadata = {
 
 
 export default async function HomePage() {
-  const headers = await getHeaders()
+  //const headers = await getHeaders()
   //const { user } = await payload.auth({ headers })
 
 
