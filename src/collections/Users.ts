@@ -11,7 +11,7 @@ export const Users: CollectionConfig = withUsersCollection({
     defaultColumns: ['fullName', 'email'],
     useAsTitle: 'email',
   },
-  access: {
+  /*access: {
     read: async () => {
       const session = await adminAuthClient.getSession(
         { 
@@ -32,7 +32,7 @@ export const Users: CollectionConfig = withUsersCollection({
         },
       };
     },
-  },
+  },*/
   fields: [
     {
       name: 'email',

@@ -23,12 +23,6 @@ export const metadata = {
 }
 
 
-let articles: Article[] = []
-
-export async function getArticles(): Promise<Article[]> {
-    return articles
-}
-
 export default async function ActualityPage()
 {
     const payload = await getPayload({config: configPromise})
