@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            /* Reset de base pour les clients mail */
+            body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+            table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+            img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+            table { border-collapse: collapse !important; }
+            body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+            /* Media Queries pour le mobile */
+            @media screen and (max-width: 600px) {
+                .email-container {
+                    width: 100% !important;
+                    margin: auto !important;
+                }
+                .content-padding {
+                    padding: 24px !important; /* p-6 equivalent */
+                }
+                .header-padding {
+                    padding: 24px !important;
+                }
+                .mobile-stack {
+                    display: block !important;
+                    width: 100% !important;
+                    margin-bottom: 10px !important;
+                }
+                .mobile-center {
+                    text-align: center !important;
+                }
+                .separator {
+                    display: none !important; /* Cache le point de séparation sur mobile */
+                }
+            }
+        </style>
+    </head>
+    <body style="background-color: #f5f5f5; margin: 0; padding: 0;">
+
+        <div style="margin: 0 auto; display: flex; justify-content: center; align-items: center; padding: 2rem;">
+            <a href="http://localhost:3000/" style="width: fit-content;">
+                <img style="width: 400px;" src="http://localhost:3000/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Flogo-kadaur.png&w=1920&q=75">
+            </a>
+        </div>
+
+        <!-- Wrapper principal -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f5f5f5; padding: 20px 0;">
+            <tr>
+                <td align="center">
+                    
+                    <!-- Conteneur de l'email (Largeur max 600px) -->
+                    <!-- Utilisation de width="600" pour compatibilité Outlook -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="600" class="email-container" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin: 0 auto;">
+                        
+                        <!-- En-tête (Header) -->
+                        <tr>
+                            <td align="center" class="header-padding" style="background-color: #1c3856; padding: 32px;">
+                                <!-- Cercle icône -->
+                                <div style="display: flex; justify-content: center; align-items: center; width: 64px; height: 64px; color: #b08f62; background-color: #ffffff; border-radius: 50%; margin-bottom: 16px; line-height: 64px;">
+                                    <i class="fa-regular fa-envelope fa-3x"></i>
+                                </div>
+                                <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0; letter-spacing: 0.5px;">Merci de nous avoir contactés !</h1>
+                            </td>
+                        </tr>
+
+                        <!-- Corps du message -->
+                        <tr>
+                            <td class="content-padding" style="padding: 32px; color: #475569; font-size: 16px; line-height: 1.6;">
+                                <p style="margin: 0 0 16px 0; font-size: 18px; font-weight: 500; color: #1c3856;">Bonjour,</p>
+                                
+                                <p style="margin: 0 0 24px 0;">
+                                    Nous avons bien reçu votre demande de contact et nous vous en remercions. C'est un plaisir de constater votre intérêt pour <strong>KADAUR</strong>.
+                                </p>
+
+                                <!-- Boîte de statut -->
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f5f5f5; border-left: 4px solid #b08f62; border-radius: 0 4px 4px 0; margin-bottom: 24px;">
+                                    <tr>
+                                        <td style="padding: 16px;">
+                                            <p style="margin: 0; color: #1c3856; font-size: 14px; font-weight: 500;">
+                                                🔍 Statut : <span style="font-weight: bold;">Demande reçue</span><br>
+                                                ⏱️ Délai de réponse estimé : <span style="font-weight: bold;">24 à 48 heures ouvrées</span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="margin: 0 0 32px 0;">
+                                    Notre équipe examine actuellement votre message. Une personne compétente reviendra vers vous très rapidement pour répondre à vos questions ou convenir d'un rendez-vous.
+                                </p>
+
+                                <!-- Bouton d'action (CTA) -->
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td align="center">
+                                            <a href="#" style="background-color: #b08f62; color: #ffffff; font-weight: bold; text-decoration: none; padding: 12px 32px; border-radius: 9999px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                                Visiter notre site web
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                        <!-- Section "En attendant" -->
+                        <tr>
+                            <td class="content-padding" style="padding: 0 32px 32px 32px;">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="border-top: 1px solid #e2e8f0; padding-top: 24px; text-align: center;">
+                                            <p style="margin: 0; font-size: 14px; color: #64748b;">
+                                                En attendant, n'hésitez pas à consulter notre <a href="#" style="color: #b08f62; text-decoration: none;">centre d'aide</a> ou à nous suivre sur les réseaux sociaux.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Pied de page (Footer) -->
+                        <tr>
+                            <td style="background-color: #f5f5f5; padding: 24px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+                                <p style="margin: 0 0 8px 0;">&copy; 2026 KADAUR. Tous droits réservés.</p>
+                                <p style="margin: 0 0 16px 0;">[Adresse de l'entreprise] | [Numéro de téléphone]</p>
+                                
+                                <!-- Liens Footer -->
+                                <div class="mobile-center">
+                                    <a href="#" class="mobile-stack" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Mentions légales</a>
+                                    <span class="separator" style="color: #cbd5e1;">•</span>
+                                    <a href="#" class="mobile-stack" style="color: #94a3b8; text-decoration: none; margin: 0 8px;">Politique de confidentialité</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                    
+                    <!-- Texte de désinscription invisible -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                        <tr>
+                            <td align="center" style="padding: 16px; font-size: 12px; color: #94a3b8;">
+                                Vous avez reçu cet email suite à une demande effectuée sur notre site.
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
+    </body>
+</html>

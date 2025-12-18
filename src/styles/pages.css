@@ -1,0 +1,31 @@
+.dyn-pages
+{
+    margin: 100px auto 16px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 990px;
+
+    h1, h2
+    {
+        margin: 0;
+    }
+}
+
+.headtitle{
+    text-align: center;
+
+    h1
+    {
+        margin-top: 10px;
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    h2{
+        color: #333333;
+        font-weight: normal;
+        font-size: 20px;
+    }
+}

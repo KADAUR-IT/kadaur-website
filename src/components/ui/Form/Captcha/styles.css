@@ -1,0 +1,7 @@
+.captcha-group
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 8px;
+}
