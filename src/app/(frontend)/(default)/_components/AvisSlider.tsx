@@ -1,16 +1,34 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { RefObject, useEffect, useRef } from "react"
 import AvisCard from "./AvisCard";
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
 
-export default function AvisSlider() {
+interface AvisSliderProps{
+    avis: {
+        avisName: string;
+        jobTitleAvis?: string | null | undefined;
+        avisRating: number;
+        avisText: string;
+        id?: string | null | undefined;}[] | null | undefined,
+}
 
-    const avis1 = useRef(null);
-    const avis2 = useRef(null);
-    const avis3 = useRef(null);
+export default function AvisSlider({avis} : AvisSliderProps) {
 
-    const visibleIds = useIntersectionObserver([avis1, avis2, avis3], {
+    const avisRefs: RefObject<HTMLDivElement>[] = []
+
+    const render = avis?.map( (a, index) => {
+        const ref = useRef<HTMLDivElement>(null)
+        avisRefs.push(ref as RefObject<HTMLDivElement>)
+
+        return(
+            <AvisCard key={a.id} ref={ref} id={`avis${index}`} author={`${a.avisName} - ${a.jobTitleAvis}`} rating={a.avisRating} animationDelay={100 * index}>
+                "{a.avisText}"
+            </AvisCard>
+        )
+    } )
+
+    const visibleIds : string[] = useIntersectionObserver(avisRefs as RefObject<HTMLElement>[], {
         threshold: 0.5, // 50% visible
     });
 
@@ -34,15 +52,7 @@ export default function AvisSlider() {
     return(
         <>
         <div className='avis-cards'>
-            <AvisCard ref={avis1} id="avis1" author="Sophie - Directrice Générale d'une PME">
-                "Grâce à l’accompagnement de KADAUR, nous avons enfin pu moderniser notre infrastructure IT sans interrompre notre activité. Leur approche pragmatique et leur capacité à vulgariser la technique ont été un vrai atout. Aujourd’hui, notre système est plus fiable, plus rapide, et nous avons gagné en productivité."
-            </AvisCard>
-            <AvisCard ref={avis2} id="avis2" author="Claire -  CEO d'une startup tech en phase de croissance à Paris ">
-                "Nous avions besoin de scaler rapidement notre infrastructure pour absorber la croissance des utilisateurs. L’équipe KADAUR a su mettre en place une architecture solide, évolutive et sécurisée. Résultat : nous avons doublé notre capacité sans incident majeur, et nos équipes peuvent se concentrer sur le produit."
-            </AvisCard>
-            <AvisCard ref={avis3} id="avis3" author="Karim -  CTO d'une startup/scale-up ">
-                "KADAUR a parfaitement compris nos enjeux métiers et a proposé des solutions IT alignées sur nos objectifs business. Leur expertise et leur disponibilité ont fait la différence : nous avons gagné en sérénité et en efficacité au quotidien."
-            </AvisCard>
+            {render}
             
         </div>
         <div className='avis-slider-btn'>

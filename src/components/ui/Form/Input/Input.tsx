@@ -7,15 +7,16 @@ interface InputProps
     label: string;
     type?: string;
     placeholder? : string;
-    rest?: React.InputHTMLAttributes<HTMLInputElement>;
+    defaultValue? : any
+    onChange?: (...args: any[]) => void
 }
 
-export default function Input({id, label, type = "text", placeholder = "", ...rest} : InputProps)
+export default function Input({id, label, type = "text", placeholder = "", defaultValue = "", onChange, ...rest} : InputProps)
 {
     return (
         <div className="input-group">
             <label>{label}</label>
-            <input id={id} name={id} type={type} placeholder={placeholder} {...rest}></input>
+            <input id={id} name={id} type={type} placeholder={placeholder} defaultValue={defaultValue} onChange={onChange} {...rest}></input>
         </div>
     )
 }

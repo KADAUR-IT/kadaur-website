@@ -1,23 +1,27 @@
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import '@/styles/global.css'
 import { getPayload } from "payload";
 import config from '@payload-config'
 import NavbarLink, { Link } from "./Navbar/NavbarLink";
 import NavbarClient from "./Navbar/NavbarClient";
 import { headers } from "next/headers";
+import { adminAuthClient } from "@/utils/auth/auth";
 
 export default async function Navbar() {
   const payload = await getPayload( {config} );
 
-  const res = await payload.find({
-    collection : "navbarLinks", 
-    limit : 1
+  const res = await payload.findGlobal({
+    slug : "navbarLinks"
   })
 
-  const user = await payload.auth({ headers: await headers(), canSetHeaders: false });
+  const session = await adminAuthClient.getSession({
+      headers: await headers()
+  })
 
-  const links = res.docs[0].links;
+  const isAuth = !session.isError
+
+  const links = res.links;
   
   let mappedLinks : ReactNode[] = []
 
@@ -33,7 +37,7 @@ export default async function Navbar() {
 
     return (
         <div className='navbar-wrapper'>
-            <NavbarClient mappedLinks={mappedLinks} isAuth={!!user.user} />
+            <NavbarClient mappedLinks={mappedLinks} isAuth={isAuth} />
           </div>
     )
 }

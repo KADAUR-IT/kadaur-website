@@ -4,13 +4,24 @@ import 'src/styles/global.css'
 import Navbar from '@/components/ui/Navbar'
 import Footer from '@/components/ui/Footer'
 import Script from 'next/script'
+import { getPayload } from 'payload'
+import payloadConfig from '@/payload.config'
+import { ToastContainer } from "react-toastify"
+
+const payload = await getPayload({ config: payloadConfig})
+const siteMetadata = await payload.findGlobal({
+  slug: "settings"
+})
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'KADAUR',
+  description: siteMetadata.SEO.description || 'A blank template using Payload in a Next.js app.',
+  title: {
+    template: siteMetadata.SEO.template || "KADAUR - %s",
+    default : siteMetadata.SEO.title || 'KADAUR',
+  }
 }
 
-const GA_MEASUREMENT_ID = 'G-MNVLLR4SMH';
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
@@ -41,6 +52,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           <Navbar />
           {children}
           <Footer />
+          <ToastContainer />
         </main>
       </body>
     </html>

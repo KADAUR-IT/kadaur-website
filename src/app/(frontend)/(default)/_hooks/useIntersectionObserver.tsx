@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function useIntersectionObserver(selectors : (React.RefObject<HTMLElement>)[], options = {}) {
-  const [visibleIds, setVisibleIds] = useState([]);
+  const [visibleIds, setVisibleIds] = useState<string[]>([]);
 
   useEffect(() => {
     const elements = selectors.map((sel) =>

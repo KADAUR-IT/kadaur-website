@@ -1,7 +1,7 @@
 'use client';
 
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
 
@@ -13,9 +13,9 @@ interface MethodeStepProps {
 }
 
 export default function MethodeStep({ title, description, icon, animationDelay = 0 }: MethodeStepProps) {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-    const visibleIds = useIntersectionObserver([ref], {
+    const visibleIds = useIntersectionObserver([ref] as RefObject<HTMLElement>[], {
         threshold: 0.5, // 50% visible
     });
 

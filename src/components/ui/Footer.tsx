@@ -1,26 +1,36 @@
 import React from "react";
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faInstagram, faLinkedin, faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faInstagram, faLinkedin, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from "@fortawesome/free-brands-svg-icons";
 
-export default function Footer() {
+library.add(fab)
+import Logo from "../constants/Logo";
+import { getPayload } from "payload";
+import payloadConfig from "@/payload.config";
+
+export default async function Footer() {
+    const payload = await getPayload({ config: payloadConfig })
+    const links = (await payload.findGlobal({
+        slug: "settings"
+    })).general?.socialMedia || []
+
     return (
         <footer className="footer">
             <div className="footer-content">
                 <div className="footer-left">
-                    <Image
-                        alt="Kadaur Logo"
-                        width={1366}
-                        height={485}
-                        src="/api/media/file/logo_kadaur_blanc"
+                    <Logo 
+                        version="alternative"
                     />
                     <p>Nous sommes les maillons d'une même chaîne</p>
                     <div className="footer-social-media">
-                        <FontAwesomeIcon icon={faLinkedin} />
-                        <FontAwesomeIcon icon={faFacebook} />
-                        <FontAwesomeIcon icon={faXTwitter} />
-                        <FontAwesomeIcon icon={faInstagram} />
+                        {links.map( (link) => {
+                            return(
+                                <a key={link.id} href={link.socialMediaLink as string}><FontAwesomeIcon icon={link.socialMediaSelect as IconProp} /></a>
+                            )
+                        } )}
+                        
                     </div>
                 </div>
                 <div className="footer-center">
@@ -44,9 +54,9 @@ export default function Footer() {
             <div className="footer-bottom">
                 <p>© 2025 Kadaur. All rights reserved.</p>
                 <div className="footer-legal">
-                    <a>Mentions légales</a>
-                    <a>Politique de confidentialité</a>
-                    <a>Politiques de cookies (UE)</a>
+                    <a href="/mentions-legales">Mentions légales</a>
+                    <a href="/politiques-confidentialites">Politique de confidentialité</a>
+                    <a href="/politiques-cookies">Politiques de cookies (UE)</a>
                 </div>
             </div>
         </footer>

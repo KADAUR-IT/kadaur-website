@@ -1,18 +1,17 @@
-import { get } from "http";
 import DashboardClientPage from "./page.client";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
-const key = "./src/keys/kadaurlocal-c97af6cb3d98.json";
+const key = "./src/";
 
-const client = new BetaAnalyticsDataClient({
+/*const client = new BetaAnalyticsDataClient({
     keyFile: key,
-})
+})*/
 
 export default async function DashboardPage()
 {
     let metrics = null;
 
-    async function getTraffic()
+    /*async function getTraffic()
     {
         const [response] = await client.runReport({
             property: "properties/510175679",
@@ -39,9 +38,9 @@ export default async function DashboardPage()
 
             return { activeUsers, sessions, screenPageViews };
         });
-    }
+    }*/
 
-    metrics = await getTraffic();
+    //metrics = await getTraffic();
 
     console.log('render');
 

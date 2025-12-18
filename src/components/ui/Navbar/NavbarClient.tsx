@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
+import Logo from "@/components/constants/Logo";
 
 interface NavbarProps
 {
@@ -29,17 +30,14 @@ export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
             <div className='navbar-container'>
                 <div className='kadaur-logo'>
                     <a href="/">
-                        <Image
-                            alt="Kadaur Logo"
-                            height={208}
-                            src="/api/media/file/logo-kadaur.png"
-                            width={800}
+                        <Logo 
+                            version="normal"
                         />
                     </a>
                 </div>
                 <div className='navbar-links desktop-only'>
                     {mappedLinks}
-                    <a href={isAuth ? "/dashboard" : "/login"} className="navbar-link"><FontAwesomeIcon icon={faUser} /></a>
+                    
                 </div>
                 <div className="mobile-only">
                     <Button className="navbar-button-mobile" onClick={handleClickMobile}>

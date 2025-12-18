@@ -6,11 +6,11 @@ interface ButtonProps {
     children: React.ReactNode;
     className?: string;
     buttonColor?: ButtonColor;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function Button({ children, className, buttonColor = "blue", onClick }: ButtonProps) {
+export default function Button({ children, className = "", buttonColor = "blue", onClick, ...rest }: ButtonProps) {
     return (
-        <button onClick={onClick} className={`kadaur-button ${buttonColor} ${className}`}>{children}</button>
+        <button onClick={onClick} className={`kadaur-button ${buttonColor} ${className}`} {...rest}>{children}</button>
     )
 }

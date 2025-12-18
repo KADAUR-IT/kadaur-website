@@ -1,4 +1,4 @@
-import { TextImageBlock } from "@/payload-types";
+import { Media, TextImageBlock } from "@/payload-types";
 import React from "react";
 import Image from "next/image";
 import "./blocks.css"
@@ -12,15 +12,17 @@ export default function TextImageBlockFront({block} : TextImageBlockProps)
 {
     const classDiv = "text-image-block "
     const reverseClass = block.reverse ? "reverse" : ""
+
+    const image = block.image as Media
     
     return(
         <div className={classDiv + reverseClass}>
             <RichText data={block.text} />
             <Image 
-                src={block.image.url}
-                width={block.image.width}
-                height={block.image.height}
-                alt="Text"
+                src={image.url as string}
+                width={image.width as number}
+                height={image.height as number}
+                alt={image.alt}
             />
         </div>
     )

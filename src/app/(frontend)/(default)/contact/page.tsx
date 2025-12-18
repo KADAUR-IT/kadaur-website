@@ -2,13 +2,28 @@ import React from "react";
 import "./styles.css"
 import "src/styles/pages.css"
 import { faEnvelope, faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
-import Input from "@/components/ui/Form/Input/Input";
-import TextArea from "@/components/ui/Form/Input/TextArea";
 import InformationItem from "./_components/InformationItem";
-import Checkbox from "@/components/ui/Form/Input/Checkbox";
 
-import ContactSubmit from "./_components/ContactSubmit";
 import FormContact from "./_components/FormContact";
+import Image from "next/image";
+import { getPayload } from "payload";
+import payloadConfig from "@/payload.config";
+
+const payload = await getPayload({config: payloadConfig})
+
+const res = await payload.find({
+    collection: "pages", 
+    where: {
+        slug: {equals: "contact"}
+    },
+    limit: 1
+})
+
+const page = res.docs[0]
+
+export const metadata = {
+  title: page.meta?.title || "Contactez nous pour discuter de vos projets"
+}
 
 export default function ContactPage()
 {
@@ -20,7 +35,7 @@ export default function ContactPage()
                 <h2>Nous sommes à votre écoute</h2>
             </div>
 
-            <div className="contact-form">
+            <div className="contact-form relative">
                 <h3 className="form-title">Discutons en ensemble !</h3>
                 <div className="parts-wrapper">
                     <div className="information-part">
@@ -30,6 +45,14 @@ export default function ContactPage()
                         <InformationItem icon={faEnvelope} label="E-mail" value="hello@kadaur.com" />
                     </div>
                     <FormContact />
+                </div>
+                <div className="absolute max-w-[300px] bottom-0 left-0 p-[16px] hidden md:block">
+                    <Image
+                        src="/api/media/file/logo_kadaur_blanc.png"
+                        height={300}
+                        width={1309}
+                        alt="Logo Kadaur blanc"
+                    />
                 </div>
             </div>
         </div>

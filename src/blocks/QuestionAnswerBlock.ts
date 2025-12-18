@@ -6,25 +6,32 @@ export const QuestionAnswerBlock : Block = {
     interfaceName: "QuestionAnswerBlock",
     fields: [
         {
-            name: "question",
-            type: "text",
-            required: true
+            type: "array",
+            name: "questionList",
+            fields:[
+                {
+                    name: "question",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "answer",
+                    type: "richText",
+                    editor: lexicalEditor({
+                        features: ({defaultFeatures}) => [
+                            ...defaultFeatures,
+                            FixedToolbarFeature()
+                        ]
+                    }),
+                    required: true
+                },
+                {
+                    name: "icon",
+                    type: "text",
+                    required: true
+                }
+            ]
         },
-        {
-            name: "answer",
-            type: "richText",
-            editor: lexicalEditor({
-                features: ({defaultFeatures}) => [
-                    ...defaultFeatures,
-                    FixedToolbarFeature()
-                ]
-            }),
-            required: true
-        },
-        {
-            name: "icon",
-            type: "text",
-            required: true
-        }
+        
     ]
 }

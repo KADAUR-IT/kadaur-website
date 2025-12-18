@@ -10,7 +10,7 @@ export default function ItemSlider({children} : ItemSliderProps)
 {
     const [position, setPosition] = useState({x: 0, y: 0});
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: any) => {
         const rect = e.currentTarget.getBoundingClientRect();
 
         setPosition({
@@ -19,7 +19,7 @@ export default function ItemSlider({children} : ItemSliderProps)
         });
     };
 
-    const changeBg = (e) => {
+    const changeBg = (e : any) => {
         bg = bgHover
         console.log("ff")
     }

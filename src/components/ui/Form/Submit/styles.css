@@ -3,8 +3,7 @@ form{
     {
         border: none;
         padding: 0.5rem;
-        margin: 0.5rem;
-        width: calc(100% - 1rem);
+        width: 100%;
         box-sizing: border-box;
         border-radius: 5px;
         font-weight: bold;

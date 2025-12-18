@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha"
+import React from "react";
 import "./styles.css"
+import CaptchaClient from "./CaptchaClient";
 
 interface CaptchaProps{
     ref: any
@@ -11,17 +11,11 @@ interface CaptchaProps{
 export default function Captcha({ref}: CaptchaProps)
 {
 
-    function onChange(value) {
-        console.log("Captcha value:", value);
-    }
+    const sitekey = process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_SITEKEY || ""
     
     return(
-        <div className="captcha-group">
-            <ReCAPTCHA 
-                ref={ref}
-                sitekey="6LdUqdgrAAAAAMkJaRnNWBk776TKoFIPWJQ_ivmb"
-                onChange={onChange}
-            />
-        </div>
+        <>
+            <CaptchaClient ref={ref} sitekey={sitekey} />
+        </>
     )
 }

@@ -22,14 +22,6 @@ export async function GET(req: Request) {
             return NextResponse.json({ user : null, error: "Token invalide" }, { status: 401});
         }
 
-        const userUpdated = await payload.update({
-            collection: "users",
-            id: decoded.user.id,
-            data: {
-                token: { salt: null, hash: null, expiresAt: null }
-            }
-        })
-
         //console.log(userUpdated)
 
         const response = NextResponse.json({

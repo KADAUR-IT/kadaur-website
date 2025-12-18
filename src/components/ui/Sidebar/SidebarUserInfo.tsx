@@ -1,5 +1,6 @@
 'use client'
 
+import { useSession } from "@/hooks/useSession";
 import React, { useEffect, useState } from "react";
 
 export default function SidebarUserInfo(){
@@ -9,25 +10,20 @@ export default function SidebarUserInfo(){
 
     })
 
+    const {isSuccess, loading, data} = useSession()
+
     useEffect( () => {
-        const fetchData = async () => {
-            try{
-                const response = await fetch("/api/kadaur/me", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                })
-                const res = await response.json();
-                setUser(res.user)
-                console.log("User data:", res);
-            }catch(err)
-            {
-                console.error("Error fetching user data:", err);
-            }
+        //console.log(isSuccess, loading, data)
+        const getUserInfo = async () => {
+            setUser(data.user)
         }
-        fetchData();
-    }, [])
+
+        if(!loading && isSuccess)
+        {
+            getUserInfo()
+        }
+       
+    })
 
     return(
         <a href="/dashboard/profile" className="sidebar-user-info">
@@ -36,7 +32,7 @@ export default function SidebarUserInfo(){
             </div>
             <div className="sidebar-user-text">
                 <strong>{user.firstName} {user.lastName}</strong>
-                <p>User role</p>
+                <p>User Role</p>
             </div>
         </a>
     )

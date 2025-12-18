@@ -1,6 +1,6 @@
 import React from "react";
 import "./blocks.css"
-import { EnumBlock } from "@/payload-types";
+import { EnumBlock, Media } from "@/payload-types";
 import Image from "next/image";
 import RichText from "../ui/RichText";
 
@@ -13,14 +13,16 @@ export default function EnumBlockComponent({block}: EnumBlockProps)
 {
     const array = block.items
     const itemsRender = array?.map( (item) => {
+
+        const image = item.image as Media
         return(
             <div key={item.id} className="item-enum-block">
                 {item.image ?
                 <Image
-                    alt={item.image.alt}
-                    src={item.image.url}
-                    height={item.image.height}
-                    width={item.image.width}
+                    alt={image.alt}
+                    src={image.url as string}
+                    height={image.height as number}
+                    width={image.width as number}
                 />
                 : ""}
                 <RichText data={item.text} />

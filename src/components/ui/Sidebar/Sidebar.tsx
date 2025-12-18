@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faFolder, faGauge, faRightFromBracket, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { usePathname, useRouter } from "next/dist/client/components/navigation";
 import SidebarUserInfo from "./SidebarUserInfo";
+import SidebarLinkCategory from "./SiidebarLinkCategory";
+import { adminAuthClient } from "@/utils/auth/auth";
+import Logo from "@/components/constants/Logo";
 
 export default function Sidebar()
 {
@@ -24,12 +27,19 @@ export default function Sidebar()
             {src: "/dashboard/cv", icon: faFile, label: "CV"},
         ]},
     ]
+
+    const categoryRender = links.map( (category, index) => {
+        return(
+            <SidebarLinkCategory key={index} label={category.category} links={category.links} />
+        )
+    })
+    
     
 
-    const handleLogout = async (e) => {
+    const handleLogout = async (e: any) => {
         e.preventDefault()
 
-        const res = await fetch("/api/kadaur/logout", {
+        /*const res = await fetch("/api/kadaur/logout", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -40,36 +50,43 @@ export default function Sidebar()
             {
                 router.push("/");
             }
-        })
+        })*/
+
+        await adminAuthClient.signout({ returnTo: '/' })
+    }
+
+    const handleToggleSidebar = () => {
+        const sidebarElement = document.querySelector(".sidebar-container");
+
+        if(sidebarElement){
+            sidebarElement.classList.toggle("reduced");
+        }
     }
 
     return (
         <div className="sidebar-container">
             <div className="sidebar-menu">
-                <a href="/">
-                    <Image
-                        alt="Kadaur Logo"
-                        height={208}
-                        src="/api/media/file/logo-kadaur.png"
-                        width={800}
-                        className="sidebar-logo"
-                    />
-                </a>
+                <div className="sidebar-header">
+                    <a href="/">
+                        <Logo 
+                            version="normal"
+                        />
+                    </a>
+                    <button className="sidebar-handler-wrapper" onClick={handleToggleSidebar}>
+                        <div className="sidebar-handler-content">
+
+                        </div>
+                    </button>
+                </div>
+                
 
                 <div className="sidebar-links">
-                    <p>Entreprise</p>
-                    <a href="/dashboard" className="sidebar-link active"><FontAwesomeIcon icon={faGauge} /> Tableau de bord</a>
-                    <a href="/dashboard/prospects" className="sidebar-link"><FontAwesomeIcon icon={faUsers} />Prospects</a>
-                    <a href="/dashboard/rapports" className="sidebar-link"><FontAwesomeIcon icon={faFolder} />Rapports</a>
-                    <br></br>
-                    <p>Prospect</p>
-                    <a href="/dashboard" className="sidebar-link active"><FontAwesomeIcon icon={faGauge} /> Tableau de bord</a>
-                    <a href="/dashboard/cv" className="sidebar-link"><FontAwesomeIcon icon={faFile} />CV</a>
+                    {categoryRender}
                 </div>
             </div>
             <div className="sidebar-footer">
                 <SidebarUserInfo />
-                <button onClick={handleLogout} className="sidebar-logout-button"><FontAwesomeIcon icon={faRightFromBracket} /> Déconnexion</button>
+                <button onClick={handleLogout} className="sidebar-logout-button"><FontAwesomeIcon icon={faRightFromBracket} /> <p>Déconnexion</p></button>
             </div>
         </div>
     )

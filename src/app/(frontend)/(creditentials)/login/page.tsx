@@ -9,14 +9,17 @@ import Image from "next/image";
 import InfiniteScroll from "@/components/react-bits/InfiniteScroll/InfiniteScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch, faCrosshairs, faEye, faHandHoldingHeart, faHandshakeAngle, faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { adminAuthClient } from "@/utils/auth/auth";
+import Logo from "@/components/constants/Logo";
 
 export default function LoginPage()
 {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [emailValue, setEmail] = useState("");
+    const [passwordValue, setPassword] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+    const { password } = adminAuthClient.signin()
 
     const items = [
         { content: <><p>RESPECT</p> <FontAwesomeIcon icon={faHandshakeAngle} /></> },
@@ -37,7 +40,7 @@ export default function LoginPage()
         e.preventDefault();
         setIsLoading(true);
 
-        const res = await fetch("/api/kadaur/login", {
+        /*const res = await fetch("/api/kadaur/login", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -55,7 +58,13 @@ export default function LoginPage()
                 console.log("Erreur lors de la connexion");
                 setError("Email ou mot de passe incorrect");
             }
-        })
+        })*/
+
+        const res = await password({email: emailValue, password: passwordValue})
+        if(res.isError)
+        {
+            console.error(res.message)
+        }
 
         
     }
@@ -65,11 +74,8 @@ export default function LoginPage()
         <div className="auth-pages">
             <form className="form-auth" onSubmit={handleSubmit}>
                 <a href="/">
-                    <Image
-                        alt="Kadaur Logo"
-                        height={64}
-                        src="/api/media/file/logo-kadaur.png"
-                        width={245}
+                    <Logo 
+                        version="normal"
                         className="logo-auth"
                     />
                 </a>
@@ -81,8 +87,8 @@ export default function LoginPage()
                     <FontAwesomeIcon icon={faWarning} />
                     <p>{error}</p>
                 </div>
-                <Input label="E-mail" type="email" id="email" placeholder="Votre email" onChange={(e) => setEmail(e.target.value)} />
-                <Input label="Mot de passe" type="password" id="password" placeholder="Votre mot de passe" onChange={(e) => setPassword(e.target.value)} />
+                <Input label="E-mail" type="email" id="email" placeholder="Votre email" onChange={(e: any) => setEmail(e.target.value)} />
+                <Input label="Mot de passe" type="password" id="password" placeholder="Votre mot de passe" onChange={(e: any) => setPassword(e.target.value)} />
                 <button type="submit" disabled={isLoading}>{isLoading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Se connecter'}</button>
                 <hr />
                 <p>Pas encore inscrit ? <a href="/register">Inscrivez-vous</a></p>

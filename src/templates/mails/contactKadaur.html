@@ -1,0 +1,154 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/js/all.min.js" integrity="sha512-6BTOlkauINO65nLhXhthZMtepgJSghyimIalb+crKRPhvhmsCdnIuGcVbR5/aQY2A+260iC1OPy1oCdB6pSSwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            /* Reset de base pour les clients mail */
+            body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+            table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+            img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+            table { border-collapse: collapse !important; }
+            body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+            /* Media Queries pour le mobile */
+            @media screen and (max-width: 600px) {
+                .email-container {
+                    width: 100% !important;
+                    margin: auto !important;
+                }
+                .content-padding {
+                    padding: 24px !important; /* p-6 equivalent */
+                }
+                .header-padding {
+                    padding: 24px !important;
+                }
+                .mobile-stack {
+                    display: block !important;
+                    width: 100% !important;
+                    margin-bottom: 10px !important;
+                }
+                .mobile-center {
+                    text-align: center !important;
+                }
+                .separator {
+                    display: none !important; /* Cache le point de séparation sur mobile */
+                }
+            }
+        </style>
+    </head>
+    <body style="background-color: #f5f5f5; margin: 0; padding: 0;">
+
+        <div style="margin: 0 auto; display: flex; justify-content: center; align-items: center; padding: 2rem;">
+            <a href="http://localhost:3000/" style="width: fit-content;">
+                <img style="width: 400px;" src="http://localhost:3000/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Flogo-kadaur.png&w=1920&q=75">
+            </a>
+        </div>
+
+        <!-- Wrapper principal -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f5f5f5; padding: 20px 0;">
+            <tr>
+                <td align="center">
+                    
+                    <!-- Conteneur -->
+                <table border="0" cellpadding="0" cellspacing="0" width="600" class="email-container" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin: 0 auto;">
+                    
+                    <!-- En-tête -->
+                    <tr>
+                        <td align="center" class="header-padding" style="background-color: #1c3856; padding: 32px;">
+                            <!-- Icône Notification -->
+                            <div style="display: flex; justify-content: center; align-items: center; width: 64px; height: 64px; color: #b08f62; background-color: #ffffff; border-radius: 50%; margin-bottom: 16px; line-height: 64px;">
+                                <i class="fa-regular fa-bell fa-3x"></i>
+                            </div>
+                            <h1 style="color: #ffffff; font-size: 24px; font-weight: bold; margin: 0; letter-spacing: 0.5px;">Nouvelle demande de contact</h1>
+                            <p style="color: #e2e8f0; margin: 8px 0 0 0; font-size: 14px;">Reçue via le site web</p>
+                        </td>
+                    </tr>
+
+                    <!-- Corps -->
+                    <tr>
+                        <td class="content-padding" style="padding: 32px; color: #475569; font-size: 16px; line-height: 1.6;">
+                            
+                            <p style="margin: 0 0 24px 0;">
+                                Un nouveau prospect vient de remplir le formulaire de contact. Voici les détails de la demande :
+                            </p>
+
+                            <!-- Bloc de détails -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 32px;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        
+                                        <!-- Ligne Nom -->
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                            <tr>
+                                                <td class="data-label" width="120" style="color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; vertical-align: top; padding-top: 4px;">Nom</td>
+                                                <td class="data-value" style="color: #1c3856; font-weight: bold; font-size: 16px;">${name} - ${entreprise}</td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Ligne Email -->
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                                            <tr>
+                                                <td class="data-label" width="120" style="color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; vertical-align: top; padding-top: 4px;">Email</td>
+                                                <td class="data-value" style="color: #1c3856; font-size: 16px;">
+                                                    <a href="mailto:[Email Client]" style="color: #1c3856; text-decoration: none;">${mail}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Séparateur -->
+                                        <div style="border-top: 1px solid #e2e8f0; margin: 16px 0;"></div>
+
+                                        <!-- Message -->
+                                        <p style="margin: 0 0 8px 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase;">Message :</p>
+                                        <p style="margin: 0; color: #334155; font-style: italic; background-color: #ffffff; padding: 12px; border-radius: 4px; border: 1px solid #e2e8f0;">
+                                            "${message}"
+                                        </p>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Boutons d'action -->
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <!-- Bouton Principal -->
+                                        <a href="mailto:${mail}?subject=Réponse à votre demande&body=Bonjour ${nom}," style="background-color: #b08f62; color: #ffffff; font-weight: bold; text-decoration: none; padding: 12px 32px; border-radius: 9999px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 16px;">
+                                            Répondre par email
+                                        </a>
+                                        
+                                        <!-- Lien Secondaire (ex: CRM) -->
+                                        <div style="font-size: 14px;">
+                                            <a href="#" style="color: #1c3856; text-decoration: underline;">Voir dans le CRM / Admin</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer Interne -->
+                    <tr>
+                        <td style="background-color: #f1f5f9; padding: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;">
+                            <p style="margin: 0;">Cet email a été envoyé automatiquement par votre site web.</p>
+                        </td>
+                    </tr>
+
+                </table>
+                    
+                    <!-- Texte de désinscription invisible -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                        <tr>
+                            <td align="center" style="padding: 16px; font-size: 12px; color: #94a3b8;">
+                                Vous avez reçu cet email suite à une demande effectuée sur notre site.
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
+    </body>
+</html>

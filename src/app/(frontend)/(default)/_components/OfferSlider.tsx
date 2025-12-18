@@ -1,7 +1,6 @@
 'use client'
 
-import { faDumbbell, faLifeRing, faSearch, faStairs } from "@fortawesome/free-solid-svg-icons"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import OfferCard from "./OfferCard"
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
 import { Offer } from "@/payload-types";
@@ -13,26 +12,19 @@ interface OfferSliderProps
 
 export default function OfferSlider({offers}: OfferSliderProps) {
 
-    /*const offer1 = useRef(null);
-    const offer2 = useRef(null);
-    const offer3 = useRef(null);
-    const offer4 = useRef(null);*/
-
     const refs: React.RefObject<any>[] = []
     const buttons: string[] = []
 
-    const visibleIds = useIntersectionObserver(refs, {
+    const visibleIds: string[] = useIntersectionObserver(refs, {
         threshold: 0.5, // 50% visible
     });
-
-    //console.log(visibleIds);
 
     const offersRender = offers.map((offer, index) => 
     {
         const ref = useRef(null)
         refs.push(ref);
         return(
-            <OfferCard key={"offer" + index} ref={ref} offer={offer} id={"offer" + index} color="gold"/>
+            <OfferCard key={"offer" + index} ref={ref} offer={offer} index={index} id={"offer" + index} color="gold" animationDelay={index * 100}/>
         )
     })
 

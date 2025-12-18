@@ -20,17 +20,6 @@ export async function signToken(tokenInfo : object, ttl = 3600) : Promise<{hash:
 
     try
     {
-        const updateUserToken = await payload.update({
-            collection: "users",
-            id: tokenInfo.id as string,
-            data: {
-                token : {
-                    salt: salt.toString('hex'),
-                    hash,
-                    expiresAt
-                }
-            }
-        })
 
         return { hash, expiresAt }
     } catch(error)
