@@ -15,11 +15,11 @@ export default async function Navbar() {
     slug : "navbarLinks"
   })
 
-  const session = await adminAuthClient.getSession({
+  /*const session = await adminAuthClient.getSession({
       headers: await headers()
-  })
+  })*/
 
-  const isAuth = !session.isError
+  const isAuth = false
 
   const links = res.links;
   
