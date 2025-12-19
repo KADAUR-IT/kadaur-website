@@ -77,6 +77,8 @@ export interface Config {
     cv: Cv;
     files: File;
     leads: Lead;
+    forms: Form;
+    mails: Mail;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     cv: CvSelect<false> | CvSelect<true>;
     files: FilesSelect<false> | FilesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
+    forms: FormsSelect<false> | FormsSelect<true>;
+    mails: MailsSelect<false> | MailsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -258,6 +262,7 @@ export interface Page {
         | DownloadableFileBlock
         | SectionTitleBlock
         | RichTextBlock
+        | FormBlock
       )[]
     | null;
   partnerToShow?:
@@ -276,6 +281,7 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  form?: FormBlock[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -484,6 +490,65 @@ export interface RichTextBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  form: string | Form;
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: string;
+  name: string;
+  fields?:
+    | {
+        label: string;
+        formID: string;
+        type?: ('text' | 'email' | 'number' | 'date' | 'tel' | 'checkbox' | 'textarea' | 'select') | null;
+        placeholder?: string | null;
+        options?:
+          | {
+              optionLabel: string;
+              optionValue: string;
+              id?: string | null;
+            }[]
+          | null;
+        required?: boolean | null;
+        defaultValue?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  submitText: string;
+  successMessage: string;
+  errorMessage: string;
+  mailTemplates?:
+    | {
+        mailTemplate: string | Mail;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mails".
+ */
+export interface Mail {
+  id: string;
+  subject: string;
+  htmlContent: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "article".
  */
 export interface Article {
@@ -674,6 +739,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'leads';
         value: string | Lead;
+      } | null)
+    | ({
+        relationTo: 'forms';
+        value: string | Form;
+      } | null)
+    | ({
+        relationTo: 'mails';
+        value: string | Mail;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -817,6 +890,7 @@ export interface PagesSelect<T extends boolean = true> {
         DownloadableFile?: T | DownloadableFileBlockSelect<T>;
         SectionTitle?: T | SectionTitleBlockSelect<T>;
         RichText?: T | RichTextBlockSelect<T>;
+        Form?: T | FormBlockSelect<T>;
       };
   partnerToShow?:
     | T
@@ -833,6 +907,11 @@ export interface PagesSelect<T extends boolean = true> {
         avisRating?: T;
         avisText?: T;
         id?: T;
+      };
+  form?:
+    | T
+    | {
+        Form?: T | FormBlockSelect<T>;
       };
   meta?:
     | T
@@ -939,6 +1018,16 @@ export interface SectionTitleBlockSelect<T extends boolean = true> {
  */
 export interface RichTextBlockSelect<T extends boolean = true> {
   text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  form?: T;
+  title?: T;
   id?: T;
   blockName?: T;
 }
@@ -1077,6 +1166,52 @@ export interface LeadsSelect<T extends boolean = true> {
   name?: T;
   entreprise?: T;
   mail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms_select".
+ */
+export interface FormsSelect<T extends boolean = true> {
+  name?: T;
+  fields?:
+    | T
+    | {
+        label?: T;
+        formID?: T;
+        type?: T;
+        placeholder?: T;
+        options?:
+          | T
+          | {
+              optionLabel?: T;
+              optionValue?: T;
+              id?: T;
+            };
+        required?: T;
+        defaultValue?: T;
+        id?: T;
+      };
+  submitText?: T;
+  successMessage?: T;
+  errorMessage?: T;
+  mailTemplates?:
+    | T
+    | {
+        mailTemplate?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mails_select".
+ */
+export interface MailsSelect<T extends boolean = true> {
+  subject?: T;
+  htmlContent?: T;
   updatedAt?: T;
   createdAt?: T;
 }

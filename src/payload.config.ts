@@ -25,6 +25,8 @@ import { Linktree } from './globals/Linktree'
 import { NavbarLinks } from './globals/NavbarLinks'
 import { Files } from './collections/Files'
 import { Leads } from './collections/Leads'
+import { Forms } from './collections/Forms'
+import { Mails } from './collections/Mails'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,9 +37,13 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+        url: ({data}) => `http://localhost:3000/preview/mails/${data.id}` /*`/admin/collections/mails/preview/${data.id}`*/,
+        collections : ["mails"]
+    }
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Users, Accounts, Media, Offers, Pages, Article, Admins, CV, Files, Leads],
+  collections: [Users, Accounts, Media, Offers, Pages, Article, Admins, CV, Files, Leads, Forms, Mails],
   globals: [Settings, Linktree, NavbarLinks],
   editor: lexicalEditor({
     features: ({defaultFeatures}) => [

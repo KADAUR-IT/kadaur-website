@@ -32,10 +32,12 @@ export default async function OffersPage()
 
     const offers = res.docs.reverse()
 
+    const form = page.form?.at(0) || null;
+
     return (
         <>
             <Suspense>
-                <OffersPageClient offers={offers as Offer[]} />
+                <OffersPageClient offers={offers as Offer[]} form={form} />
             </Suspense>
         </>
     )

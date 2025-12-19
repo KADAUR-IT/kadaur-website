@@ -65,7 +65,6 @@ export default function FormContact()
     
     return(
         <form onSubmit={handleSubmit} className="offer-form">
-            <h4>Discutons en ensemble !</h4>
             <Input id="entreprise" label="Entreprise" placeholder="KADAUR"/>
             <Input id="name" label="Nom" placeholder="Jean Dupont" />
             <Input id="mail" label="E-mail" type="mail" placeholder="nom@mail.com" />
