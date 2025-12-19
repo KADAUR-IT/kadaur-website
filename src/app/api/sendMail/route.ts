@@ -1,35 +1,42 @@
 import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
-import path from "path";
-import fs from "fs"
+import { Mail } from "@/payload-types";
 
 export async function GET(req: Request) {
     const payload = await getPayload({ config : configPromise })
     const { searchParams } = new URL(req.url);
     //const search = searchParams.get("entreprise") || "";
 
-    //console.log(searchParams)
+    console.log(searchParams)
+
+    const form = await payload.findByID({
+        collection: "forms",
+        id: searchParams.get("form-id") as string,
+    })
+
+    const templates = form!.mailTemplates;
+
+    if(!templates || templates.length == 0){
+        return NextResponse.json({ status: 500, message: "Aucun template d'email n'est associé à ce formulaire" });
+    }
+
 
     try{
-        let htmlContent = getFileContent("src/templates/mails/contactAR.html");
 
-        const emailAR = await payload.sendEmail({
-            to: searchParams.get("mail"),
-            subject: "Accusé de réception de votre demande de contact",
-            html: htmlContent
+        templates.forEach(async (template) => {
+            let mailTemplate : Mail = template.mailTemplate as Mail
+            let htmlContent = await getFileContent(mailTemplate.id as string);
+            htmlContent = formatMessage(htmlContent, searchParams.entries())
+
+
+            const email = await payload.sendEmail({
+                to: searchParams.get("mail"),
+                subject: mailTemplate.subject,
+                html: htmlContent
+            })
         })
-    
-        htmlContent = getFileContent("src/templates/mails/contactKadaur.html");
 
-        htmlContent = formatMessage(htmlContent, searchParams.entries())
-
-        const emailKadaur = await payload.sendEmail({
-            to: "hello@kadaur.com",
-            subject: "Demande de contact - " + searchParams.get("entreprise"),
-            html: htmlContent
-        })
-    
         const lead = await payload.create({
             collection: "leads",
             data: {
@@ -56,12 +63,21 @@ const formatMessage = (template: string, parameters: URLSearchParamsIterator<[st
     return formattedMessage
 }
 
-const getFileContent = (filepath: string) : string => {
-    var pathSplit = filepath.split("/");
+const getFileContent = async (templateID: string) : Promise<string> => {
+    let htmlContent = ""
 
-    var templatePath = path.join(process.cwd(), ...pathSplit);
+    try{
+        const res = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${templateID}`);
+        if(!res.ok){
+            throw new Error("Failed to fetch mail template");
+        }
 
-    let htmlContent = fs.readFileSync(templatePath, 'utf8');
-
-    return htmlContent
+        htmlContent = await res.text();
+    } catch (error) {
+        console.error("Error fetching mail template:", error);
+    }
+    
+    return new Promise((resolve, reject) => {
+        resolve(htmlContent);
+    });
 }

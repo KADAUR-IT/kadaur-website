@@ -14,13 +14,16 @@ import useWindowDimensions from "../_hooks/useWindowDimensions";
 import Captcha from "@/components/ui/Form/Captcha/Captcha";
 import FormContact from "./_components/FormContactOffer";
 import { useSearchParams } from "next/navigation";
+import { FormBlock } from "@/payload-types";
+import FormBlockComponent from "@/components/blocks/FormBlockComponent";
 
 interface OffersPageClientProps
 {
-    offers: Offer[]
+    offers: Offer[],
+    form: FormBlock | null
 }
 
-export default function OffersPageClient({ offers } : OffersPageClientProps)
+export default function OffersPageClient({ offers, form } : OffersPageClientProps)
 {
     const searchParams = useSearchParams()
     const [offerVisible, setOfferVisible] = useState(offers[parseInt(searchParams.get("id") as string) || 0].id)
@@ -78,7 +81,9 @@ export default function OffersPageClient({ offers } : OffersPageClientProps)
                         <div className="offer-slider">
                             <OfferInfos key={offerInfoVisible.id} offer={offerInfoVisible} />
                         </div>
-                        <FormContact />
+                        <div className="md:max-w-[450px] w-full offer-form">
+                            { form ? <><h4>{form.title}</h4><FormBlockComponent block={form} /></> : <FormContact /> }
+                        </div>
                     </div>
                 </div>
 
