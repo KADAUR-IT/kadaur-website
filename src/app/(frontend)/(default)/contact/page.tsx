@@ -8,6 +8,7 @@ import FormContact from "./_components/FormContact";
 import Image from "next/image";
 import { getPayload } from "payload";
 import payloadConfig from "@/payload.config";
+import FormBlockComponent from "@/components/blocks/FormBlockComponent";
 
 const payload = await getPayload({config: payloadConfig})
 
@@ -28,6 +29,8 @@ export const metadata = {
 export default function ContactPage()
 {
 
+    const form = page.form?.[0] || null;
+
     return(
         <div className="dyn-pages">
             <div className="headtitle">
@@ -44,7 +47,7 @@ export default function ContactPage()
                         <InformationItem icon={faPhone} label="Téléphone" value="06 12 38 16 17" />
                         <InformationItem icon={faEnvelope} label="E-mail" value="hello@kadaur.com" />
                     </div>
-                    <FormContact />
+                    { form ? <FormBlockComponent block={form} /> : <FormContact /> }
                 </div>
                 <div className="absolute max-w-[300px] bottom-0 left-0 p-[16px] hidden md:block">
                     <Image

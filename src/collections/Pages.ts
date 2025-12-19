@@ -9,6 +9,7 @@ import { QuestionAnswerBlock } from "@/blocks/QuestionAnswerBlock"
 import { DownloadableFileBlock } from "@/blocks/DownloadableFileBlock"
 import { SectionTitleBlock } from "@/blocks/SectionTitleBlock"
 import { RichTextBlock } from "@/blocks/RichTextBlock"
+import { FormBlock } from "@/blocks/FormBlock"
 
 export const Pages : CollectionConfig = 
 {
@@ -42,7 +43,7 @@ export const Pages : CollectionConfig =
             admin: {
                 condition: (_, siblingData) => !siblingData.seoOnly,
             },
-            blocks: [TextImageBlock, TitleBlock, QuoteBlock, EnumBlock, SubtitleBlock, QuestionAnswerBlock, DownloadableFileBlock, SectionTitleBlock, RichTextBlock]
+            blocks: [TextImageBlock, TitleBlock, QuoteBlock, EnumBlock, SubtitleBlock, QuestionAnswerBlock, DownloadableFileBlock, SectionTitleBlock, RichTextBlock, FormBlock]
         },
         {
             name: "partnerToShow",
@@ -97,5 +98,13 @@ export const Pages : CollectionConfig =
                 }
             ]
         },
+        {
+            name: "form",
+            type: "blocks",
+            admin: {
+                condition: (_, siblingData) => siblingData.slug === "contact" || siblingData.slug === "offers",
+            },
+            blocks: [FormBlock]
+        }
     ]
 }

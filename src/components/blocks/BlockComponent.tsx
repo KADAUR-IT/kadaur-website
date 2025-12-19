@@ -1,7 +1,7 @@
 import { Block } from "payload";
 import React from "react";
 import TitleBlockComponent from "./TitleBlockComponent";
-import { DownloadableFileBlock, EnumBlock, QuestionAnswerBlock, QuoteBlock, RichTextBlock, SectionTitleBlock, SubtitleBlock, TextImageBlock, TitleBlock } from "@/payload-types";
+import { DownloadableFileBlock, EnumBlock, FormBlock, QuestionAnswerBlock, QuoteBlock, RichTextBlock, SectionTitleBlock, SubtitleBlock, TextImageBlock, TitleBlock } from "@/payload-types";
 import SubtitleBlockComponent from "./SubtitleBlockComponent";
 import TextImageBlockFront from "./TextImageBlockFront";
 import QuoteBlockComponent from "./QuoteBlockComponent";
@@ -10,9 +10,10 @@ import QuestionAnswerBlockComponent from "./QuestionAnswerBlockComponent";
 import DownloadableFileBlockComponent from "./DownloadableFileBlockComponent";
 import SectionTitleBlockComponent from "./SectionTitleBlockComponent";
 import RichTextBlockFront from "./RichTextBlockFront";
+import FormBlockComponent from "./FormBlockComponent";
 
 interface BlockProps{
-    block: TitleBlock | SubtitleBlock | TextImageBlock | QuoteBlock | EnumBlock | QuestionAnswerBlock | DownloadableFileBlock | SectionTitleBlock | RichTextBlock,
+    block: TitleBlock | SubtitleBlock | TextImageBlock | QuoteBlock | EnumBlock | QuestionAnswerBlock | DownloadableFileBlock | SectionTitleBlock | RichTextBlock | FormBlock,
     id: string
 }
 
@@ -47,6 +48,10 @@ export default function BlockComponent({block, id} : BlockProps)
             break
         case "RichText":
             blockRender.push(<RichTextBlockFront key={id} block={block as RichTextBlock}/>)
+            break;
+        case "Form":
+            blockRender.push(<FormBlockComponent key={id} block={block as FormBlock} />)
+            break;
     }
 
     return(
