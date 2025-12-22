@@ -1290,6 +1290,9 @@ export interface Setting {
         }[]
       | null;
   };
+  googleAnalytics?: {
+    trackingID?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1381,6 +1384,11 @@ export interface SettingsSelect<T extends boolean = true> {
               label?: T;
               id?: T;
             };
+      };
+  googleAnalytics?:
+    | T
+    | {
+        trackingID?: T;
       };
   updatedAt?: T;
   createdAt?: T;
