@@ -33,7 +33,11 @@ export default function ClientSlider({partner} : ClientSliderProps) {
 
             <div className="client-slide">
                 {render}
-            </div>     
+            </div>
+            
+            <div className="client-slide">
+                {render}
+            </div>   
         </div>
     )
 }
