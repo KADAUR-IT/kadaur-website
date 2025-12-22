@@ -2,13 +2,19 @@ import React from "react";
 import VisitCard from "./_components/VisitCard/VisitCard";
 import Logo from "@/components/constants/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookSquare, faInstagram, faLinkedin, faXTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import NavLink from "./_components/NavLink/NavLink";
 import { getPayload } from "payload";
 import payloadConfig from "@/payload.config";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from "@fortawesome/free-brands-svg-icons";
+
+library.add(fab)
 
 const payload = await getPayload({ config: payloadConfig })
+
+const settings = await payload.findGlobal({
+    slug: "settings"
+})
 
 export default async function LinkTreePage()
 {
@@ -16,17 +22,11 @@ export default async function LinkTreePage()
         slug: "linktree"
     })
 
-    const smIcon = new Map([
-        ['youtube', faYoutube],
-        ['facebook', faFacebookSquare],
-        ['x', faXTwitter],
-        ['instagram', faInstagram],
-        ['linkedin', faLinkedin],
-    ]);
+    const socialMedia = settings.general?.socialMedia || []
 
-    const socialMediaArray = linktreeData.socialMedia!.socialMediaArray!.map( (sm, index) => {
+    const socialMediaArray = socialMedia.map( (sm, index) => {
         return(
-            <FontAwesomeIcon key={index} icon={smIcon.get(sm.socialMedia!.toLocaleLowerCase()) as IconProp} className="h-[32px]" />
+            <a key={sm.id} href={sm.socialMediaLink as string}><FontAwesomeIcon icon={sm.socialMediaSelect as IconProp} className="h-[32px]" /></a>
         )
     } )
 
