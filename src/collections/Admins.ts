@@ -16,4 +16,9 @@ export const Admins: CollectionConfig = {
       required: true,
     },*/
   ],
+  access: {
+    create: async ({req}) => {
+      return req.user?.collection === 'admins'
+    }
+  }
 }
