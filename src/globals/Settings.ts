@@ -95,6 +95,15 @@ export const Settings: GlobalConfig = {
                             ]
                         },
                     ]
+                },
+                {
+                    name: "googleAnalytics",
+                    fields: [
+                        {
+                            type: "text",
+                            name: "trackingID"
+                        }
+                    ]
                 }
             ]
         }

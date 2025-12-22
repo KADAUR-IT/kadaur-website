@@ -21,7 +21,7 @@ export const metadata = {
   }
 }
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = siteMetadata.googleAnalytics?.trackingID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props

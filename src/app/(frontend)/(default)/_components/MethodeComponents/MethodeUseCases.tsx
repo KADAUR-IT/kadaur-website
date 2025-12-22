@@ -32,7 +32,7 @@ export default function MethodeUseCases()
     return(
         <div className='methode-use-cases'>
             <div className="flex flex-col justify-center items-center gap-[8px] w-1/2">
-                <SectionTitle>Une méthode adaptée à tous</SectionTitle>
+                <SectionTitle className="text-[32px]!">Une méthode adaptée à tous</SectionTitle>
                 <Link className="h-fit w-fit hidden! md:flex!" href="/about/expertise">Voir des exemples <FontAwesomeIcon icon={faArrowUp} className="rotate-45" /></Link>
             </div>
             <div className='methode-use-case' ref={startUpRef} id="start-up-img" style={{ animationDelay: `0ms`}}>

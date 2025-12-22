@@ -270,7 +270,7 @@ h1 {
           text-align: center;
         }
 
-        button
+        button, a
         {
           width: 100%;
           margin: 0;

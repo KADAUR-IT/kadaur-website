@@ -23,8 +23,8 @@ export default function VisitCard()
                 <div className="flex flex-col items-start text-(--color-blue) font-bold">
                     <h1 className="m-0! text-[36px]! md:text-[40px]! md:leading-[40px]!">Aurore KAMGEU</h1>
                     <h2 className="text-(--color-gold)! text-[36px]! md:text-[40px]! md:leading-[40px]!">CEO</h2>
-                    <p>akamgeu@kadaur.com</p>
-                    <p>+33 (0) 6 12 38 16 17</p>
+                    <a href="mailto:akamgueu@kadaur.com" onClick={(e) => e.stopPropagation()}>akamgueu@kadaur.com</a>
+                    <a href="tel:+33612381617" onClick={(e) => e.stopPropagation()}>+33 (0) 6 12 38 16 17</a>
                     <p>www.kadaur.com</p>
                     <p>kadaur</p>
                 </div>
