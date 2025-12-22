@@ -8,7 +8,7 @@ export default function MethodeCTA()
     return(
         <div className="methode-call-to-action">
             <div className="methode-call-to-action-text">
-                <SectionTitle>Prêt à débloquer votre potentiel</SectionTitle>
+                <SectionTitle className="text-[32px]!">Prêt à débloquer votre potentiel</SectionTitle>
                 <p>Nous vous guidons vers la réuissite de vos projet IT</p>
             </div>
             
