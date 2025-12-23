@@ -84,7 +84,7 @@ const getFileContent = async (templateID: string) : Promise<string> => {
 }
 
 async function sendMail(to: string, subject: string, content: string) {
-  await graphClient.api('/users/email@domaine.com/sendMail').post({
+  await graphClient.api('/users/hello@kadaur.com/sendMail').post({
     message: {
       subject,
       body: {
