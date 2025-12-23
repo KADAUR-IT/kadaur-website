@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { Mail } from "@/payload-types";
+import { graphClient } from "@/utils/microsoft/graphMail";
 
 export async function GET(req: Request) {
     const payload = await getPayload({ config : configPromise })
     const { searchParams } = new URL(req.url);
-    //const search = searchParams.get("entreprise") || "";
+    const env = process.env.ENVIRONMENT || 'development'
 
     console.log(searchParams)
 
@@ -30,11 +31,11 @@ export async function GET(req: Request) {
             htmlContent = formatMessage(htmlContent, searchParams.entries())
 
 
-            const email = await payload.sendEmail({
+            const email = env === "development" ? await payload.sendEmail({
                 to: searchParams.get("mail"),
                 subject: mailTemplate.subject,
                 html: htmlContent
-            })
+            }) : await sendMail(searchParams.get("mail") as string, mailTemplate.subject, htmlContent);
         })
 
         const lead = await payload.create({
@@ -80,4 +81,23 @@ const getFileContent = async (templateID: string) : Promise<string> => {
     return new Promise((resolve, reject) => {
         resolve(htmlContent);
     });
+}
+
+async function sendMail(to: string, subject: string, content: string) {
+  await graphClient.api('/users/email@domaine.com/sendMail').post({
+    message: {
+      subject,
+      body: {
+        contentType: 'HTML',
+        content,
+      },
+      toRecipients: [
+        {
+          emailAddress: {
+            address: to,
+          },
+        },
+      ],
+    },
+  })
 }
