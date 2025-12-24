@@ -13,7 +13,7 @@ export default function CaptchaClient({ref, sitekey}: CaptchaClientProps)
 {
 
     function onChange(value: any) {
-        console.log("Captcha value:", value);
+        //console.log("Captcha value:", value);
     }
     
     return(
