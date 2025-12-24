@@ -542,6 +542,7 @@ export interface Form {
  */
 export interface Mail {
   id: string;
+  to: ('client' | 'prospect' | 'partenaire' | 'interne')[];
   subject: string;
   htmlContent: string;
   updatedAt: string;
@@ -1210,6 +1211,7 @@ export interface FormsSelect<T extends boolean = true> {
  * via the `definition` "mails_select".
  */
 export interface MailsSelect<T extends boolean = true> {
+  to?: T;
   subject?: T;
   htmlContent?: T;
   updatedAt?: T;
