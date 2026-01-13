@@ -26,6 +26,16 @@ export const EnumBlock : Block =
                     name: "image",
                     type: "upload",
                     relationTo: "media"
+                },
+                {
+                    name: "moreText",
+                    type: "richText",
+                    editor: lexicalEditor({
+                        features: ({defaultFeatures}) => [
+                            ...defaultFeatures,
+                            FixedToolbarFeature()
+                        ]
+                    }),
                 }
             ]
         }
