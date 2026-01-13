@@ -230,6 +230,7 @@ export interface Offer {
   id: string;
   name: string;
   icon: string;
+  image?: (string | null) | Media;
   description?: string | null;
   usp?:
     | {
@@ -377,6 +378,21 @@ export interface EnumBlock {
           [k: string]: unknown;
         };
         image?: (string | null) | Media;
+        moreText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         id?: string | null;
       }[]
     | null;
@@ -859,6 +875,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface OffersSelect<T extends boolean = true> {
   name?: T;
   icon?: T;
+  image?: T;
   description?: T;
   usp?:
     | T
@@ -964,6 +981,7 @@ export interface EnumBlockSelect<T extends boolean = true> {
     | {
         text?: T;
         image?: T;
+        moreText?: T;
         id?: T;
       };
   id?: T;
