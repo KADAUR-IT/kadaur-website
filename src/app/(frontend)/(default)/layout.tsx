@@ -21,6 +21,9 @@ export const metadata = {
   }
 }
 
+export const dynamic = 'auto'
+export const revalidate = 60
+
 const GA_MEASUREMENT_ID = siteMetadata.googleAnalytics?.trackingID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
