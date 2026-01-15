@@ -2,7 +2,7 @@
 {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10000;
     width: 100dvw;
     height: 100dvh;
     top: 0;
@@ -21,10 +21,21 @@
 {
     position: relative;
     padding: 24px;
-    max-width: 800px;
-    width: 800px;
-    background-color: #f5f5f5;
+    max-width: 1200px;
+    width: 1200px;
     border-radius: 10px;
+
+    &.blue
+    {
+        color: var(--color-white);
+        background-color: var(--color-blue);
+    }
+
+    &.white
+    {
+        color: #333333;
+        background-color: var(--color-white);
+    }
 }
 
 .modal-close-button

@@ -47,7 +47,7 @@ export const Settings: GlobalConfig = {
                                     label: "Lien"
                                 }
                             ]
-                        },
+                        }
                     ]
                 },
                 {

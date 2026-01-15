@@ -40,6 +40,16 @@ export default buildConfig({
     livePreview: {
         url: ({data}) => `http://localhost:3000/preview/mails/${data.id}` /*`/admin/collections/mails/preview/${data.id}`*/,
         collections : ["mails"]
+    },
+    components:
+    {
+      graphics:
+      {
+        // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
+        //Logo : "@/components/constants/LogoAdmin",
+        // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
+        //Icon : '@/components/constants/Icon'
+      }
     }
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
@@ -88,7 +98,7 @@ export default buildConfig({
         "files": true,
         
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: process.env.KADAUR_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN,
     })
     // storage-adapter-placeholder
   ],

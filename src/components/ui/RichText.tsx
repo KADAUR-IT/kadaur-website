@@ -10,6 +10,6 @@ type RichTextProps = {
 export default function RichText({data, className} : RichTextProps) : ReactElement
 {
     return(
-        <RichTextConverter data={data} className={className} />
+        <RichTextConverter data={data} className={`payload-richtext ${className}`} />
     )
 }

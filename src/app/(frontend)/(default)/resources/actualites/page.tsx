@@ -28,6 +28,9 @@ export default async function ActualityPage()
     const payload = await getPayload({config: configPromise})
     const res = await payload.find({
         collection: "article",
+        where : {
+            _status: { equals: "published" }
+        },
         limit: 9
     })
 

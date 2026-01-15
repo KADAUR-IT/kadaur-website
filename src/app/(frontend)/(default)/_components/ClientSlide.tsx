@@ -21,6 +21,8 @@ export default function ClientSlider({partner} : ClientSliderProps) {
                 src={partnerLogo.url as string}
                 width={245}
                 key={p.id}
+                loader={() => partnerLogo.url as string}
+                className="max-h-[64px]"
             />
         )
     } )

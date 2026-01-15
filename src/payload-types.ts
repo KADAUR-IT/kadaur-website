@@ -80,6 +80,7 @@ export interface Config {
     forms: Form;
     mails: Mail;
     'payload-kv': PayloadKv;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -99,6 +100,7 @@ export interface Config {
     forms: FormsSelect<false> | FormsSelect<true>;
     mails: MailsSelect<false> | MailsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -122,7 +124,13 @@ export interface Config {
     collection: 'admins';
   };
   jobs: {
-    tasks: unknown;
+    tasks: {
+      schedulePublish: TaskSchedulePublish;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
@@ -231,15 +239,91 @@ export interface Offer {
   name: string;
   icon: string;
   image?: (string | null) | Media;
-  description?: string | null;
+  description: string;
+  moreInfo: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   usp?:
     | {
         label?: string | null;
         id?: string | null;
       }[]
     | null;
+  form?: FormBlock[] | null;
   extraActionButtonLabel?: string | null;
   extraActionButtonUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  form: string | Form;
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: string;
+  name: string;
+  fields?:
+    | {
+        label: string;
+        formID: string;
+        type?: ('text' | 'email' | 'number' | 'date' | 'tel' | 'checkbox' | 'textarea' | 'select') | null;
+        placeholder?: string | null;
+        options?:
+          | {
+              optionLabel: string;
+              optionValue: string;
+              id?: string | null;
+            }[]
+          | null;
+        required?: boolean | null;
+        defaultValue?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  submitText: string;
+  successMessage: string;
+  errorMessage: string;
+  mailTemplates?:
+    | {
+        mailTemplate: string | Mail;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mails".
+ */
+export interface Mail {
+  id: string;
+  to: ('client' | 'prospect' | 'partenaire' | 'interne')[];
+  subject: string;
+  htmlContent: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -264,8 +348,10 @@ export interface Page {
         | SectionTitleBlock
         | RichTextBlock
         | FormBlock
+        | CTABlock
       )[]
     | null;
+  heroImage?: (string | null) | Media;
   partnerToShow?:
     | {
         partnerName: string;
@@ -282,6 +368,21 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   form?: FormBlock[] | null;
   meta?: {
     title?: string | null;
@@ -506,63 +607,19 @@ export interface RichTextBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
+ * via the `definition` "CTABlock".
  */
-export interface FormBlock {
-  form: string | Form;
-  title?: string | null;
+export interface CTABlock {
+  title: string;
+  subtitle: string;
+  actions: {
+    label: string;
+    link: string;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Form';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "forms".
- */
-export interface Form {
-  id: string;
-  name: string;
-  fields?:
-    | {
-        label: string;
-        formID: string;
-        type?: ('text' | 'email' | 'number' | 'date' | 'tel' | 'checkbox' | 'textarea' | 'select') | null;
-        placeholder?: string | null;
-        options?:
-          | {
-              optionLabel: string;
-              optionValue: string;
-              id?: string | null;
-            }[]
-          | null;
-        required?: boolean | null;
-        defaultValue?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  submitText: string;
-  successMessage: string;
-  errorMessage: string;
-  mailTemplates?:
-    | {
-        mailTemplate: string | Mail;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mails".
- */
-export interface Mail {
-  id: string;
-  to: ('client' | 'prospect' | 'partenaire' | 'interne')[];
-  subject: string;
-  htmlContent: string;
-  updatedAt: string;
-  createdAt: string;
+  blockType: 'CTA';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -574,6 +631,7 @@ export interface Article {
   slug: string;
   description: string;
   thumbnail: string | Media;
+  author: string | Admin;
   text: {
     root: {
       type: string;
@@ -599,6 +657,7 @@ export interface Article {
   };
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -709,6 +768,98 @@ export interface PayloadKv {
     | number
     | boolean
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: string;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'schedulePublish';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'schedulePublish') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -877,16 +1028,32 @@ export interface OffersSelect<T extends boolean = true> {
   icon?: T;
   image?: T;
   description?: T;
+  moreInfo?: T;
   usp?:
     | T
     | {
         label?: T;
         id?: T;
       };
+  form?:
+    | T
+    | {
+        Form?: T | FormBlockSelect<T>;
+      };
   extraActionButtonLabel?: T;
   extraActionButtonUrl?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  form?: T;
+  title?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -909,7 +1076,9 @@ export interface PagesSelect<T extends boolean = true> {
         SectionTitle?: T | SectionTitleBlockSelect<T>;
         RichText?: T | RichTextBlockSelect<T>;
         Form?: T | FormBlockSelect<T>;
+        CTA?: T | CTABlockSelect<T>;
       };
+  heroImage?: T;
   partnerToShow?:
     | T
     | {
@@ -926,6 +1095,7 @@ export interface PagesSelect<T extends boolean = true> {
         avisText?: T;
         id?: T;
       };
+  description?: T;
   form?:
     | T
     | {
@@ -1042,11 +1212,18 @@ export interface RichTextBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
+ * via the `definition` "CTABlock_select".
  */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
+export interface CTABlockSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1059,6 +1236,7 @@ export interface ArticleSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   thumbnail?: T;
+  author?: T;
   text?: T;
   meta?:
     | T
@@ -1069,6 +1247,7 @@ export interface ArticleSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1242,6 +1421,37 @@ export interface MailsSelect<T extends boolean = true> {
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1471,6 +1681,23 @@ export interface NavbarLinksSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSchedulePublish".
+ */
+export interface TaskSchedulePublish {
+  input: {
+    type?: ('publish' | 'unpublish') | null;
+    locale?: string | null;
+    doc?: {
+      relationTo: 'article';
+      value: string | Article;
+    } | null;
+    global?: string | null;
+    user?: (string | null) | Admin;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

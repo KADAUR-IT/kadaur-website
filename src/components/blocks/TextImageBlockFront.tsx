@@ -1,3 +1,5 @@
+"use client"
+
 import { Media, TextImageBlock } from "@/payload-types";
 import React from "react";
 import Image from "next/image";
@@ -23,6 +25,7 @@ export default function TextImageBlockFront({block} : TextImageBlockProps)
                 width={image.width as number}
                 height={image.height as number}
                 alt={image.alt}
+                loader={() => image.url as string}
             />
         </div>
     )

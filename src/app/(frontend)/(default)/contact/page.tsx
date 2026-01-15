@@ -39,7 +39,6 @@ export default function ContactPage()
             </div>
 
             <div className="contact-form relative">
-                <h3 className="form-title">Discutons en ensemble !</h3>
                 <div className="parts-wrapper">
                     <div className="information-part">
                         <h4>Nos coordonées</h4>

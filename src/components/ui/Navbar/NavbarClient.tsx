@@ -40,7 +40,7 @@ export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
                     
                 </div>
                 <div className="mobile-only">
-                    <Button className="navbar-button-mobile" onClick={handleClickMobile}>
+                    <Button buttonColor="white" className="navbar-button-mobile" onClick={handleClickMobile}>
                         <FontAwesomeIcon icon={faBars} />
                     </Button>
                 </div>

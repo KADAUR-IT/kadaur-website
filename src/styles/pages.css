@@ -1,3 +1,7 @@
+.payload-richtext {
+    color: #333333;
+}
+
 .dyn-pages
 {
     margin: 100px auto 16px auto;
@@ -28,4 +32,9 @@
         font-weight: normal;
         font-size: 20px;
     }
+}
+
+ol, ul, menu {
+    list-style: initial;
+    margin-left: 20px;
 }

@@ -32,6 +32,7 @@ export default function EnumBlockComponent({block}: EnumBlockProps)
                     src={image.url as string}
                     height={image.height as number}
                     width={image.width as number}
+                    loader={() => image.url as string}
                 />
                 : ""}
                 <RichText data={item.text} />

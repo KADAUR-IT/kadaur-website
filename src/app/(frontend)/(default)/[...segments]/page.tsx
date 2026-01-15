@@ -5,6 +5,7 @@ import React from "react";
 import { notFound } from 'next/navigation'
 import "src/styles/pages.css"
 import { Metadata, ResolvingMetadata } from "next";
+import DynamicClientPage from "./page.client";
 
 const payload = await getPayload({ config : payloadConfig })
 
@@ -64,8 +65,6 @@ export default async function AboutPages({ params }: { params: Promise<{segments
     } )
 
     return(
-        <div className="dyn-pages">
-            {blocks}
-        </div>
+        <DynamicClientPage blocks={blocks} />
     )
 }
