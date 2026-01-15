@@ -11,6 +11,7 @@ import { Media } from "@/payload-types";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
+import ArticleCard from "../_components/ArticleCard";
 
 const payload = await getPayload({ config : configPromise });
 
@@ -51,11 +52,23 @@ export default async function ArticlePage({params} : { params: Promise<{ slug: s
         limit: 1
     })
 
+    const resOtherArticles = await payload.find({
+        collection: "article",
+        where: {
+            slug: {not_equals: slug[0]}
+        },
+        limit: 3,
+    })
+
     const article = res.docs[0]
+
+    const otherArticle = resOtherArticles.docs
 
     const publishedDate = new Date(article.createdAt).toLocaleDateString()
 
     const thumbnail: Media = article.thumbnail as Media
+
+    const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/resources/actualites/${article.slug}`
 
     return(
         <div className="dyn-pages">
@@ -81,15 +94,34 @@ export default async function ArticlePage({params} : { params: Promise<{ slug: s
                         Publié le {publishedDate} par IKADAUR
                     </div>
                     <div className="article-share">
-                        <FontAwesomeIcon icon={faPinterest} />
-                        <FontAwesomeIcon icon={faLinkedin} />
-                        <FontAwesomeIcon icon={faFacebook} />
-                        <FontAwesomeIcon icon={faXTwitter} />
+                        <Link href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`} target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon icon={faLinkedin} />
+                        </Link>
+                        <Link href={`https://www.facebook.com/sharer/sharer.php?u=${url}`} target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon icon={faFacebook} />
+                        </Link>
+                        <Link href={`https://twitter.com/intent/tweet?url=${url}&text=${article.title}`} target="_blank" rel="noopener noreferrer">
+                            <FontAwesomeIcon icon={faXTwitter} />
+                        </Link>
                     </div>
                 </div>
             </div>
 
             <RichText data={article.text} />
+
+            <div className="w-full">
+                <h2 className="text-center">Autre articles</h2>
+                <div className="flex w-full justify-between">
+                    {
+                        otherArticle.map( (article) => {
+                            return(
+                                <ArticleCard key={article.id} article={article} />
+                            )
+                        })
+                    }
+
+                </div>
+            </div>
         </div>
     )
 

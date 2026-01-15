@@ -1,16 +1,16 @@
 import React from "react";
 
-export type ButtonColor = "blue" | "white"
+export type ButtonColor = "blue" | "white" | "gold" | "transparent"
 
 interface ButtonProps {
     children: React.ReactNode;
     className?: string;
-    buttonColor?: ButtonColor;
+    linkColor?: ButtonColor;
     href: string
 }
 
-export default function Link({ children, className = "", buttonColor = "blue", href, ...rest }: ButtonProps) {
+export default function Link({ children, className = "", linkColor = "blue", href, ...rest }: ButtonProps) {
     return (
-        <a href={href} className={`kadaur-button ${buttonColor} ${className}`} {...rest}>{children}</a>
+        <a href={href} className={`kadaur-button ${linkColor} ${className}`} {...rest}>{children}</a>
     )
 }

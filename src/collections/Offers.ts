@@ -1,3 +1,5 @@
+import { FormBlock } from "@/blocks/FormBlock";
+import { FixedToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 
 export const Offers : CollectionConfig = {
@@ -22,9 +24,28 @@ export const Offers : CollectionConfig = {
             required: true
         },
         {
+            name: "image",
+            type: "upload",
+            label: "Image de l'offre",
+            relationTo: "media",
+        },
+        {
             name: "description",
-            type: "textarea"
-        }, 
+            type: "text",
+            required: true
+        },
+        {
+            name: "moreInfo",
+            label: "Informations complémentaires",
+            type: "richText",
+            editor: lexicalEditor({
+                features: ({defaultFeatures}) => [
+                    ...defaultFeatures,
+                    FixedToolbarFeature()
+                ]
+            }),
+            required: true
+        },
         {
             name: "usp",
             label: "Unique Selling Points",
@@ -35,7 +56,14 @@ export const Offers : CollectionConfig = {
                     type: "text"
                 }
             ]
-        }, 
+        },
+        {
+            name: "form",
+            type: "blocks",
+            label: "Formulaire",
+            blocks: [FormBlock],
+            maxRows: 1
+        },
         {
             type: 'row',
             fields: 

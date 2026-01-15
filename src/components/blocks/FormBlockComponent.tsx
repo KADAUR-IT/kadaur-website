@@ -118,7 +118,7 @@ export default function FormBlockComponent({block} : FormBlockProps)
             <input type="hidden" name="form-id" value={(block.form as Form).id as string} />
             {renderFields}
             <Captcha ref={recaptchaRef} />
-            <ContactSubmit isLoading={formSubmitted}>Nous contacter !</ContactSubmit>
+            <ContactSubmit isLoading={formSubmitted}>{form.submitText}</ContactSubmit>
         </form>
     )
 }

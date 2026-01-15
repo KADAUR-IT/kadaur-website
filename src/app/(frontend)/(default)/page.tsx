@@ -6,6 +6,7 @@ import React from 'react'
 import config from '@/payload.config'
 import './styles.css'
 import HomePageClient from './page.client'
+import { Media } from '@/payload-types'
 
 const payload = await getPayload({config})
 
@@ -35,10 +36,16 @@ export default async function HomePage() {
 
   const avis = page.avisToShow
   const partner = page.partnerToShow
+  const heroImage = page.heroImage as Media
+
+  const articles = await payload.find({
+      collection: "article",
+      limit: 3,
+  })
 
   return (
     <>
-      <HomePageClient offers={offers.docs.reverse()} avis={avis} partner={partner} />
+      <HomePageClient offers={offers.docs.reverse()} avis={avis} partner={partner} heroImage={heroImage} articles={articles.docs} />
     </>
   )
 }

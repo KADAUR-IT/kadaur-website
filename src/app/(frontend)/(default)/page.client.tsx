@@ -8,7 +8,7 @@ import SectionTitle from '@/components/ui/SectionTitle'
 import SectionSubtitle from '@/components/ui/SectionSubtitle'
 import OfferSlider from './_components/OfferSlider'
 import AvisSlider from './_components/AvisSlider'
-import { Media, Offer } from "@/payload-types";
+import { Article, Media, Offer } from "@/payload-types";
 import ScrollButton from "./_components/ScrollButton";
 import MethodeSteps from "./_components/MethodeComponents/MethodeSteps";
 import MethodeUseCases from "./_components/MethodeComponents/MethodeUseCases";
@@ -16,6 +16,7 @@ import MethodeCTA from "./_components/MethodeComponents/MethodeCTA";
 import ValeursSlider from "./_components/ValeursSlider";
 import Link from "@/components/ui/Link";
 import ClientSlider from "./_components/ClientSlide";
+import ArticleCard from "./resources/actualites/_components/ArticleCard";
 
 interface HomePageClientProps
 {
@@ -31,10 +32,12 @@ interface HomePageClientProps
         partnerLogo: string | Media;
         id?: string | null;
     }[] | null | undefined,
+    heroImage: Media,
+    articles: Article[]
 }
 
 
-export default function HomePageClient({ offers, avis, partner }: HomePageClientProps) {
+export default function HomePageClient({ offers, avis, partner, heroImage, articles }: HomePageClientProps) {
     const valeursSliderRef = useRef(null)
 
     const scrollValeurs = () => {
@@ -45,22 +48,25 @@ export default function HomePageClient({ offers, avis, partner }: HomePageClient
 
     return (
         <>
-            <div className='hero-section'>
+            <section className='hero-section'>
                 <Image
-                alt="Kadaur Hero"
-                height={1080}
-                src="/api/media/file/hero_image.jpg"
-                width={1920}
+                    alt={heroImage.alt}
+                    height={1080}
+                    src={heroImage.url as string}
+                    width={1920}
                 />
+                <div className="overlay-hero"></div>
                 <h1>Débloquez le potentiel de vos projets IT avec l'accompagnement expert KADAUR.</h1>
-                <Link href="/contact">Demandez votre diagnostic</Link>
-                <p>Découvrez la méthode KADAUR</p>
-                <ScrollButton onClick={scrollValeurs}/>
-            </div>
+                <div className="flex flex-col md:flex-row gap-1 md:gap-6">
+                    <Link linkColor="blue" href="/contact">Demandez votre diagnostic</Link>
+                    <Button buttonColor="white" onClick={scrollValeurs}>Découvrez la méthode KADAUR</Button>
+                </div>
+                
+            </section>
 
-            <ValeursSlider ref={valeursSliderRef} />
+            {/*<ValeursSlider ref={valeursSliderRef} />*/}
 
-            <div className='methode-section section'>
+            <section ref={valeursSliderRef} className='methode-section section'>
                 <div>
                     <SectionTitle>Méthode KADAUR</SectionTitle>
                     <SectionSubtitle>La méthode KADAUR est conçue pour s’adapter aux réalités complexes de la gestion de projets IT</SectionSubtitle>
@@ -68,24 +74,41 @@ export default function HomePageClient({ offers, avis, partner }: HomePageClient
                 <MethodeSteps />
                 <p>Cette combinaison unique permet de maximiser la performance de vos projets tout en maintenant le contrôle sur les délais, les coûts et la qualité.</p>
 
-                <MethodeUseCases />
-
                 <MethodeCTA />
 
-            </div>
+                <MethodeUseCases />
 
-            <div className='offer-section section'>
+            </section>
+
+            <section className='offer-section section'>
                 <SectionTitle>Nos offres</SectionTitle>
                 <SectionSubtitle>Découvrez nos approches personnalisées pour optimiser chaque étape de vos projets IT</SectionSubtitle>
                 <OfferSlider offers={offers}/>
-            </div>
+                <Link href="/offers" linkColor="blue">Voir toutes nos offres</Link>
+            </section>
 
-            <div className='client-section'>
+            <section className='client-section section'>
                 <SectionTitle>Nos Clients</SectionTitle>
                 <SectionSubtitle>Ils nous ont fait confiance, pourquoi pas vous ?</SectionSubtitle>
                 <ClientSlider partner={partner} />
                 <AvisSlider avis={avis} />
-            </div>
+            </section>
+
+            <section className="actualities-section section">
+                <SectionTitle>Actualités</SectionTitle>
+                <SectionSubtitle>Découvrez nos dernières actualités</SectionSubtitle>
+                <div className="flex w-full justify-between">
+                    {
+                        articles.map( (article) => {
+                            return(
+                                <ArticleCard key={article.id} article={article} />
+                            )
+                        })
+                    }
+
+                </div>
+                <Link href="/resources/actualites" linkColor="blue">Voir toutes nos actualités</Link>
+            </section>
         </>
     )
 }

@@ -2,22 +2,12 @@
 
 import React from "react";
 import OfferInfosClient from "./OfferInfosClient";
+import { Offer } from "@/payload-types";
 
 export type USP = 
 {
     id: string
     label: string
-}
-
-export type Offer = 
-{
-    id: string
-    name: string;
-    icon?: string;
-    description?: string;
-    usp?: USP[];
-    extraActionButtonLabel?: string;
-    extraActionButtonUrl?: string;
 }
 
 interface OfferInfosProps

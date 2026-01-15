@@ -42,7 +42,7 @@ export default function MethodeUseCases()
                     height={1000}
                     alt="Fusée qui décolle"  
                 />
-                <h3>Startups</h3>
+                <h3>Scale Up</h3>
             </div>
             <div className='methode-use-case' ref={pmeRef} id="pme-img" style={{ animationDelay: `100ms`}}>
                 <Image

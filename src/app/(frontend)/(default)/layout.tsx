@@ -14,11 +14,15 @@ const siteMetadata = await payload.findGlobal({
 })
 
 export const metadata = {
-  description: siteMetadata.SEO.description || 'A blank template using Payload in a Next.js app.',
+  description: siteMetadata.SEO.description || 'KADAUR - Cabinet de conseil en gestion de projets IT et transformation digitale.',
   title: {
     template: siteMetadata.SEO.template || "KADAUR - %s",
     default : siteMetadata.SEO.title || 'KADAUR',
-  }
+  },
+  icons: {
+    icon: '/assets/icon/favicon.ico',
+    apple: '/assets/icon/apple-touch-icon.png',
+  },
 }
 
 export const dynamic = 'auto'

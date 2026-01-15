@@ -231,15 +231,91 @@ export interface Offer {
   name: string;
   icon: string;
   image?: (string | null) | Media;
-  description?: string | null;
+  description: string;
+  moreInfo: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   usp?:
     | {
         label?: string | null;
         id?: string | null;
       }[]
     | null;
+  form?: FormBlock[] | null;
   extraActionButtonLabel?: string | null;
   extraActionButtonUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  form: string | Form;
+  title?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Form';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "forms".
+ */
+export interface Form {
+  id: string;
+  name: string;
+  fields?:
+    | {
+        label: string;
+        formID: string;
+        type?: ('text' | 'email' | 'number' | 'date' | 'tel' | 'checkbox' | 'textarea' | 'select') | null;
+        placeholder?: string | null;
+        options?:
+          | {
+              optionLabel: string;
+              optionValue: string;
+              id?: string | null;
+            }[]
+          | null;
+        required?: boolean | null;
+        defaultValue?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  submitText: string;
+  successMessage: string;
+  errorMessage: string;
+  mailTemplates?:
+    | {
+        mailTemplate: string | Mail;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mails".
+ */
+export interface Mail {
+  id: string;
+  to: ('client' | 'prospect' | 'partenaire' | 'interne')[];
+  subject: string;
+  htmlContent: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -264,8 +340,10 @@ export interface Page {
         | SectionTitleBlock
         | RichTextBlock
         | FormBlock
+        | CTABlock
       )[]
     | null;
+  heroImage?: (string | null) | Media;
   partnerToShow?:
     | {
         partnerName: string;
@@ -282,6 +360,21 @@ export interface Page {
         id?: string | null;
       }[]
     | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   form?: FormBlock[] | null;
   meta?: {
     title?: string | null;
@@ -506,63 +599,19 @@ export interface RichTextBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
+ * via the `definition` "CTABlock".
  */
-export interface FormBlock {
-  form: string | Form;
-  title?: string | null;
+export interface CTABlock {
+  title: string;
+  subtitle: string;
+  actions: {
+    label: string;
+    link: string;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Form';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "forms".
- */
-export interface Form {
-  id: string;
-  name: string;
-  fields?:
-    | {
-        label: string;
-        formID: string;
-        type?: ('text' | 'email' | 'number' | 'date' | 'tel' | 'checkbox' | 'textarea' | 'select') | null;
-        placeholder?: string | null;
-        options?:
-          | {
-              optionLabel: string;
-              optionValue: string;
-              id?: string | null;
-            }[]
-          | null;
-        required?: boolean | null;
-        defaultValue?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  submitText: string;
-  successMessage: string;
-  errorMessage: string;
-  mailTemplates?:
-    | {
-        mailTemplate: string | Mail;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mails".
- */
-export interface Mail {
-  id: string;
-  to: ('client' | 'prospect' | 'partenaire' | 'interne')[];
-  subject: string;
-  htmlContent: string;
-  updatedAt: string;
-  createdAt: string;
+  blockType: 'CTA';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -574,6 +623,7 @@ export interface Article {
   slug: string;
   description: string;
   thumbnail: string | Media;
+  author: string | Admin;
   text: {
     root: {
       type: string;
@@ -877,16 +927,32 @@ export interface OffersSelect<T extends boolean = true> {
   icon?: T;
   image?: T;
   description?: T;
+  moreInfo?: T;
   usp?:
     | T
     | {
         label?: T;
         id?: T;
       };
+  form?:
+    | T
+    | {
+        Form?: T | FormBlockSelect<T>;
+      };
   extraActionButtonLabel?: T;
   extraActionButtonUrl?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  form?: T;
+  title?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -909,7 +975,9 @@ export interface PagesSelect<T extends boolean = true> {
         SectionTitle?: T | SectionTitleBlockSelect<T>;
         RichText?: T | RichTextBlockSelect<T>;
         Form?: T | FormBlockSelect<T>;
+        CTA?: T | CTABlockSelect<T>;
       };
+  heroImage?: T;
   partnerToShow?:
     | T
     | {
@@ -926,6 +994,7 @@ export interface PagesSelect<T extends boolean = true> {
         avisText?: T;
         id?: T;
       };
+  description?: T;
   form?:
     | T
     | {
@@ -1042,11 +1111,18 @@ export interface RichTextBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
+ * via the `definition` "CTABlock_select".
  */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
+export interface CTABlockSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
+  actions?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1059,6 +1135,7 @@ export interface ArticleSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   thumbnail?: T;
+  author?: T;
   text?: T;
   meta?:
     | T

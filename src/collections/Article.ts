@@ -10,6 +10,7 @@ export const Article: CollectionConfig = {
         {
             name: "title",
             type: "text",
+            maxLength: 75,
             required: true
         },
         {
@@ -20,6 +21,7 @@ export const Article: CollectionConfig = {
         {
             name: "description",
             type: "text",
+            maxLength: 165,
             required: true
         },
         {
@@ -28,6 +30,12 @@ export const Article: CollectionConfig = {
             type: "upload",
             relationTo: "media",
             required: true
+        },
+        {
+            name: "author",
+            type: "relationship",
+            relationTo: "admins",
+            required: true,
         },
         {
             name: "text",

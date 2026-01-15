@@ -12,8 +12,8 @@ export default function MethodeCTA()
                 <p>Nous vous guidons vers la réuissite de vos projet IT</p>
             </div>
             
-            <Link buttonColor="white" className="h-fit" href="/contact">Prendre RDV</Link>
-            <Link className="h-fit" href="/about/methode-kadaur">En savoir plus</Link>
+            <Link linkColor="white" className="h-fit" href="/contact">Prendre RDV</Link>
+            <Link className="h-fit" href="/methode-kadaur">En savoir plus</Link>
 
         </div>
     )

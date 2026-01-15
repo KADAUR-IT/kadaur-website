@@ -1,6 +1,6 @@
 import React from "react";
 
-export type ButtonColor = "blue" | "white"
+export type ButtonColor = "blue" | "white" | "gold"
 
 interface ButtonProps {
     children: React.ReactNode;
