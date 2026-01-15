@@ -1,3 +1,5 @@
+"use client"
+
 import { Media, TextImageBlock } from "@/payload-types";
 import React from "react";
 import Image from "next/image";

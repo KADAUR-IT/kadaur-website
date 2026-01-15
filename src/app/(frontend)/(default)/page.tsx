@@ -40,6 +40,9 @@ export default async function HomePage() {
 
   const articles = await payload.find({
       collection: "article",
+      where : {
+        _status: { equals: "published" }
+      },
       limit: 3,
   })
 

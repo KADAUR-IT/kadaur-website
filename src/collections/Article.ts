@@ -6,6 +6,11 @@ export const Article: CollectionConfig = {
     admin: {
         useAsTitle: 'title',
     },
+    versions : {
+        drafts: {
+            schedulePublish: true,
+        }
+    },
     fields: [
         {
             name: "title",
