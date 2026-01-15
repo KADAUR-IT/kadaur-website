@@ -40,7 +40,7 @@ export default function MethodeUseCases()
                     src={"/api/media/file/startup_icon.png"}
                     width={1000}
                     height={1000}
-                    alt="Fusée qui décolle"  
+                    alt="Fusée qui décolle"
                 />
                 <h3>Scale Up</h3>
             </div>

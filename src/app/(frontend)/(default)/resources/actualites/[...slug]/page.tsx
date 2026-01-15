@@ -88,6 +88,7 @@ export default async function ArticlePage({params} : { params: Promise<{ slug: s
                     src={thumbnail.url as string}
                     width={thumbnail.width as number}
                     height={thumbnail.height as number}
+                    loader={() => thumbnail.url as string}
                 />
                 <div className="article-infos">
                     <div className="article-time-author">

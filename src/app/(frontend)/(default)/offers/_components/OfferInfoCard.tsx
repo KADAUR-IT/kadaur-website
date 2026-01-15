@@ -35,6 +35,7 @@ export default function OfferInfoCard({offer, handle} : OfferInfoCardProps)
                     alt={offerImage.alt as string}
                     width={offerImage.width as number}
                     height={offerImage.height as number}
+                    loader={() => offerImage.url as string}
                     className="w-[200px] h-auto"
                 />
             }

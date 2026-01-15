@@ -19,6 +19,7 @@ export default function ArticleCard({article}: ArticleCardProps)
                 height={thumbnail.height as number}
                 src={thumbnail.url as string}
                 width={thumbnail.width as number}
+                loader={() => thumbnail.url as string}
             />
             <div className="article-info">
                 <span className="article-topic">Activité</span>

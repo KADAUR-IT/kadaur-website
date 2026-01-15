@@ -54,6 +54,7 @@ export default function OfferCard({color, ref, id, index, offer, animationDelay 
                     alt={offerImage.alt as string}
                     width={offerImage.width as number}
                     height={offerImage.height as number}
+                    loader={() => offerImage.url as string}
                 />
             }
             <h3>{offer.name}</h3>

@@ -39,6 +39,7 @@ export default function MethodeStep({ title, description, icon, imageSrc, animat
                 src={imageSrc || "/api/media/file/test-1.png"}
                 width={398}
                 height={364}
+                loader={() => imageSrc as string}
                 alt="test"
             />
             <h3>{title}</h3>

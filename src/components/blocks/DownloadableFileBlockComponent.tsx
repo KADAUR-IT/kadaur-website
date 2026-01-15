@@ -37,6 +37,7 @@ export default async function DownloadableFileBlockComponent({ block }: Download
                 width={icon.width as number}
                 height={icon.height as number}
                 alt={icon.alt}
+                loader={() => icon.url as string}
                 className="h-[50px]! w-auto"
             />
             <p className="grow-1">{block.filename}</p>

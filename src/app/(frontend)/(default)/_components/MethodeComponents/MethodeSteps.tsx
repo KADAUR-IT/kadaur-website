@@ -8,7 +8,7 @@ export default function MethodeSteps()
         <div className='methode-steps'>
             <MethodeStep animationDelay={100} title="Conseil" description="Offrir une flexibilité dans l'exécution des projets, en adaptant rapidement nos stratégies aux exigences changeantes du marché." icon={faHandshake} imageSrc="/api/media/file/conseil.png" />
             <MethodeStep animationDelay={200} title="Structure" description="Optimiser la réactivité grâce à une gestion itérative des phases clés, tout en conservant la rigueur des méthodes traditionnelles." icon={faExpand} imageSrc="/api/media/file/structure.png"/>
-            <MethodeStep animationDelay={300} title="Pilotage" description="Optimiser la réactivité grâce à une gestion itérative des phases clés, tout en conservant la rigueur des méthodes traditionnelles." icon={faCarSide}/>
+            <MethodeStep animationDelay={300} title="Pilotage" description="Optimiser la réactivité grâce à une gestion itérative des phases clés, tout en conservant la rigueur des méthodes traditionnelles." icon={faCarSide} imageSrc="/api/media/file/test-1.png"/>
         </div>
     )
 }
