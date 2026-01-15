@@ -54,6 +54,7 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
                     height={1080}
                     src={heroImage.url as string}
                     width={1920}
+                    loader={() => heroImage.url as string}
                 />
                 <div className="overlay-hero"></div>
                 <h1>Débloquez le potentiel de vos projets IT avec l'accompagnement expert KADAUR.</h1>
