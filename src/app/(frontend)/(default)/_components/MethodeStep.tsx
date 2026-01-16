@@ -8,13 +8,12 @@ import Image from "next/image";
 
 interface MethodeStepProps {
     title: string;
-    description: string;
-    icon : IconDefinition;
     animationDelay?: number;
     imageSrc?: string;
+    children?: React.ReactNode;
 }
 
-export default function MethodeStep({ title, description, icon, imageSrc, animationDelay = 0 }: MethodeStepProps) {
+export default function MethodeStep({ title, imageSrc, animationDelay = 0, children }: MethodeStepProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     const visibleIds = useIntersectionObserver([ref] as RefObject<HTMLElement>[], {
@@ -35,6 +34,7 @@ export default function MethodeStep({ title, description, icon, imageSrc, animat
                 animationDelay: `${animationDelay}ms`
             }
         }>
+            <h3>{title}</h3>
             <Image 
                 src={imageSrc || "/api/media/file/test-1.png"}
                 width={398}
@@ -42,8 +42,7 @@ export default function MethodeStep({ title, description, icon, imageSrc, animat
                 loader={() => imageSrc as string}
                 alt="test"
             />
-            <h3>{title}</h3>
-            <p>{description}</p>
+            {children}
           </div>
     )
 }

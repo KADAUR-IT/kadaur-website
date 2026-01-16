@@ -30,7 +30,7 @@ export default function OffersPageClient({ offers, form, description } : OffersP
     const searchParams = useSearchParams()
     const [offerVisible, setOfferVisible] = useState(offers[parseInt(searchParams.get("id") as string) || 0].id)
     const [offerInfoVisible, setOfferInfoVisible] = useState(offers[parseInt(searchParams.get("id") as string) || 0])
-    const [modalOfferIsOpen, setModalIsOpen] = useState(false)
+    const [modalOfferIsOpen, setModalIsOpen] = useState(searchParams.has("id"))
     /*const slidesBtnRef : React.Ref<HTMLAnchorElement>[] = []
     const {height, width} = useWindowDimensions() ?? {}
     const recaptchaRef = useRef(null)*/
@@ -91,7 +91,7 @@ export default function OffersPageClient({ offers, form, description } : OffersP
                 <RichText data={description} className="mb-4" />
 
                 <div className="offers-container">
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 md:flex-row">
                         {offerCard}
                     </div>
 

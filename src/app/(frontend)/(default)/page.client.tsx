@@ -60,7 +60,7 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
                 <h1>Débloquez le potentiel de vos projets IT avec l'accompagnement expert KADAUR.</h1>
                 <div className="flex flex-col md:flex-row gap-1 md:gap-6">
                     <Link linkColor="blue" href="/contact">Demandez votre diagnostic</Link>
-                    <Button buttonColor="white" onClick={scrollValeurs}>Découvrez la méthode KADAUR</Button>
+                    <Button buttonColor="gold" onClick={scrollValeurs}>Découvrez la méthode KADAUR</Button>
                 </div>
                 
             </section>
@@ -98,7 +98,7 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
             <section className="actualities-section section">
                 <SectionTitle>Actualités</SectionTitle>
                 <SectionSubtitle>Découvrez nos dernières actualités</SectionSubtitle>
-                <div className="flex w-full justify-between">
+                <div className="flex flex-col items-center md:flex-row w-full md:justify-between">
                     {
                         articles.map( (article) => {
                             return(

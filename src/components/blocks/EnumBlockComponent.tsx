@@ -47,7 +47,7 @@ export default function EnumBlockComponent({block}: EnumBlockProps)
     })
 
     return(
-        <div className="enum-block">
+        <div id={block.blockName || ""} className="enum-block">
             {itemsRender}
         </div>
     )

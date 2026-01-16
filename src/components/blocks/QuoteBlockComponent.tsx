@@ -10,8 +10,8 @@ interface QuoteBlockProps{
 export default function QuoteBlockComponent({block}: QuoteBlockProps)
 {
     return(
-        <>
+        <div id={block.blockName || ""}>
             <RichText className="quote-block" data={block.text} />
-        </>
+        </div>
     )
 }

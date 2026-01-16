@@ -110,7 +110,7 @@ export default function FormBlockComponent({block} : FormBlockProps)
 
     
     return(
-        <form onSubmit={handleSubmit} className="form-part">
+        <form id={block.blockName || ""} onSubmit={handleSubmit} className="form-part">
             <div ref={errorRef} className={"error-form" + ( !isFormValid ? "" : " hide" )}>
                 <FontAwesomeIcon icon={faTimesCircle} />
                 <p>Veuillez remplir tous les champs</p>

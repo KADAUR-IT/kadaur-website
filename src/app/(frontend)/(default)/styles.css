@@ -146,6 +146,7 @@ h1 {
 
 .methode-section
 {
+  scroll-margin-top: 100px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -161,8 +162,10 @@ h1 {
         .methode-step
         {
           display: flex;
+          width: 100%;
+          min-height: 450px;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
           text-align: center;
           padding: 16px;
@@ -182,6 +185,17 @@ h1 {
           img{
             height: 200px;
             width: auto;
+          }
+
+          h3 {
+            font-size: 22px;
+            margin-bottom: 1rem;
+          }
+
+          h4 {
+            font-size: 14px;
+            line-height: 20px;
+            height: 40px;
           }
 
         }

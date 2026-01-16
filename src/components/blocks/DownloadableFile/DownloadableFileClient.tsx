@@ -16,7 +16,7 @@ interface DownloadableFileClientProps{
 export default function DownloadableFileClient({file, icon, block} : DownloadableFileClientProps)
 {
     return(
-        <div className="w-9/10 md:w-3/4 flex gap-2 items-center shadow rounded p-2 text-(--color-blue)">
+        <div id={block.blockName || ""} className="w-9/10 md:w-3/4 flex gap-2 items-center shadow rounded p-2 text-(--color-blue)">
             <Image
                 src={icon.url as string}
                 width={icon.width as number}
