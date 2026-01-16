@@ -59,6 +59,18 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-blue);
 }
 
+.text-gold{
+    color: var(--color-gold);
+}
+
+.text-blue{
+    color: var(--color-blue);
+}
+
+.text-white{
+    color: var(--color-white);
+}
+
 
 
 .navbar-wrapper
@@ -96,6 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 
     @media (max-width: 980px) {
         width: 90%;
+        min-width: auto;
     }
     
 }
@@ -430,7 +443,7 @@ h1, h2, h3, h4, h5, h6 {
     &.gold
     {
         background-color: var(--color-gold);
-        color: var(--color-blue);
+        color: var(--color-white);
 
         &:hover
         {
@@ -502,6 +515,17 @@ h1, h2, h3, h4, h5, h6 {
 
         a {
             margin: 0;
+
+            svg {
+                transition: all 300ms ease;
+            }
+
+            &:hover
+            {
+                svg {
+                    color: var(--color-gold) !important;
+                }
+            }
         }
     }
 
@@ -530,6 +554,12 @@ h1, h2, h3, h4, h5, h6 {
             text-transform: none;
             font-weight: normal;
             margin: 0;
+            transition: all 300ms ease;
+
+            &:hover
+            {
+                color: var(--color-gold);
+            }
         }
     }
 
@@ -545,15 +575,26 @@ h1, h2, h3, h4, h5, h6 {
         gap: 8px;
         color: white;
 
-        h2 {
+        h2, h3, h4 {
             color: white;
         }
     }
 
     .footer-right
     {
-        gap : 16px;
-        align-items: flex-end;
+        gap : 8px;
+        align-items: flex-start;
+
+        a {
+            line-height: 20px;
+            font-weight: normal;
+            transition: all 300ms ease;
+
+            &:hover
+            {
+                color: var(--color-gold);
+            }
+        }
     }
 
     .footer-bottom

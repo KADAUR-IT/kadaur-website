@@ -248,27 +248,33 @@ form{
 
 @media (max-width: 980px)
 {
+    .title-block
+    {
+        font-size: 40px;
+    }
+
     .text-image-block
     {
         flex-direction: column;
+        width: 100%;
 
         &.reverse
         {
             flex-direction: column;
 
             p{
-                width: 90%;
                 text-align: center;
             }
         }
 
         img
         {
-            width: 90%;
+            min-width: auto;
+            width: auto;
+            max-width: 100%;
         }
 
         p{
-            width: 90%;
             text-align: center;
         }
 
@@ -277,6 +283,8 @@ form{
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-width: auto;
+            max-width: 100%;
         }
     }
 
@@ -287,13 +295,12 @@ form{
 
     .question-answer-block
     {
-        width: 90%;
-
+        width:100%;
     }
 
     .rich-text-block
     {
-        width: 90%;
+        width:100%;
     }
 
     .form-part

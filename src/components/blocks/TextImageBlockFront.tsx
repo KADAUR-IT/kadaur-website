@@ -18,7 +18,7 @@ export default function TextImageBlockFront({block} : TextImageBlockProps)
     const image = block.image as Media
     
     return(
-        <div className={classDiv + reverseClass}>
+        <div id={block.blockName || ""} className={classDiv + reverseClass}>
             <RichText data={block.text} />
             <Image 
                 src={image.url as string}

@@ -12,7 +12,7 @@ export default function RichTextBlockFront({block} : RichTextBlockProps)
     const classDiv = "rich-text-block "
     
     return(
-        <div className={classDiv}>
+        <div id={block.blockName || ""} className={classDiv}>
             <RichText data={block.text} />
         </div>
     )

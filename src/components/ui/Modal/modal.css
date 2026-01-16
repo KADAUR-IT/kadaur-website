@@ -49,3 +49,36 @@
     cursor: pointer;
     z-index: 50;
 }
+
+@media (max-width : 980px)
+{
+    .modal-backdiv
+    {
+        height: 100%;
+
+        &.open
+        {
+            justify-content: center;
+            align-items: flex-start;
+            padding: 8px;
+            overflow: hidden;
+        }
+    }
+
+    .modal-container
+    {
+        width: 95%;
+        height: 100%;
+        overflow: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        & {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    }
+}

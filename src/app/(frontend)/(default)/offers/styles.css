@@ -123,6 +123,12 @@
     gap: 0.5rem;
     padding: 0.5rem;
     min-width: calc(300px - 0.5rem);
+    position: relative;
+
+    --b: 5px;   /* thickness of the border */
+    --c: var(--color-gold);   /* color of the border */
+    --w: 50px;  /* width of border */
+    --r: 10px;  /* radius */
 
     h3,h4, p
     {
@@ -139,6 +145,25 @@
         margin: 0 20px;
         flex-grow: 1;
     }
+
+    /*&:hover
+    {
+        &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--c,red);
+        padding: var(--b);
+        border-radius: var(--r);
+        -webkit-mask:
+            linear-gradient(  0deg,#000 calc(2*var(--b)),#0000 0) 50% var(--b)/calc(100% - 2*var(--w)) 100% repeat-y,
+            linear-gradient(-90deg,#000 calc(2*var(--b)),#0000 0) var(--b) 50%/100% calc(100% - 2*var(--w)) repeat-x,
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
+        -webkit-mask-composite: destination-out;
+                mask-composite: exclude;
+        }
+    }*/
 }
 
 .methode-call-to-action
@@ -300,11 +325,17 @@
 
 @media (max-width : 980px)
 {
+    main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .offers-main
     {
         height: 100%;
-        width: 100dvw;
-        padding: 100px 0 ;
+        width: 95%;
+        margin-bottom: 16px;
     }
 
     .offer-content

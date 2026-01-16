@@ -10,7 +10,7 @@ export default function TitleBlockComponent({block} : TitleBlockProps)
 {
     return(
         <>
-            <h1 className="title-block">{block.text}</h1>
+            <h1 id={block.blockName || ""} className="title-block">{block.text}</h1>
         </>
     )
 }

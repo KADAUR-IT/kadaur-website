@@ -45,9 +45,13 @@ export default async function Footer() {
                     </div>
                 </div>
                 <div className="footer-right">
-                    <a href="/contact">Contact</a>
-                    <a href="/about/nos-equipes">Notre équipe</a>
-                    <a href="/join-us">Nous rejoindre</a>
+                    <h2>Liens utiles</h2>
+                    <div className="flex flex-col gap-[16px]">
+                        <a href="/contact">Contact</a>
+                        <a href="/about/nos-equipes">Notre équipe</a>
+                        <a href="/join-us">Nous rejoindre</a>
+                    </div>
+                    
                 </div>
             </div>
             
