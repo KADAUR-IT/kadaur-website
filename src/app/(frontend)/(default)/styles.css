@@ -146,6 +146,7 @@ h1 {
 
 .methode-section
 {
+  scroll-margin-top: 100px;
   display: flex;
   flex-direction: column;
   gap: 16px;
