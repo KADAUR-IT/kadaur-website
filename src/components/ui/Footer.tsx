@@ -16,6 +16,8 @@ export default async function Footer() {
         slug: "settings"
     })).general?.socialMedia || []
 
+    const thisYear = new Date().getFullYear();
+
     return (
         <footer className="footer">
             <div className="footer-content">
@@ -56,7 +58,7 @@ export default async function Footer() {
             </div>
             
             <div className="footer-bottom">
-                <p>© 2025 Kadaur. All rights reserved.</p>
+                <p>© {thisYear} Kadaur. All rights reserved.</p>
                 <div className="footer-legal">
                     <a href="/mentions-legales">Mentions légales</a>
                     <a href="/politiques-confidentialites">Politique de confidentialité</a>
