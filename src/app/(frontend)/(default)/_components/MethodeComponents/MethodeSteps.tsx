@@ -12,7 +12,7 @@ export default function MethodeSteps()
                 <p className="grow-1">Poser un regard structuré et objectif sur votre situation IT, avant toute décision structurante.</p>
                 <Link href="/methode-kadaur#eclairer" linkColor="gold" className="m-0! mt-4! text-sm! w-full">En savoir +</Link>
             </MethodeStep>
-            <MethodeStep animationDelay={200} title="Structurer" imageSrc="/api/media/file/structure.png">
+            <MethodeStep animationDelay={200} title="Structurer" imageSrc="/api/media/file/structurer2.png">
                 
                 <p className="grow-1">Reprendre le contrôle, sécuriser la gouvernance et redonner une trajectoire lisible</p>
                 <Link href="/methode-kadaur#structurer" linkColor="gold" className="m-0! mt-4! text-sm! w-full">En savoir +</Link>

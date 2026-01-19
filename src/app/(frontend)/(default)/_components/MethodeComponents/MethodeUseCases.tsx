@@ -37,7 +37,7 @@ export default function MethodeUseCases()
             </div>
             <div className='methode-use-case' ref={startUpRef} id="start-up-img" style={{ animationDelay: `0ms`}}>
                 <Image
-                    src={"/api/media/file/startup_icon.png"}
+                    src={"/api/media/file/scaleup.png"}
                     width={1000}
                     height={1000}
                     alt="Fusée qui décolle"

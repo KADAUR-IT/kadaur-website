@@ -6,6 +6,7 @@ import { EnumBlock, Media } from "@/payload-types";
 import Image from "next/image";
 import RichText from "../ui/RichText";
 import Button from "../ui/Button";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface EnumBlockProps
 {
@@ -32,7 +33,7 @@ export default function EnumBlockComponent({block}: EnumBlockProps)
                     src={image.url as string}
                     height={image.height as number}
                     width={image.width as number}
-                    loader={() => image.url as string}
+                    loader={imageLoader}
                 />
                 : ""}
                 <RichText data={item.text} />

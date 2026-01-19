@@ -17,6 +17,7 @@ import ValeursSlider from "./_components/ValeursSlider";
 import Link from "@/components/ui/Link";
 import ClientSlider from "./_components/ClientSlide";
 import ArticleCard from "./resources/actualites/_components/ArticleCard";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface HomePageClientProps
 {
@@ -54,12 +55,13 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
                     height={1080}
                     src={heroImage.url as string}
                     width={1920}
-                    loader={() => heroImage.url as string}
+                    loader={imageLoader}
                 />
                 <div className="overlay-hero"></div>
-                <h1>Débloquez le potentiel de vos projets IT avec l'accompagnement expert KADAUR.</h1>
+                <h1>Redonner de la clarté à vos décisions IT</h1>
+                <h2 className="text-center text-white text-xl md:text-2xl md:max-w-[900px]">Une approche structurée du pilotage de l'infrastructure IT</h2>
                 <div className="flex flex-col md:flex-row gap-1 md:gap-6">
-                    <Link linkColor="blue" href="/contact">Demandez votre diagnostic</Link>
+                    <Link linkColor="blue" href="/contact">Echangez sur votre contexte IT</Link>
                     <Button buttonColor="gold" onClick={scrollValeurs}>Découvrez la méthode KADAUR</Button>
                 </div>
                 
@@ -70,10 +72,11 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
             <section ref={valeursSliderRef} className='methode-section section'>
                 <div>
                     <SectionTitle>Méthode KADAUR</SectionTitle>
-                    <SectionSubtitle>La méthode KADAUR est conçue pour s’adapter aux réalités complexes de la gestion de projets IT</SectionSubtitle>
+                    <SectionSubtitle>Une méthode conçue pour les projets IT complexes.</SectionSubtitle>
+
                 </div>
                 <MethodeSteps />
-                <p>Cette combinaison unique permet de maximiser la performance de vos projets tout en maintenant le contrôle sur les délais, les coûts et la qualité.</p>
+                <p>Cette approche structurée vous permet de <strong>sécuriser vos décisions</strong>, <strong>maîtriser les risques</strong> et <strong>piloter vos projets IT dans la durée</strong>, sans perdre le contrôle des délais, des coûts et de la qualité.</p>
 
                 <MethodeCTA />
 

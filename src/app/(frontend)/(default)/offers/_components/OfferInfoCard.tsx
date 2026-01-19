@@ -8,6 +8,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { Media, Offer } from "@/payload-types";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 library.add(fas)
 
@@ -35,7 +36,7 @@ export default function OfferInfoCard({offer, handle} : OfferInfoCardProps)
                     alt={offerImage.alt as string}
                     width={offerImage.width as number}
                     height={offerImage.height as number}
-                    loader={() => offerImage.url as string}
+                    loader={imageLoader}
                     className="w-[200px] h-auto"
                 />
             }
