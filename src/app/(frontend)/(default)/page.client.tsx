@@ -86,7 +86,7 @@ export default function HomePageClient({ offers, avis, partner, heroImage, artic
 
             <section className='offer-section section'>
                 <SectionTitle>Nos offres</SectionTitle>
-                <SectionSubtitle>Découvrez nos approches personnalisées pour optimiser chaque étape de vos projets IT</SectionSubtitle>
+                <SectionSubtitle>Des offres pensées pour éclairer, structurer et sécuriser vos projets IT</SectionSubtitle>
                 <OfferSlider offers={offers}/>
                 <Link href="/offers" linkColor="blue">Voir toutes nos offres</Link>
             </section>
