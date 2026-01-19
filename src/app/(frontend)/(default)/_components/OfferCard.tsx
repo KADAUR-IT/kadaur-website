@@ -6,6 +6,7 @@ import { Media, Offer } from "@/payload-types";
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
 import Link from "@/components/ui/Link";
 import Image from "next/image";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 type OfferCardColor = 'gold' | 'green' | 'blue' | 'red';
 
@@ -54,7 +55,7 @@ export default function OfferCard({color, ref, id, index, offer, animationDelay 
                     alt={offerImage.alt as string}
                     width={offerImage.width as number}
                     height={offerImage.height as number}
-                    loader={() => offerImage.url as string}
+                    loader={imageLoader}
                 />
             }
             <h3>{offer.name}</h3>

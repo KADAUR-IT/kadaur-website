@@ -15,7 +15,7 @@ export const Article: CollectionConfig = {
         {
             name: "title",
             type: "text",
-            maxLength: 75,
+            maxLength: 100,
             required: true
         },
         {

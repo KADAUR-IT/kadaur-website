@@ -3,8 +3,8 @@ import "./styles.css";
 import "src/styles/pages.css"
 import { getPayload } from "payload";
 import configPromise from "@payload-config"
-import ArticleGrid from "./_components/ArticleGrid";
 import { Article } from "@/payload-types";
+import ActualityPageClient from "./page.client";
 
 const payload = await getPayload({config: configPromise})
 
@@ -26,7 +26,7 @@ export const metadata = {
 export default async function ActualityPage()
 {
     const payload = await getPayload({config: configPromise})
-    const res = await payload.find({
+    var res = await payload.find({
         collection: "article",
         where : {
             _status: { equals: "published" }
@@ -34,14 +34,9 @@ export default async function ActualityPage()
         limit: 9
     })
 
-    return(
-        <div className="dyn-pages">
-            <div className="headtitle">
-                <h1>Actualités</h1>
-                <h2>Restez à l’écoute de nos dernières actualités</h2>
-            </div>
+    const articles : Article[] = res.docs
 
-            <ArticleGrid articles={res.docs}/>
-        </div>
+    return(
+        <ActualityPageClient intitialArticles={articles} initialPage={res.page || 0} hasNextPage={res.hasNextPage} />
     )
 }

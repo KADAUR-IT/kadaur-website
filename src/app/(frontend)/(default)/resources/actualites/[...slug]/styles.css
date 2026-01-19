@@ -28,11 +28,18 @@
 
     h1,h2,h3,h4
     {
-        color: #1c3856;
+        color: var(--color-blue);
     }
 
     a{
-        color: #1c3856;
+        color: var(--color-blue);
+        transition: all 300ms;
+
+        &:hover
+        {
+            text-decoration: underline;
+            color: var(--color-gold);
+        }
     }
 }
 

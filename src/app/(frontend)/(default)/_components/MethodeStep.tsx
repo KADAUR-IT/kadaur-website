@@ -5,6 +5,7 @@ import React, { RefObject, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useIntersectionObserver from "../_hooks/useIntersectionObserver";
 import Image from "next/image";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface MethodeStepProps {
     title: string;
@@ -39,7 +40,7 @@ export default function MethodeStep({ title, imageSrc, animationDelay = 0, child
                 src={imageSrc || "/api/media/file/test-1.png"}
                 width={398}
                 height={364}
-                loader={() => imageSrc as string}
+                loader={imageLoader}
                 alt="test"
             />
             {children}

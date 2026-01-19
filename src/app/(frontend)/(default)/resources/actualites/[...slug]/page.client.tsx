@@ -10,6 +10,7 @@ import { faFacebook, faLinkedin, faXTwitter } from "@fortawesome/free-brands-svg
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import RichText from "@/components/ui/RichText";
 import ArticleCard from "../_components/ArticleCard";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface ArticleClientPageProps
 {
@@ -40,7 +41,7 @@ export default function ArticleClientPage({article, thumbnail, otherArticle, pub
                     src={thumbnail.url as string}
                     width={thumbnail.width as number}
                     height={thumbnail.height as number}
-                    loader={() => thumbnail.url as string}
+                    loader={imageLoader}
                 />
                 <div className="article-infos">
                     <div className="article-time-author">
