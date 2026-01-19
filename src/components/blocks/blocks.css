@@ -239,7 +239,7 @@ form{
         width: 100%;
         text-align: center;
 
-        &:last-child
+        &.blue:last-child
         {
             border: solid 1px var(--color-white);
         }

@@ -12,7 +12,7 @@ export default function CTABlockComponent({block} : CTABlockProps)
 {
     const actions = block.actions.map( (action, index) => {
         return(
-            <Link linkColor={!index ? "white" : "blue"} className="h-fit" href={`/${action.link}`}>{action.label}</Link>
+            <Link linkColor={!index ? "gold" : "blue"} className="h-fit" href={`/${action.link}`}>{action.label}</Link>
         )
     })
 
