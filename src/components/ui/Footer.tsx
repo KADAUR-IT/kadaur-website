@@ -50,8 +50,8 @@ export default async function Footer() {
                     <h2>Liens utiles</h2>
                     <div className="flex flex-col gap-[16px]">
                         <a href="/contact">Contact</a>
-                        <a href="/about/nos-equipes">Notre équipe</a>
-                        <a href="/join-us">Nous rejoindre</a>
+                        <a href="/about/nos-profils">Notre équipe</a>
+                        <a href="/contact">Nous rejoindre</a>
                     </div>
                     
                 </div>

@@ -335,6 +335,7 @@ export interface Page {
   id: string;
   title: string;
   slug: string;
+  hidden?: boolean | null;
   seoOnly?: boolean | null;
   block?:
     | (
@@ -1062,6 +1063,7 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  hidden?: T;
   seoOnly?: T;
   block?:
     | T

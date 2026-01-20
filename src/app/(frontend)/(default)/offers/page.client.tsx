@@ -87,7 +87,7 @@ export default function OffersPageClient({ offers, form, description } : OffersP
         <>
             <div className="offers-main">
                 <SectionTitle>Nos offres</SectionTitle>
-                <SectionSubtitle>Découvrez nos approches personnalisées pour optimiser chaque étape de vos projets IT</SectionSubtitle>
+                <SectionSubtitle>Des offres conçues pour intervenir avec justesse à chaque étape clé de vos projets IT</SectionSubtitle>
                 <RichText data={description} className="mb-4" />
 
                 <div className="offers-container">
@@ -97,12 +97,12 @@ export default function OffersPageClient({ offers, form, description } : OffersP
 
                     <div className="methode-call-to-action">
                         <div className="methode-call-to-action-text">
-                            <SectionTitle className="text-[32px]!">Prêt à débloquer votre potentiel</SectionTitle>
-                            <p>Découvrez la méthode KADAUR</p>
+                            <SectionTitle className="text-[32px]!">Un projet IT ne se pilote pas à l'aveugle</SectionTitle>
+                            <p>Chaque projet IT mérite un cadre clair avant toute décision structurante</p>
                         </div>
                         
-                        <Link linkColor="white" className="h-fit" href="/contact">Prendre RDV</Link>
-                        <Link className="h-fit" href="/methode-kadaur">En savoir plus</Link>
+                        <Link linkColor="white" className="h-fit text-center" href="/contact">Echangeons sur votre contexte IT</Link>
+                        <Link className="h-fit text-center" href="/methode-kadaur">Comprendre notre approche</Link>
             
                     </div>
                 </div>

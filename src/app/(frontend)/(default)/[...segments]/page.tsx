@@ -25,6 +25,7 @@ export async function generateMetadata(
         where: 
         {
             slug: { equals: slug },
+            hidden : { equals: false }
         },
         limit: 1
     })
@@ -50,6 +51,7 @@ export default async function AboutPages({ params }: { params: Promise<{segments
         where: 
         {
             slug: { equals: slug },
+            hidden : { equals: false }
         },
         limit: 1
     })
