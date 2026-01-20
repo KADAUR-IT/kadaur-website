@@ -38,7 +38,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     livePreview: {
-        url: ({data}) => `http://localhost:3000/preview/mails/${data.id}` /*`/admin/collections/mails/preview/${data.id}`*/,
+        url: ({data}) => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${data.id}`,
         collections : ["mails"]
     },
     components:
