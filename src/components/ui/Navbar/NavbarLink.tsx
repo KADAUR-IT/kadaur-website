@@ -5,15 +5,22 @@ import React, { useState } from "react";
 import { ReactNode } from "react";
 import { IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { usePathname } from "next/navigation";
 
 library.add(fas)
 
 export type Link =
 {
-    label : string,
-    isButton : boolean,
-    link?: string,
-    subLinks?: Link[]
+    label: string;
+    link?: string | null | undefined;
+    isButton?: boolean | null | undefined;
+    subLinks?: {
+        label: string;
+        link?: string | null | undefined;
+        isButton?: boolean | null | undefined;
+        id?: string | null | undefined;
+    }[] | null | undefined;
+    id?: string | null | undefined;
 }
 
 interface NavbarLinkProps 
@@ -22,12 +29,16 @@ interface NavbarLinkProps
 }
 
 export default function NavbarLink({link} : NavbarLinkProps) {
+    const pathname = usePathname();
+    const pathList = pathname.split('/').filter(Boolean);
+
     if(!link)
     {
         return
     }
 
     const [isOpen, setOpen] = useState(false);
+    const [isActive, setActive] = useState(link.link === pathList[0]);
 
     function handleClick() 
     {
@@ -40,7 +51,7 @@ export default function NavbarLink({link} : NavbarLinkProps) {
     }
 
     let classnameLink = link.isButton ? "navbar-button" : "navbar-link"
-    if(isOpen) classnameLink += " active"
+    if(isOpen || isActive) classnameLink += " active"
 
     let classnameSubnavbar = "subnavbar-links"
     if(!isOpen) classnameSubnavbar += " hide"
@@ -51,9 +62,11 @@ export default function NavbarLink({link} : NavbarLinkProps) {
     if(link.subLinks)
     {
         mappedSubLinks = link.subLinks.map( (sublink) => {
-        return (
-          <a className="navbar-link" href={"/" + link.link + "/" + sublink.link} key={sublink.label}>{sublink.label}</a>
-        )
+            const isActive = sublink.link === pathList[1];
+
+            return (
+                <a className={`navbar-link ${isActive ? "active" : ""}`} href={"/" + link.link + "/" + sublink.link} key={sublink.label}>{sublink.label}</a>
+            )
       } )
     }
 

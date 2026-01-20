@@ -7,6 +7,8 @@ import Script from 'next/script'
 import { getPayload } from 'payload'
 import payloadConfig from '@/payload.config'
 import { ToastContainer } from "react-toastify"
+import GoogleAnalyticsScript from '@/components/scripts/googleAnalyticsScript'
+import CookieBanner from '@/components/ui/Cookies/CookieBanner'
 
 const payload = await getPayload({ config: payloadConfig})
 const siteMetadata = await payload.findGlobal({
@@ -36,26 +38,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <head>
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}', { page_path: window.location.pathname });
-              console.log(window.location.pathname)
-            `,
-          }}
-        />
+        <GoogleAnalyticsScript googleAnalyticsID={GA_MEASUREMENT_ID} />
       </head>
       <body>
         <main>
+          <CookieBanner />
           <Navbar />
           {children}
           <Footer />

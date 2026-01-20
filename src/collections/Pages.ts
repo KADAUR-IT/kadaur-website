@@ -34,6 +34,12 @@ export const Pages : CollectionConfig =
             unique: true
         },
         {
+            name: "hidden",
+            type: "checkbox",
+            label: "Caché ?",
+            defaultValue: false
+        },
+        {
             name: "seoOnly",
             type: "checkbox",
             label: "SEO seulement ?"
