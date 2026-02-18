@@ -17,7 +17,13 @@ interface LivreBlancPageClientProps {
 
 export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClientProps) {
   const fileURL = livreBlanc?.file?.url || '/assets/files/livre%20blanc%20KADAUR%202026.pdf'
-  const summaryItems = livreBlanc?.summaryItems.map((item: any) => item.title) || []
+  const summaryItems = livreBlanc?.summaryItems.map((item: any) => item.title) || [
+    'Passif stratégique',
+    'Agilité',
+    'IA et AIOps',
+    'Tendances structurelles',
+    'Convergence',
+  ]
 
   const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     const formErrorHeader = document.getElementById('form-error-header')
