@@ -2,15 +2,15 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor, FixedToolbarFeature } from '@payloadcms/richtext-lexical'
-import { nodemailerAdapter } from "@payloadcms/email-nodemailer"
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
-import {seoPlugin} from '@payloadcms/plugin-seo'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { authPlugin } from 'payload-auth-plugin'
-import { PasswordProvider } from "payload-auth-plugin/providers"
-import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
+import { PasswordProvider } from 'payload-auth-plugin/providers'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -38,28 +38,36 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     livePreview: {
-        url: ({data}) => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${data.id}`,
-        collections : ["mails"]
+      url: ({ data }) => `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${data.id}`,
+      collections: ['mails'],
     },
-    components:
-    {
-      graphics:
-      {
+    components: {
+      graphics: {
         // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
         //Logo : "@/components/constants/LogoAdmin",
         // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
         //Icon : '@/components/constants/Icon'
-      }
-    }
+      },
+    },
   },
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [Users, Accounts, Media, Offers, Pages, Article, Admins, CV, Files, Leads, Forms, Mails],
+  collections: [
+    Users,
+    Accounts,
+    Media,
+    Offers,
+    Pages,
+    Article,
+    Admins,
+    CV,
+    Files,
+    Leads,
+    Forms,
+    Mails,
+  ],
   globals: [Settings, Linktree, NavbarLinks],
   editor: lexicalEditor({
-    features: ({defaultFeatures}) => [
-      ...defaultFeatures,
-      FixedToolbarFeature()
-    ]
+    features: ({ defaultFeatures }) => [...defaultFeatures, FixedToolbarFeature()],
   }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -68,46 +76,45 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
     connectOptions: {
-      maxPoolSize : process.env.ENVIRONMENT === "development" ? 1 : 10
-    }
+      maxPoolSize: process.env.ENVIRONMENT === 'development' ? 1 : 10,
+    },
   }),
   sharp,
   plugins: [
     payloadCloudPlugin(),
     seoPlugin({
-      collections: ["pages", "article"],
-      uploadsCollection: "media",
-      generateTitle: ({doc}) => `${doc.title}`
+      collections: ['pages', 'article'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `${doc.title}`,
     }),
     authPlugin({
-      name: "user",
+      name: 'user',
       allowOAuthAutoSignUp: true,
       usersCollectionSlug: Users.slug,
       accountsCollectionSlug: Accounts.slug,
-      successRedirectPath: "/dashboard",
-      errorRedirectPath: "/register",
-      providers:[
+      successRedirectPath: '/dashboard',
+      errorRedirectPath: '/register',
+      providers: [
         PasswordProvider({
           emailTemplates: {
-            forgotPassword: false
-          }
-        })
-      ]
+            forgotPassword: false,
+          },
+        }),
+      ],
     }),
     vercelBlobStorage({
       enabled: true,
       collections: {
         media: true,
-        "files": true,
-        
+        files: true,
       },
       token: process.env.KADAUR_BLOB_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN,
-    })
+    }),
     // storage-adapter-placeholder
   ],
   email: nodemailerAdapter({
-    defaultFromAddress: "hello@kadaur.com",
-    defaultFromName: "KADAUR",
+    defaultFromAddress: 'hello@kadaur.com',
+    defaultFromName: 'KADAUR',
     transportOptions: {
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
@@ -115,7 +122,7 @@ export default buildConfig({
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
-      }
-    }
+      },
+    },
   }),
 })
