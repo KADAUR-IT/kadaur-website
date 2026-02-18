@@ -7,6 +7,10 @@ import { ToastContainer } from 'react-toastify'
 export const metadata = {
   description: 'Livre blanc de KADAUR',
   title: 'KADAUR - Livre Blanc',
+  icons: {
+    icon: '/assets/icon/favicon.ico',
+    apple: '/assets/icon/apple-touch-icon.png',
+  },
 }
 
 const GA_MEASUREMENT_ID = 'G-MNVLLR4SMH'
