@@ -26,17 +26,26 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
   ]
 
   const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const formErrorHeader = document.getElementById('form-error-header')
+    const formDiv = e.currentTarget.closest('div')
+    if (!formDiv) {
+      return
+    }
+
+    const formErrorHeader = formDiv.querySelector('#form-error-header')
     if (formErrorHeader) {
       formErrorHeader.classList.add('hidden')
     }
-    const inputs = document.querySelectorAll<HTMLInputElement>('.form-input')
+    const inputs = formDiv.querySelectorAll<HTMLInputElement>('.form-input')
     inputs.forEach((input: HTMLInputElement) => {
       input.classList.remove('border-red-500!', 'border!')
     })
     const inputsInvalid = Array.from<HTMLInputElement>(inputs).filter(
       (input: HTMLInputElement) => input.value === '',
     )
+
+    console.log(formDiv)
+    console.log(inputs)
+    console.log(inputsInvalid)
 
     if (inputsInvalid.length > 0) {
       e.preventDefault()
@@ -107,7 +116,7 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
             className="relative md:absolute w-full md:w-[1200px] bottom-0 left-0 md:translate-y-[40%] md:translate-x-[10%]"
           />
           <div className="md:hidden blur-sm">
-            <svg height="100%" width="auto" xmlns="http://www.w3.org/2000/svg">
+            <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
               <ellipse rx="35%" ry="25" cx="50%" cy="25" fill="#00000025" />
             </svg>
           </div>
