@@ -102,7 +102,7 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
       <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-[10%] flex">
         <div className="md:w-2/3 md:py-8 p-8 flex flex-col">
           <Logo version="normal" className="w-full md:w-[400px]" />
-          <h1 className="text-[20px]! leading-[24px]! text-center md:text-start md:text-[36px]! md:leading-[36px]!">
+          <h1 className="landing-page-hero-title text-[20px]! leading-[24px]! text-center md:text-start md:text-[36px]! md:leading-[36px]!">
             Piloter, arbitrer, orchestrer : l'infrastructure IT est devenue un produit stratégique
           </h1>
 
