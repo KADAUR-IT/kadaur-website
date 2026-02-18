@@ -99,25 +99,27 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
 
   return (
     <div className="relative flex flex-col overflow-hidden">
-      <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-[10%] flex">
+      <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-[8%] flex">
         <div className="md:w-2/3 md:py-8 p-8 flex flex-col">
           <Logo version="normal" className="w-full md:w-[400px]" />
-          <h1 className="landing-page-hero-title text-[20px]! leading-[24px]! text-center md:text-start md:text-[36px]! md:leading-[36px]!">
+          <h1 className="landing-page-hero-title text-[20px]! leading-[24px]! text-center md:text-start md:text-[32px]! md:leading-[32px]!">
             Piloter, arbitrer, orchestrer : l'infrastructure IT est devenue un produit stratégique
           </h1>
 
-          <Image
-            src={'/assets/images/kadaur_white_paper_illu.png'}
-            width={2637}
-            height={2637}
-            alt="Livre Blanc KADAUR"
-            className="relative md:absolute w-full md:min-w-[900px] md:w-13/20 bottom-0 left-0 md:translate-y-[40%]"
-          />
+          <div className="relative">
+            <Image
+              src={'/assets/images/kadaur_white_paper_illu.png'}
+              width={2637}
+              height={2637}
+              alt="Livre Blanc KADAUR"
+              className="relative md:absolute w-full md:min-w-[600px] md:w-full md:scale-150 md:top-40 left-0"
+            />
 
-          <div className="md:hidden blur-sm">
-            <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-              <ellipse rx="35%" ry="25" cx="50%" cy="25" fill="#00000025" />
-            </svg>
+            <div className="md:hidden blur-sm">
+              <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+                <ellipse rx="35%" ry="25" cx="50%" cy="25" fill="#00000025" />
+              </svg>
+            </div>
           </div>
 
           <Button className="md:hidden!" onClick={handleScrollToForm}>
