@@ -199,7 +199,7 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
       <div className="relative overflow-hidden w-full h-full bg-(--color-blue) md:px-[300px] p-8">
         <div className="relative z-5 w-full md:w-6/10">
           <h1 className="w-full md:w-2/3 text-[28px]! leading-[28px]! md:text-[36px]! md:leading-[36px]! text-white">
-            Les 5 points du pilotage IT façon KADAUR
+            Les {summaryItems.length} points du pilotage IT façon KADAUR
           </h1>
           <div className="relative text-[20px] z-5 md:text-[24px] flex flex-col gap-4 md:gap-8">
             {summaryItems.map((item: any, index: number) => (
