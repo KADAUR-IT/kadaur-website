@@ -725,18 +725,3 @@ h1, h2, h3, h4, h5, h6 {
 
     }
 }
-
-.landing-page-hero-title {
-  /* On définit le dégradé (ex: du blanc vers un doré léger) */
-  background: linear-gradient(to top, #70a0d3, var(--color-blue));
-  
-  /* On "coupe" le fond pour qu'il suive la forme des lettres */
-  -webkit-background-clip: text;
-  background-clip: text;
-  
-  /* On rend le texte transparent pour laisser voir le dégradé derrière */
-  color: transparent;
-  
-  /* Optionnel : Une petite ombre pour le contraste sur mobile */
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-}
