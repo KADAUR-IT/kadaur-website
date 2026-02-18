@@ -5,7 +5,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName, library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { Offer } from "./OfferInfos/OfferInfos";
+import { Offer } from "@/payload-types";
 
 library.add(fas)
 

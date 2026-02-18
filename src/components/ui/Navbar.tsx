@@ -21,23 +21,13 @@ export default async function Navbar() {
 
   const isAuth = false
 
-  const links = res.links;
-  
-  let mappedLinks : ReactNode[] = []
-
-  if(links) {
-    mappedLinks = links.map( (link) => {
-        return (
-          <NavbarLink key={link.id} link={link as Link} />
-        )
-      } )
-  }
+  const links : Link[] = res.links as Link[] || [];
   
 
 
-    return (
-        <div className='navbar-wrapper'>
-            <NavbarClient mappedLinks={mappedLinks} isAuth={isAuth} />
-          </div>
-    )
+  return (
+      <div className='navbar-wrapper'>
+        <NavbarClient links={links} isAuth={isAuth} />
+      </div>
+  )
 }

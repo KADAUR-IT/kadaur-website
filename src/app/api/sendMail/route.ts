@@ -2,13 +2,22 @@ import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { Mail } from "@/payload-types";
+import { graphClient } from "@/utils/microsoft/graphMail";
 
 export async function GET(req: Request) {
     const payload = await getPayload({ config : configPromise })
     const { searchParams } = new URL(req.url);
-    //const search = searchParams.get("entreprise") || "";
+    const env = process.env.ENVIRONMENT || 'development'
 
-    console.log(searchParams)
+    let mailInterne = await payload.find({
+        collection: "admins",
+        where: {
+        }
+    })
+
+    /*console.log(mailInterne.docs)
+
+    console.log(searchParams)*/
 
     const form = await payload.findByID({
         collection: "forms",
@@ -29,12 +38,30 @@ export async function GET(req: Request) {
             let htmlContent = await getFileContent(mailTemplate.id as string);
             htmlContent = formatMessage(htmlContent, searchParams.entries())
 
+            let mailTo: string[] = [];
+            mailTemplate.to.forEach( async (to) => {
+                switch(to){
+                    case "client":
+                    case "prospect":
+                    case "partenaire":
+                        mailTo.push(searchParams.get("mail") as string);
+                        break;
+                    case "interne":
+                        mailTo.push(...mailInterne.docs.map((admin) => admin.email));
+                        break;
+                    default:
+                        mailTo.push(searchParams.get("mail") as string);
+                        break;
+                }
+            })
 
-            const email = await payload.sendEmail({
+
+            const email = env === "development" ? await payload.sendEmail({
                 to: searchParams.get("mail"),
                 subject: mailTemplate.subject,
                 html: htmlContent
-            })
+            }) : await sendMail(mailTo, mailTemplate.subject, htmlContent);
+
         })
 
         const lead = await payload.create({
@@ -80,4 +107,21 @@ const getFileContent = async (templateID: string) : Promise<string> => {
     return new Promise((resolve, reject) => {
         resolve(htmlContent);
     });
+}
+
+async function sendMail(to: string[], subject: string, content: string) {
+    const toRecipients = to.map(email => ({
+        emailAddress: { address: email }
+    }))
+
+    await graphClient.api('/users/hello@kadaur.com/sendMail').post({
+        message: {
+            subject,
+            body: {
+                contentType: 'HTML',
+                content,
+            },
+            toRecipients
+        },
+    })
 }

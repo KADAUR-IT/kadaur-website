@@ -3,7 +3,7 @@ import './styles.css'
 import { getPayload } from "payload";
 import config from '@payload-config';
 import OffersPageClient from "./page.client";
-import { Offer } from "./_components/OfferInfos/OfferInfos";
+import { Offer } from "@/payload-types";
 
 const payload = await getPayload({config})
 
@@ -37,7 +37,7 @@ export default async function OffersPage()
     return (
         <>
             <Suspense>
-                <OffersPageClient offers={offers as Offer[]} form={form} />
+                <OffersPageClient description={page.description} offers={offers as Offer[]} form={form} />
             </Suspense>
         </>
     )

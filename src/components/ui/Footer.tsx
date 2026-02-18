@@ -16,6 +16,8 @@ export default async function Footer() {
         slug: "settings"
     })).general?.socialMedia || []
 
+    const thisYear = new Date().getFullYear();
+
     return (
         <footer className="footer">
             <div className="footer-content">
@@ -45,14 +47,18 @@ export default async function Footer() {
                     </div>
                 </div>
                 <div className="footer-right">
-                    <a href="/contact">Contact</a>
-                    <a href="/about/nos-equipes">Notre équipe</a>
-                    <a href="/join-us">Nous rejoindre</a>
+                    <h2>Liens utiles</h2>
+                    <div className="flex flex-col gap-[16px]">
+                        <a href="/contact">Contact</a>
+                        <a href="/about/nos-profils">Notre équipe</a>
+                        <a href="/contact">Nous rejoindre</a>
+                    </div>
+                    
                 </div>
             </div>
             
             <div className="footer-bottom">
-                <p>© 2025 Kadaur. All rights reserved.</p>
+                <p>© {thisYear} Kadaur. All rights reserved.</p>
                 <div className="footer-legal">
                     <a href="/mentions-legales">Mentions légales</a>
                     <a href="/politiques-confidentialites">Politique de confidentialité</a>

@@ -10,7 +10,7 @@ export default function SubtitleBlockComponent({block} : SubtitleBlockProps)
 {
     return(
         <>
-            <h2 className="subtitle-block">{block.text}</h2>
+            <h2 id={block.blockName || ""} className="subtitle-block">{block.text}</h2>
         </>
     )
 }

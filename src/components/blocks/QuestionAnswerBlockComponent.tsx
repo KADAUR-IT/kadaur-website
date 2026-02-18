@@ -25,7 +25,7 @@ export default function QuestionAnswerBlockComponent({block}: QuestionAnswerBloc
 
 
     return(
-        <div className="flex flex-col gap-8 w-full items-center">
+        <div id={block.blockName || ""} className="flex flex-col gap-8 w-full items-center">
             {questionArray}
         </div>
     )

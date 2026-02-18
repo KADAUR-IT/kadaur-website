@@ -1,8 +1,11 @@
+"use client"
+
 import { Media, TextImageBlock } from "@/payload-types";
 import React from "react";
 import Image from "next/image";
 import "./blocks.css"
 import RichText from "../ui/RichText";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface TextImageBlockProps{
     block: TextImageBlock
@@ -16,13 +19,14 @@ export default function TextImageBlockFront({block} : TextImageBlockProps)
     const image = block.image as Media
     
     return(
-        <div className={classDiv + reverseClass}>
+        <div id={block.blockName || ""} className={classDiv + reverseClass}>
             <RichText data={block.text} />
             <Image 
                 src={image.url as string}
                 width={image.width as number}
                 height={image.height as number}
                 alt={image.alt}
+                loader={imageLoader}
             />
         </div>
     )

@@ -8,12 +8,12 @@ export default function MethodeCTA()
     return(
         <div className="methode-call-to-action">
             <div className="methode-call-to-action-text">
-                <SectionTitle className="text-[32px]!">Prêt à débloquer votre potentiel</SectionTitle>
-                <p>Nous vous guidons vers la réuissite de vos projet IT</p>
+                <SectionTitle className="text-[32px]!">Un projet IT ne se pilote pas à l'aveugle</SectionTitle>
+                <p>Chaque projet IT mérite un cadre clair avant toute décision structurante</p>
             </div>
             
-            <Link buttonColor="white" className="h-fit" href="/contact">Prendre RDV</Link>
-            <Link className="h-fit" href="/about/methode-kadaur">En savoir plus</Link>
+            <Link linkColor="white" className="h-fit" href="/contact">Parler de votre situation</Link>
+            <Link className="h-fit" href="/methode-kadaur">Comprendre notre approche</Link>
 
         </div>
     )

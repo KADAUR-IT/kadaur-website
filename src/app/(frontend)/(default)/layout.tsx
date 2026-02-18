@@ -7,6 +7,8 @@ import Script from 'next/script'
 import { getPayload } from 'payload'
 import payloadConfig from '@/payload.config'
 import { ToastContainer } from "react-toastify"
+import GoogleAnalyticsScript from '@/components/scripts/googleAnalyticsScript'
+import CookieBanner from '@/components/ui/Cookies/CookieBanner'
 
 const payload = await getPayload({ config: payloadConfig})
 const siteMetadata = await payload.findGlobal({
@@ -14,12 +16,19 @@ const siteMetadata = await payload.findGlobal({
 })
 
 export const metadata = {
-  description: siteMetadata.SEO.description || 'A blank template using Payload in a Next.js app.',
+  description: siteMetadata.SEO.description || 'KADAUR - Cabinet de conseil en gestion de projets IT et transformation digitale.',
   title: {
     template: siteMetadata.SEO.template || "KADAUR - %s",
     default : siteMetadata.SEO.title || 'KADAUR',
-  }
+  },
+  icons: {
+    icon: '/assets/icon/favicon.ico',
+    apple: '/assets/icon/apple-touch-icon.png',
+  },
 }
+
+export const dynamic = 'auto'
+export const revalidate = 60
 
 const GA_MEASUREMENT_ID = siteMetadata.googleAnalytics?.trackingID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -29,26 +38,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <head>
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${GA_MEASUREMENT_ID}', { page_path: window.location.pathname });
-              console.log(window.location.pathname)
-            `,
-          }}
-        />
+        <GoogleAnalyticsScript googleAnalyticsID={GA_MEASUREMENT_ID} />
       </head>
       <body>
         <main>
+          <CookieBanner />
           <Navbar />
           {children}
           <Footer />

@@ -18,12 +18,14 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@azure/identity": "^4.13.0",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@google-analytics/data": "^5.2.1",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
     "@payloadcms/db-mongodb": "3.68.5",
     "@payloadcms/email-nodemailer": "3.68.5",
     "@payloadcms/live-preview-react": "^3.68.5",
@@ -35,6 +37,7 @@
     "@payloadcms/ui": "3.68.5",
     "@tailwindcss/postcss": "^4.1.18",
     "axios": "^1.13.2",
+    "cookies-next": "^6.1.1",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "fs": "0.0.1-security",

@@ -24,9 +24,12 @@ export default function FormBlockComponent({block} : FormBlockProps)
     const recaptchaRef = useRef(null)
     const errorRef = useRef(null)
     const [isFormValid, setFormValidity] = useState(true)
+    const [formSubmitted, setFormSubmitted] = useState(false)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+
+        setFormSubmitted(true)
         
         //recaptchaRef.current.execute();
         
@@ -55,6 +58,8 @@ export default function FormBlockComponent({block} : FormBlockProps)
         {
             console.error(error)
         }
+
+        setFormSubmitted(false)
     }
 
     const handleVerification = (formData : FormData) => {
@@ -105,7 +110,7 @@ export default function FormBlockComponent({block} : FormBlockProps)
 
     
     return(
-        <form onSubmit={handleSubmit} className="form-part">
+        <form id={block.blockName || ""} onSubmit={handleSubmit} className="form-part">
             <div ref={errorRef} className={"error-form" + ( !isFormValid ? "" : " hide" )}>
                 <FontAwesomeIcon icon={faTimesCircle} />
                 <p>Veuillez remplir tous les champs</p>
@@ -113,7 +118,7 @@ export default function FormBlockComponent({block} : FormBlockProps)
             <input type="hidden" name="form-id" value={(block.form as Form).id as string} />
             {renderFields}
             <Captcha ref={recaptchaRef} />
-            <ContactSubmit>Nous contacter !</ContactSubmit>
+            <ContactSubmit isLoading={formSubmitted}>{form.submitText}</ContactSubmit>
         </form>
     )
 }

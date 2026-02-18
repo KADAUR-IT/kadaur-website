@@ -6,14 +6,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button";
 import Logo from "@/components/constants/Logo";
+import { usePathname } from "next/navigation";
+import NavbarLink, { Link } from "./NavbarLink";
 
 interface NavbarProps
 {
-    mappedLinks: ReactNode[], 
+    links: Link[], 
     isAuth: boolean
 }
 
-export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
+export default function NavbarClient({links, isAuth} : NavbarProps)
 {
     const [subOpen, setOpen] = useState(false)
 
@@ -24,6 +26,14 @@ export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
     {
         setOpen(!subOpen)
     }
+
+    
+    const mappedLinks = links.map( (link) => {
+        return (
+            <NavbarLink key={link.id} link={link as Link} />
+        )
+    })
+    
 
     return (
         <>
@@ -40,7 +50,7 @@ export default function NavbarClient({mappedLinks, isAuth} : NavbarProps)
                     
                 </div>
                 <div className="mobile-only">
-                    <Button className="navbar-button-mobile" onClick={handleClickMobile}>
+                    <Button buttonColor="white" className="navbar-button-mobile" onClick={handleClickMobile}>
                         <FontAwesomeIcon icon={faBars} />
                     </Button>
                 </div>

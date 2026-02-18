@@ -10,7 +10,7 @@ export default function SectionTitleBlockComponent({block} : SectionTitleBlockPr
 {
     return(
         <>
-            <h3>{block.text}</h3>
+            <h3 id={block.blockName || ""}>{block.text}</h3>
         </>
     )
 }

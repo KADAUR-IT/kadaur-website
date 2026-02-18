@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Media } from "@/payload-types";
+import { imageLoader } from "@/utils/images/imagesLoader";
 
 interface ClientSliderProps{
     partner: {
@@ -21,6 +22,8 @@ export default function ClientSlider({partner} : ClientSliderProps) {
                 src={partnerLogo.url as string}
                 width={245}
                 key={p.id}
+                loader={imageLoader}
+                className="max-h-[64px]"
             />
         )
     } )

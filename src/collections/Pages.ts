@@ -10,6 +10,7 @@ import { DownloadableFileBlock } from "@/blocks/DownloadableFileBlock"
 import { SectionTitleBlock } from "@/blocks/SectionTitleBlock"
 import { RichTextBlock } from "@/blocks/RichTextBlock"
 import { FormBlock } from "@/blocks/FormBlock"
+import { CTABlock } from "@/blocks/CTABlock"
 
 export const Pages : CollectionConfig = 
 {
@@ -33,6 +34,12 @@ export const Pages : CollectionConfig =
             unique: true
         },
         {
+            name: "hidden",
+            type: "checkbox",
+            label: "Caché ?",
+            defaultValue: false
+        },
+        {
             name: "seoOnly",
             type: "checkbox",
             label: "SEO seulement ?"
@@ -43,7 +50,16 @@ export const Pages : CollectionConfig =
             admin: {
                 condition: (_, siblingData) => !siblingData.seoOnly,
             },
-            blocks: [TextImageBlock, TitleBlock, QuoteBlock, EnumBlock, SubtitleBlock, QuestionAnswerBlock, DownloadableFileBlock, SectionTitleBlock, RichTextBlock, FormBlock]
+            blocks: [TextImageBlock, TitleBlock, QuoteBlock, EnumBlock, SubtitleBlock, QuestionAnswerBlock, DownloadableFileBlock, SectionTitleBlock, RichTextBlock, FormBlock, CTABlock]
+        },
+        {
+            name: "heroImage",
+            type: "upload",
+            admin: {
+                condition: (_, siblingData) => siblingData.slug === "/",
+            },
+            relationTo: "media",
+            required: true
         },
         {
             name: "partnerToShow",
@@ -97,6 +113,19 @@ export const Pages : CollectionConfig =
                     required: true
                 }
             ]
+        },
+        {
+            name: "description",
+            type: "richText",
+            admin: {
+                condition: (_, siblingData) => siblingData.slug === "offers",
+            },
+            editor: lexicalEditor({
+                features: ({defaultFeatures}) => [
+                    ...defaultFeatures,
+                    FixedToolbarFeature()
+                ]
+            }),
         },
         {
             name: "form",

@@ -1,7 +1,7 @@
 import { Article, Media } from "@/payload-types";
+import { imageLoader } from "@/utils/images/imagesLoader";
 import Image from "next/image";
 import React from "react";
-import { redirect } from "next/navigation";
 
 interface ArticleCardProps
 {
@@ -19,6 +19,7 @@ export default function ArticleCard({article}: ArticleCardProps)
                 height={thumbnail.height as number}
                 src={thumbnail.url as string}
                 width={thumbnail.width as number}
+                loader={imageLoader}
             />
             <div className="article-info">
                 <span className="article-topic">Activité</span>
