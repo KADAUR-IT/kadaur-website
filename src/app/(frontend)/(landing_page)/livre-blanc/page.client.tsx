@@ -17,13 +17,10 @@ interface LivreBlancPageClientProps {
 
 export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClientProps) {
   const fileURL = livreBlanc?.file?.url || '/assets/files/livre%20blanc%20KADAUR%202026.pdf'
-  const summaryItems = livreBlanc?.summaryItems.map((item: any) => item.title) || [
-    'Passif stratégique',
-    'Agilité',
-    'IA et AIOps',
-    'Tendances structurelles',
-    'Convergence',
-  ]
+  const summaryItems =
+    livreBlanc?.summaryItems.length > 0
+      ? livreBlanc.summaryItems.map((item: any) => item.title)
+      : ['Passif stratégique', 'Agilité', 'IA et AIOps', 'Tendances structurelles', 'Convergence']
 
   const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     const formDiv = e.currentTarget.closest('div')
@@ -102,19 +99,21 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
 
   return (
     <div className="relative flex flex-col overflow-hidden">
-      <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-64 flex">
+      <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-[10%] flex">
         <div className="md:w-2/3 md:py-8 p-8 flex flex-col">
           <Logo version="normal" className="w-full md:w-[400px]" />
           <h1 className="text-[20px]! leading-[24px]! text-center md:text-start md:text-[36px]! md:leading-[36px]!">
             Piloter, arbitrer, orchestrer : l'infrastructure IT est devenue un produit stratégique
           </h1>
+
           <Image
             src={'/assets/images/kadaur_white_paper_illu.png'}
             width={2637}
             height={2637}
             alt="Livre Blanc KADAUR"
-            className="relative md:absolute w-full md:w-[1200px] bottom-0 left-0 md:translate-y-[40%] md:translate-x-[10%]"
+            className="relative md:absolute w-full md:min-w-[900px] md:w-13/20 bottom-0 left-0 md:translate-y-[40%]"
           />
+
           <div className="md:hidden blur-sm">
             <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
               <ellipse rx="35%" ry="25" cx="50%" cy="25" fill="#00000025" />
@@ -213,7 +212,7 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
           width={259}
           height={670}
           alt="Mascotte KADAUR"
-          className="absolute z-0 md:z-11 right-[50px] bottom-[-250px] md:right-[400px] md:bottom-[-100px] h-[600px]! w-auto"
+          className="absolute z-0 md:z-4 right-[50px] bottom-[-250px] md:right-[400px] md:bottom-[-100px] h-full! w-auto"
         />
 
         <div className="absolute bottom-0 left-0 z-4">
