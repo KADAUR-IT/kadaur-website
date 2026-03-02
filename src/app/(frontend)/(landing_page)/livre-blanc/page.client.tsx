@@ -97,6 +97,8 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
     }
   }
 
+  const thisYear = new Date().getFullYear()
+
   return (
     <div className="relative flex flex-col overflow-hidden">
       <div className="relative overflow-hidden w-full h-dvh bg-(--color-white) md:px-[8%] flex">
@@ -216,6 +218,10 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
           alt="Mascotte KADAUR"
           className="absolute z-0 md:z-4 right-[50px] bottom-[-250px] md:right-[400px] md:bottom-[-100px] h-full! w-auto"
         />
+
+        <p className="text-center text-(--color-white) mt-8">
+          © {thisYear} Kadaur. All rights reserved.
+        </p>
 
         <div className="absolute bottom-0 left-0 z-4">
           <svg height="1500" width="1500" xmlns="http://www.w3.org/2000/svg">
