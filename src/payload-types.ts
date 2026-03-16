@@ -1525,6 +1525,15 @@ export interface Setting {
   googleAnalytics?: {
     trackingID?: string | null;
   };
+  livreBlanc: {
+    file: string | File;
+    summaryItems?:
+      | {
+          title?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1621,6 +1630,17 @@ export interface SettingsSelect<T extends boolean = true> {
     | T
     | {
         trackingID?: T;
+      };
+  livreBlanc?:
+    | T
+    | {
+        file?: T;
+        summaryItems?:
+          | T
+          | {
+              title?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

@@ -6,20 +6,22 @@ import Footer from '@/components/ui/Footer'
 import Script from 'next/script'
 import { getPayload } from 'payload'
 import payloadConfig from '@/payload.config'
-import { ToastContainer } from "react-toastify"
+import { ToastContainer } from 'react-toastify'
 import GoogleAnalyticsScript from '@/components/scripts/googleAnalyticsScript'
 import CookieBanner from '@/components/ui/Cookies/CookieBanner'
 
-const payload = await getPayload({ config: payloadConfig})
+const payload = await getPayload({ config: payloadConfig })
 const siteMetadata = await payload.findGlobal({
-  slug: "settings"
+  slug: 'settings',
 })
 
 export const metadata = {
-  description: siteMetadata.SEO.description || 'KADAUR - Cabinet de conseil en gestion de projets IT et transformation digitale.',
+  description:
+    siteMetadata.SEO.description ||
+    'KADAUR - Cabinet de conseil en gestion de projets IT et transformation digitale.',
   title: {
-    template: siteMetadata.SEO.template || "KADAUR - %s",
-    default : siteMetadata.SEO.title || 'KADAUR',
+    template: siteMetadata.SEO.template || 'KADAUR - %s',
+    default: siteMetadata.SEO.title || 'KADAUR',
   },
   icons: {
     icon: '/assets/icon/favicon.ico',
@@ -28,9 +30,10 @@ export const metadata = {
 }
 
 export const dynamic = 'auto'
-export const revalidate = 60
+export const revalidate = 1800
 
-const GA_MEASUREMENT_ID = siteMetadata.googleAnalytics?.trackingID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID =
+  siteMetadata.googleAnalytics?.trackingID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
