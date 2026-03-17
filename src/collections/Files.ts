@@ -5,6 +5,9 @@ export const Files: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Uploads',
+  },
   fields: [
     {
       name: 'filename',
