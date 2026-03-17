@@ -1576,15 +1576,15 @@ export interface NavbarLink {
     | {
         label: string;
         link?: string | null;
-        isButton?: boolean | null;
         subLinks?:
           | {
               label: string;
-              link?: string | null;
+              link: string;
               isButton?: boolean | null;
               id?: string | null;
             }[]
           | null;
+        isButton?: boolean | null;
         id?: string | null;
       }[]
     | null;
@@ -1689,7 +1689,6 @@ export interface NavbarLinksSelect<T extends boolean = true> {
     | {
         label?: T;
         link?: T;
-        isButton?: T;
         subLinks?:
           | T
           | {
@@ -1698,6 +1697,7 @@ export interface NavbarLinksSelect<T extends boolean = true> {
               isButton?: T;
               id?: T;
             };
+        isButton?: T;
         id?: T;
       };
   updatedAt?: T;
