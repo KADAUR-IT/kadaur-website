@@ -5,6 +5,9 @@ export const Media: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Uploads',
+  },
   fields: [
     {
       name: 'alt',
@@ -13,6 +16,6 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    skipSafeFetch: true
+    skipSafeFetch: true,
   },
 }

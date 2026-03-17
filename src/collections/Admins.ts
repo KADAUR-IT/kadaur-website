@@ -4,6 +4,7 @@ export const Admins: CollectionConfig = {
   slug: 'admins',
   admin: {
     useAsTitle: 'email',
+    group: 'Utilisateurs',
   },
   auth: true,
   fields: [
@@ -17,8 +18,8 @@ export const Admins: CollectionConfig = {
     },*/
   ],
   access: {
-    create: async ({req}) => {
+    create: async ({ req }) => {
       return req.user?.collection === 'admins'
-    }
-  }
+    },
+  },
 }

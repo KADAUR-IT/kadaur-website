@@ -1,15 +1,16 @@
 import { CollectionConfig } from 'payload'
-import { withUsersCollection } from "payload-auth-plugin/collection";
+import { withUsersCollection } from 'payload-auth-plugin/collection'
 import { deleteLinkedAccounts } from 'payload-auth-plugin/collection/hooks'
 import { Accounts } from '@/collections/Accounts'
-import { adminAuthClient } from '@/utils/auth/auth';
-import { headers } from 'next/headers';
+import { adminAuthClient } from '@/utils/auth/auth'
+import { headers } from 'next/headers'
 
 export const Users: CollectionConfig = withUsersCollection({
-  slug: "users",
+  slug: 'users',
   admin: {
     defaultColumns: ['fullName', 'email'],
     useAsTitle: 'email',
+    group: 'Utilisateurs',
   },
   /*access: {
     read: async () => {
@@ -53,6 +54,6 @@ export const Users: CollectionConfig = withUsersCollection({
   ],
   timestamps: true,
   hooks: {
-      afterDelete: [deleteLinkedAccounts(Accounts.slug)],
+    afterDelete: [deleteLinkedAccounts(Accounts.slug)],
   },
 })
