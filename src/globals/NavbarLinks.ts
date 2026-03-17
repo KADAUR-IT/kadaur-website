@@ -1,48 +1,54 @@
-import type { GlobalConfig } from "payload";
+import type { GlobalConfig } from 'payload'
 
-export const NavbarLinks : GlobalConfig = {
-    slug : "navbarLinks",
-    access : {
-        read : () => true
-    },
-    fields: [
+export const NavbarLinks: GlobalConfig = {
+  slug: 'navbarLinks',
+  access: {
+    read: () => true,
+  },
+  fields: [
+    {
+      name: 'links',
+      type: 'array',
+      fields: [
         {
-            name : "links",
-            type : 'array',
-            fields : [
-                {
-                    name: "label",
-                    type: "text",
-                    required : true
-                },
-                {
-                    name: "link",
-                    type: "text"
-                },
-                {
-                    name: "isButton",
-                    type: "checkbox"
-                },
-                {
-                    name: "subLinks",
-                    type: 'array',
-                    fields: [
-                        {
-                            name: "label",
-                            type: "text",
-                            required : true
-                        },
-                        {
-                            name: "link",
-                            type: "text"
-                        },
-                        {
-                            name: "isButton",
-                            type: "checkbox"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+          name: 'label',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'link',
+          type: 'text',
+          admin: {
+            condition: (data, siblingData) => {
+              return !siblingData?.subLinks || siblingData.subLinks.length === 0
+            },
+          },
+        },
+        {
+          name: 'subLinks',
+          type: 'array',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'link',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'isButton',
+              type: 'checkbox',
+            },
+          ],
+        },
+        {
+          name: 'isButton',
+          type: 'checkbox',
+        },
+      ],
+    },
+  ],
 }

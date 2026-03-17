@@ -1,85 +1,86 @@
 'use client'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { ReactNode } from "react";
-import { IconName, library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { usePathname } from "next/navigation";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
+import { ReactNode } from 'react'
+import { IconName, library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { usePathname } from 'next/navigation'
 
 library.add(fas)
 
-export type Link =
-{
-    label: string;
-    link?: string | null | undefined;
-    isButton?: boolean | null | undefined;
-    subLinks?: {
-        label: string;
-        link?: string | null | undefined;
-        isButton?: boolean | null | undefined;
-        id?: string | null | undefined;
-    }[] | null | undefined;
-    id?: string | null | undefined;
+interface SubLink {
+  label: string
+  link: string
+  isButton?: boolean | null | undefined
+  id?: string | null | undefined
 }
 
-interface NavbarLinkProps 
-{
-    link : Link
+export type Link = {
+  label: string
+  link?: string | null | undefined
+  isButton?: boolean | null | undefined
+  subLinks?: SubLink[] | null | undefined
+  id?: string | null | undefined
 }
 
-export default function NavbarLink({link} : NavbarLinkProps) {
-    const pathname = usePathname();
-    const pathList = pathname.split('/').filter(Boolean);
+interface NavbarLinkProps {
+  link: Link
+}
 
-    if(!link)
-    {
-        return
-    }
+export default function NavbarLink({ link }: NavbarLinkProps) {
+  const pathname = usePathname()
+  const pathList = pathname
 
-    const [isOpen, setOpen] = useState(false);
-    const [isActive, setActive] = useState(link.link === pathList[0]);
+  if (!link) {
+    return
+  }
 
-    function handleClick() 
-    {
-        setOpen(!isOpen);
-    }
+  const [isOpen, setOpen] = useState(false)
+  const [isActive, setActive] = useState(pathList.endsWith(link.link as string))
 
-    function closeSubnavbar()
-    {
-        setOpen(false)
-    }
+  function handleClick() {
+    setOpen(!isOpen)
+  }
 
-    let classnameLink = link.isButton ? "navbar-button" : "navbar-link"
-    if(isOpen || isActive) classnameLink += " active"
+  function closeSubnavbar() {
+    setOpen(false)
+  }
 
-    let classnameSubnavbar = "subnavbar-links"
-    if(!isOpen) classnameSubnavbar += " hide"
+  let classnameLink = link.isButton ? 'navbar-button' : 'navbar-link'
+  if (isOpen || isActive) classnameLink += ' active'
 
-    let icon = isOpen ? "chevron-up" : "chevron-down"
+  let classnameSubnavbar = 'subnavbar-links'
+  if (!isOpen) classnameSubnavbar += ' hide'
 
-    let mappedSubLinks : ReactNode[] = []
-    if(link.subLinks)
-    {
-        mappedSubLinks = link.subLinks.map( (sublink) => {
-            const isActive = sublink.link === pathList[1];
+  let icon = isOpen ? 'chevron-up' : 'chevron-down'
 
-            return (
-                <a className={`navbar-link ${isActive ? "active" : ""}`} href={"/" + link.link + "/" + sublink.link} key={sublink.label}>{sublink.label}</a>
-            )
-      } )
-    }
+  let mappedSubLinks: ReactNode[] = []
+  if (link.subLinks && link.subLinks.length > 0) {
+    mappedSubLinks = link.subLinks.map((sublink) => {
+      const isActive = pathList.endsWith(sublink.link as string)
 
-    return (
-        link.subLinks && link.subLinks.length > 0 ?
-        <button className={classnameLink} onClick={handleClick}>
-            {link.label}
-            <FontAwesomeIcon icon={["fas", icon as IconName]} className="desktop-only" />
-            <div className={classnameSubnavbar}>
-                {mappedSubLinks}
-            </div>
-        </button>
-        :
-        <a href={"/" + link.link} className={classnameLink}>{link.label}</a>
-    )
+      return (
+        <a
+          className={`navbar-link ${isActive ? 'active' : ''}`}
+          href={sublink.link}
+          key={sublink.label}
+        >
+          {sublink.label}
+        </a>
+      )
+    })
+  }
+
+  return link.subLinks && link.subLinks.length > 0 ? (
+    <button className={classnameLink} onClick={handleClick}>
+      {link.label}
+      <FontAwesomeIcon icon={['fas', icon as IconName]} className="desktop-only" />
+      <div className={classnameSubnavbar}>{mappedSubLinks}</div>
+    </button>
+  ) : (
+    <a href={link.link as string} className={classnameLink}>
+      {link.label}
+    </a>
+  )
 }
