@@ -5,8 +5,13 @@ import { Users } from '@/collections/Users'
 export const Accounts: CollectionConfig = withAccountCollection(
   {
     slug: 'accounts',
+    labels: {
+      singular: 'Compte',
+      plural: 'Comptes',
+    },
     admin: {
       group: 'Utilisateurs',
+      hidden: true,
     },
   },
   'users',

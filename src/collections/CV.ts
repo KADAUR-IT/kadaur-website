@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const CV: CollectionConfig = {
   slug: 'cv',
+  labels: {
+    singular: 'CV',
+    plural: 'CV',
+  },
   admin: {
     group: 'Leads',
   },

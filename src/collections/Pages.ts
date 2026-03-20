@@ -14,6 +14,10 @@ import { CTABlock } from '@/blocks/CTABlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  labels: {
+    singular: 'Page',
+    plural: 'Pages',
+  },
   admin: {
     useAsTitle: 'title',
     group: 'Content',

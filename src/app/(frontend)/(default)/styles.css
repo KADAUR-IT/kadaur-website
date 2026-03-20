@@ -163,7 +163,6 @@ h1 {
         {
           display: flex;
           width: 100%;
-          min-height: 450px;
           flex-direction: column;
           justify-content: flex-start;
           align-items: center;

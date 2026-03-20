@@ -2,6 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const Files: CollectionConfig = {
   slug: 'files',
+  labels: {
+    singular: 'Fichier',
+    plural: 'Fichiers',
+  },
   access: {
     read: () => true,
   },
