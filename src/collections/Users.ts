@@ -7,10 +7,15 @@ import { headers } from 'next/headers'
 
 export const Users: CollectionConfig = withUsersCollection({
   slug: 'users',
+  labels: {
+    singular: 'Utilisateur',
+    plural: 'Utilisateurs',
+  },
   admin: {
     defaultColumns: ['fullName', 'email'],
     useAsTitle: 'email',
     group: 'Utilisateurs',
+    description: "Utilisateurs de l'application",
   },
   /*access: {
     read: async () => {

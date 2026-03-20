@@ -3,6 +3,10 @@ import { CollectionConfig } from 'payload'
 
 export const Article: CollectionConfig = {
   slug: 'article',
+  labels: {
+    singular: 'Article',
+    plural: 'Articles',
+  },
   admin: {
     useAsTitle: 'title',
     group: 'Content',

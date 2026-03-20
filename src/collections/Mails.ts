@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const Mails: CollectionConfig = {
   slug: 'mails',
+  labels: {
+    singular: 'Mail',
+    plural: 'Mails',
+  },
   admin: {
     useAsTitle: 'subject',
     group: 'Content',

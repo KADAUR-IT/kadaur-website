@@ -68,13 +68,13 @@ export default function HomePageClient({
           loader={imageLoader}
         />
         <div className="overlay-hero"></div>
-        <h1>Redonner de la clarté à vos décisions IT</h1>
+        <h1>Piloter l'Infrastructure IT comme un produit stratégique</h1>
         <h2 className="text-center text-white text-xl md:text-2xl md:max-w-[900px]">
-          Une approche structurée du pilotage de l'infrastructure IT
+          Nous sécurisons les décisions et pilotons ceux qui la déploient dans votre intérêt
         </h2>
         <div className="flex flex-col md:flex-row gap-1 md:gap-6">
           <Link linkColor="blue" href="/contact">
-            Echangez sur votre contexte IT
+            Echangeons sur votre contexte IT
           </Link>
           <Button buttonColor="gold" onClick={scrollValeurs}>
             Découvrez la méthode KADAUR
