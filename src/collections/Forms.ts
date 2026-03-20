@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload'
 
 export const Forms: CollectionConfig = {
   slug: 'forms',
+  labels: {
+    singular: 'Formulaire',
+    plural: 'Formulaires',
+  },
   admin: {
     useAsTitle: 'name',
     group: 'Content',
