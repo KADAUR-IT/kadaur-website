@@ -10,13 +10,19 @@ import Link from '@/components/ui/Link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
+import { Form, FormBlock } from '@/payload-types'
+import { handleMail } from '@/utils/sendMail'
+import { stringify } from 'querystring'
 
 interface LivreBlancPageClientProps {
   livreBlanc: any
+  formBlock: FormBlock
 }
 
-export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClientProps) {
+export default function LivreBlancPageClient({ livreBlanc, formBlock }: LivreBlancPageClientProps) {
   const fileURL = livreBlanc?.file?.url || '/assets/files/livre%20blanc%20KADAUR%202026.pdf'
+  const form = formBlock.form as Form
+
   const summaryItems =
     livreBlanc?.summaryItems.length > 0
       ? livreBlanc.summaryItems.map((item: any) => item.title)
@@ -73,6 +79,10 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
 
       const res = await req.json()
       const status = req.status
+
+      if (status == 200) {
+        const res = await handleMail(stringify({ 'form-id': form.id }))
+      }
 
       const toastNotify = status === 200 ? toast.success : toast.error
       toastNotify(res.message, {
@@ -133,7 +143,7 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
           <div className="relative hidden md:block z-10 w-full h-fit md:w-[400px] bg-(--color-gold) px-8 md:px-4 py-8 md:py-16 md:rounded-[20px] overflow-hidden shadow-[0_8px_20px_5px_rgba(0,0,0,0.25)]">
             <div className="relative flex flex-col gap-8 z-12">
               <h2 className="text-center text-[28px]! leading-[28px]! md:text-[28px]! md:leading-[30px]! font-semibold! text-white">
-                Prêt à moderniser votre infrastructure ?
+                {formBlock.title}
               </h2>
               <div className="flex flex-col gap-4">
                 <div
@@ -143,18 +153,22 @@ export default function LivreBlancPageClient({ livreBlanc }: LivreBlancPageClien
                   <FontAwesomeIcon icon={faCircleExclamation} />
                   <p>Veuillez remplir tous les champs</p>
                 </div>
-                <Input className="form-input" id="prenom" label="Prénom" placeholder="Jean" />
-                <Input className="form-input" id="nom" label="Nom" placeholder="Dupond" />
-                <Input
-                  className="form-input"
-                  id="entreprise"
-                  label="Entreprise"
-                  placeholder="Inc."
-                />
-                <Input className="form-input" id="mail" label="E-mail" placeholder="jean@mail.fr" />
+
+                {form.fields?.map((field, index) => {
+                  return (
+                    <Input
+                      key={index}
+                      className="form-input"
+                      id={field.formID}
+                      label={field.label}
+                      placeholder={field.placeholder as string}
+                    />
+                  )
+                })}
+                <input type="hidden" name="form-id" value={form.id as string} />
               </div>
               <Link href={fileURL} className="w-full" onClick={handleDownload} download>
-                Télécharger
+                {form.submitText}
               </Link>
             </div>
 

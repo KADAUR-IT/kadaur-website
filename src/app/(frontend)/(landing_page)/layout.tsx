@@ -3,10 +3,23 @@ import '../(default)/styles.css'
 import '@/styles/global.css'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify'
+import { getPayload } from 'payload'
+import payloadConfig from '@/payload.config'
+
+const payload = await getPayload({ config: payloadConfig })
+const resPage = await payload.find({
+  collection: 'pages',
+  where: {
+    slug: { equals: 'livre-blanc' },
+  },
+  limit: 1,
+})
+
+const pageMetadata = resPage.docs[0].meta
 
 export const metadata = {
-  description: 'Livre blanc de KADAUR',
-  title: 'KADAUR - Livre Blanc',
+  description: pageMetadata?.description || 'Livre blanc de KADAUR',
+  title: pageMetadata?.title || 'KADAUR - Livre Blanc',
   icons: {
     icon: '/assets/icon/favicon.ico',
     apple: '/assets/icon/apple-touch-icon.png',
