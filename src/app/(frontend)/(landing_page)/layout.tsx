@@ -26,6 +26,8 @@ export const metadata = {
   },
 }
 
+export const dynamic = 'auto'
+export const revalidate = 300
 const GA_MEASUREMENT_ID = 'G-MNVLLR4SMH'
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
