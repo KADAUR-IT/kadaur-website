@@ -144,7 +144,9 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       admin: {
         condition: (_, siblingData) =>
-          siblingData.slug === 'contact' || siblingData.slug === 'offers',
+          siblingData.slug === 'contact' ||
+          siblingData.slug === 'offers' ||
+          siblingData.slug === 'livre-blanc',
       },
       blocks: [FormBlock],
     },
