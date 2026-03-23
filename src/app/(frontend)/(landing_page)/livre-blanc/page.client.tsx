@@ -76,9 +76,8 @@ export default function LivreBlancPageClient({ livreBlanc, formBlock }: LivreBla
         },
         body: JSON.stringify(dataToSend),
       })*/
-      const req = await handleMail(stringify({ 'form-id': form.id, ...dataToSend }))
-      const res = await req.json()
-      const status = req.status
+      const res = await handleMail(stringify({ 'form-id': form.id, ...dataToSend }))
+      const status = res.status
 
       const toastNotify = status === 200 ? toast.success : toast.error
       toastNotify(res.message, {

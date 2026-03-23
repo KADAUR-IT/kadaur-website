@@ -103,7 +103,8 @@ const getFileContent = async (templateID: string): Promise<string> => {
   try {
     const res = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${templateID}`)
     if (!res.ok) {
-      throw new Error('Failed to fetch mail template' + res.text())
+      const textError = await res.text()
+      throw new Error('Failed to fetch mail template' + textError)
     }
 
     htmlContent = await res.text()
