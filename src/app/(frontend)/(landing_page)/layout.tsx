@@ -15,7 +15,7 @@ const resPage = await payload.find({
   limit: 1,
 })
 
-const pageMetadata = resPage.docs[0].meta
+const pageMetadata = resPage?.docs?.[0]?.meta
 
 export const metadata = {
   description: pageMetadata?.description || 'Livre blanc de KADAUR',
