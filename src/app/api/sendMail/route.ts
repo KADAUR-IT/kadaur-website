@@ -14,10 +14,6 @@ export async function GET(req: Request) {
     where: {},
   })
 
-  /*console.log(mailInterne.docs)
-
-    console.log(searchParams)*/
-
   const form = await payload.findByID({
     collection: 'forms',
     id: searchParams.get('form-id') as string,

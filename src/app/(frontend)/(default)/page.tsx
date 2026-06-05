@@ -7,6 +7,7 @@ import config from '@/payload.config'
 import './styles.css'
 import HomePageClient from './page.client'
 import { Media } from '@/payload-types'
+import ImageHandler from '@/utils/singleton/ImageHandler'
 
 const payload = await getPayload({ config })
 
@@ -28,12 +29,15 @@ export default async function HomePage() {
   //const headers = await getHeaders()
   //const { user } = await payload.auth({ headers })
 
+  const cache = ImageHandler.getInstance(payload).getCache()
+
   const res = await payload.find({
     collection: 'pages',
     where: {
       slug: { equals: '/' },
     },
     limit: 1,
+    depth: 0,
   })
 
   const page = res.docs[0]
@@ -42,9 +46,19 @@ export default async function HomePage() {
     collection: 'offers',
   })
 
+  const partnerImages = await cache.findManyById(
+    page.partnerToShow?.map((p) => p.partnerLogo as string) || [],
+  )
   const avis = page.avisToShow
-  const partner = page.partnerToShow
-  const heroImage = page.heroImage as Media
+  const partner = page.partnerToShow?.map((p) => {
+    const logo: Media = partnerImages.find((i) => p.partnerLogo === i.id)!
+
+    return {
+      ...p,
+      partnerLogo: logo,
+    }
+  })
+  const heroImage = await cache.findById(page.heroImage as string)
 
   const articles = await payload.find({
     collection: 'article',

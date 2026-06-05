@@ -1,3 +1,4 @@
+import { getCountriesAnalyticsData, getViewsAndUsersAnalyticsData } from '@/endpoints/analytics'
 import { GlobalConfig } from 'payload'
 
 export const Settings: GlobalConfig = {
@@ -9,6 +10,29 @@ export const Settings: GlobalConfig = {
         {
           name: 'general',
           fields: [
+            {
+              type: 'group',
+              name: 'logos',
+              label: 'Logos',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      type: 'upload',
+                      relationTo: 'media',
+                      name: 'logo',
+                    },
+                    {
+                      type: 'upload',
+                      relationTo: 'media',
+                      name: 'logoAlternative',
+                    },
+                  ],
+                },
+              ],
+            },
+
             {
               type: 'array',
               name: 'socialMedia',
@@ -51,26 +75,13 @@ export const Settings: GlobalConfig = {
           ],
         },
         {
-          name: 'logos',
-          fields: [
-            {
-              type: 'upload',
-              relationTo: 'media',
-              name: 'logo',
-            },
-            {
-              type: 'upload',
-              relationTo: 'media',
-              name: 'logoAlternative',
-            },
-          ],
-        },
-        {
           name: 'SEO',
+          label: 'SEO',
           fields: [
             {
               type: 'text',
               name: 'title',
+              label: 'Titre',
               required: true,
               defaultValue: 'KADAUR',
             },
@@ -87,6 +98,7 @@ export const Settings: GlobalConfig = {
             {
               type: 'array',
               name: 'keywords',
+              label: 'Mots-clés',
               fields: [
                 {
                   type: 'text',
@@ -100,8 +112,46 @@ export const Settings: GlobalConfig = {
           name: 'googleAnalytics',
           fields: [
             {
-              type: 'text',
-              name: 'trackingID',
+              type: 'row',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'trackingID',
+                  label: 'Tracking ID',
+                  required: true,
+                },
+                {
+                  type: 'text',
+                  name: 'propertyID',
+                  label: 'Property ID',
+                  required: true,
+                },
+              ],
+            },
+
+            {
+              type: 'row',
+              fields: [
+                {
+                  type: 'ui',
+                  name: 'analytics',
+                  admin: {
+                    components: {
+                      Field: 'src/components/ui/Dashboard/AnalyticsWidget#AnalyticsWidget',
+                    },
+                  },
+                },
+                {
+                  type: 'ui',
+                  name: 'analytics2',
+                  admin: {
+                    components: {
+                      Field:
+                        'src/components/ui/Dashboard/MapUserAnalyticsWidget#MapsUserAnalyticsWidget',
+                    },
+                  },
+                },
+              ],
             },
           ],
         },
@@ -112,11 +162,13 @@ export const Settings: GlobalConfig = {
               type: 'upload',
               relationTo: 'files',
               name: 'file',
+              label: 'Fichier',
               required: true,
             },
             {
               type: 'array',
               name: 'summaryItems',
+              label: 'Sommaire',
               fields: [
                 {
                   type: 'text',
@@ -127,6 +179,18 @@ export const Settings: GlobalConfig = {
           ],
         },
       ],
+    },
+  ],
+  endpoints: [
+    {
+      path: '/analytics/views-and-users',
+      method: 'post',
+      handler: getViewsAndUsersAnalyticsData,
+    },
+    {
+      path: '/analytics/country',
+      method: 'post',
+      handler: getCountriesAnalyticsData,
     },
   ],
 }

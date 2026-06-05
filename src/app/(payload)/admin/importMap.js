@@ -1,3 +1,4 @@
+import { default as default_36f773b1b9cd7d930e66a3a97ec698cb } from '@/components/ui/Dashboard/ClearMediaCacheButton'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -27,9 +28,14 @@ import { MetaTitleComponent as MetaTitleComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
+import { AnalyticsWidget as AnalyticsWidget_f4b9c1cd7f23f3a626fd4c7ef3a1d5e8 } from 'src/components/ui/Dashboard/AnalyticsWidget'
+import { MapsUserAnalyticsWidget as MapsUserAnalyticsWidget_410920598c2394042237af4f16e2d982 } from 'src/components/ui/Dashboard/MapUserAnalyticsWidget'
+import { Icon as Icon_a945979b0d69f186b37b4fba48e198db } from '@/components/constants/Icon'
+import { Logo as Logo_1030fe537781b7514ef0097248233a73 } from '@/components/constants/LogoAdmin'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
 export const importMap = {
+  "@/components/ui/Dashboard/ClearMediaCacheButton#default": default_36f773b1b9cd7d930e66a3a97ec698cb,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -59,5 +65,9 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
+  "src/components/ui/Dashboard/AnalyticsWidget#AnalyticsWidget": AnalyticsWidget_f4b9c1cd7f23f3a626fd4c7ef3a1d5e8,
+  "src/components/ui/Dashboard/MapUserAnalyticsWidget#MapsUserAnalyticsWidget": MapsUserAnalyticsWidget_410920598c2394042237af4f16e2d982,
+  "@/components/constants/Icon#Icon": Icon_a945979b0d69f186b37b4fba48e198db,
+  "@/components/constants/LogoAdmin#Logo": Logo_1030fe537781b7514ef0097248233a73,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }

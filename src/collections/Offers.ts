@@ -35,7 +35,25 @@ export const Offers: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'banner',
+      type: 'upload',
+      label: "Bannière de l'offre",
+      relationTo: 'media',
+    },
+    {
       name: 'description',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'titleLandingPage',
+      label: "Titre sur la page d'accueil",
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'moreInfoShort',
+      label: 'Informations complémentaires ( court )',
       type: 'text',
       required: true,
     },

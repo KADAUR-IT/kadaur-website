@@ -27,6 +27,7 @@ import { Files } from './collections/Files'
 import { Leads } from './collections/Leads'
 import { Forms } from './collections/Forms'
 import { Mails } from './collections/Mails'
+import { getAnalyticsData } from './endpoints/analytics'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,10 +44,8 @@ export default buildConfig({
     },
     components: {
       graphics: {
-        // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
-        //Logo : "@/components/constants/LogoAdmin",
-        // @ts-ignore: Type '() => React.JSX.Element' is not assignable to type 'CustomComponent<Record<string, any>> | undefined'.
-        //Icon : '@/components/constants/Icon'
+        Logo: '@/components/constants/LogoAdmin#Logo',
+        Icon: '@/components/constants/Icon#Icon',
       },
     },
   },

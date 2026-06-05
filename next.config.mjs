@@ -3,14 +3,14 @@ import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: [
-      'pino', 
-      'pino-pretty', 
-      'lokijs', 
-      'pino-elasticsearch', 
-      'payload',           // <-- Indispensable
-      '@payloadcms/db-mongodb', // <-- Mets ici ton adaptateur (mongodb ou postgres)
-      'sharp'              // <-- Souvent la cause de problèmes d'images
-    ],
+    'pino',
+    'pino-pretty',
+    'lokijs',
+    'pino-elasticsearch',
+    'payload', // <-- Indispensable
+    '@payloadcms/db-mongodb', // <-- Mets ici ton adaptateur (mongodb ou postgres)
+    'sharp', // <-- Souvent la cause de problèmes d'images
+  ],
 
   // Your Next.js config here
   webpack: (webpackConfig) => {
@@ -22,13 +22,13 @@ const nextConfig = {
 
     webpackConfig.resolve.alias = {
       ...webpackConfig.resolve.alias,
-      "pino-pretty": false,
-      "lokijs": false,
-      "desm": false,
-      "fastbench": false,
-      "pino-elasticsearch": false,
-      "tap": false,
-      "pino-std-serializers": false
+      'pino-pretty': false,
+      lokijs: false,
+      desm: false,
+      fastbench: false,
+      'pino-elasticsearch': false,
+      tap: false,
+      'pino-std-serializers': false,
     }
 
     return webpackConfig
@@ -37,12 +37,14 @@ const nextConfig = {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost"
-      }
-    ]
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
   },
-  turbopack: {},
+  turbopack: {
+    resolveExtensions: ['.cts', '.cjs', '.ts', '.tsx', '.js', '.jsx', '.mts', '.mjs'],
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
