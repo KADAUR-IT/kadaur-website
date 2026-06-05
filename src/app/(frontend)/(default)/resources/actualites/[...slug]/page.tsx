@@ -1,73 +1,82 @@
-import { getPayload } from "payload";
-import React from "react";
-import configPromise from "@payload-config"
-import "./styles.css"
-import "src/styles/pages.css"
-import { Media } from "@/payload-types";
+import { getPayload } from 'payload'
+import React from 'react'
+import configPromise from '@payload-config'
+import './styles.css'
+import 'src/styles/pages.css'
+import { Media } from '@/payload-types'
 
-import { Metadata, ResolvingMetadata } from "next";
-import ArticleClientPage from "./page.client";
+import { Metadata, ResolvingMetadata } from 'next'
+import ArticleClientPage from './page.client'
+import { notFound } from 'next/navigation'
 
-const payload = await getPayload({ config : configPromise });
+const payload = await getPayload({ config: configPromise })
 
 export const dynamicParams = true
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> },
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
-    // read route params
-    const {slug} = await params;
- 
-    // fetch data
-    const res = await payload.find({
-        collection: "article", 
-        where: {
-            slug: {equals: slug[0]}
-        },
-        limit: 1
-    })
+  // read route params
+  const { slug } = await params
 
-    const page = res.docs[0]
-    
-    return {
-        title: page.meta?.title || ""
-    }
+  // fetch data
+  const res = await payload.find({
+    collection: 'article',
+    where: {
+      slug: { equals: slug[0] },
+    },
+    limit: 1,
+  })
+
+  const page = res.docs[0]
+
+  return {
+    title: page?.meta?.title || '',
+  }
 }
 
-export default async function ArticlePage({params} : { params: Promise<{ slug: string }> })
-{
-    const { slug } = await params;
-    
-    const res = await payload.find({
-        collection: "article", 
-        where: {
-            slug: {equals: slug[0]}
-        },
-        limit: 1
-    })
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
 
-    const resOtherArticles = await payload.find({
-        collection: "article",
-        where: {
-            slug: {not_equals: slug[0]},
-            _status : {equals: "published"}
-        },
-        limit: 3,
-    })
+  const res = await payload.find({
+    collection: 'article',
+    where: {
+      slug: { equals: slug[0] },
+    },
+    limit: 1,
+  })
 
-    const article = res.docs[0]
+  const resOtherArticles = await payload.find({
+    collection: 'article',
+    where: {
+      slug: { not_equals: slug[0] },
+      _status: { equals: 'published' },
+    },
+    limit: 3,
+  })
 
-    const otherArticle = resOtherArticles.docs
+  if (res.totalDocs === 0 || res.docs[0]._status !== 'published') {
+    return notFound()
+  }
 
-    const publishedDate = new Date(article.createdAt).toLocaleDateString()
+  const article = res.docs[0]
 
-    const thumbnail: Media = article.thumbnail as Media
+  const otherArticle = resOtherArticles.docs
 
-    const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/resources/actualites/${article.slug}`
+  const publishedDate = new Date(article.createdAt).toLocaleDateString()
 
-    return(
-        <ArticleClientPage article={article} otherArticle={otherArticle} publishedDate={publishedDate} thumbnail={thumbnail} url={url} />
-    )
+  const thumbnail: Media = article.thumbnail as Media
 
+  const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/resources/actualites/${article.slug}`
+
+  return (
+    <ArticleClientPage
+      article={article}
+      otherArticle={otherArticle}
+      publishedDate={publishedDate}
+      thumbnail={thumbnail}
+      url={url}
+    />
+  )
 }

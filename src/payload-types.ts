@@ -153,6 +153,8 @@ export interface AdminAuthOperations {
   };
 }
 /**
+ * Utilisateurs de l'application
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -168,6 +170,15 @@ export interface User {
   verificationHash?: string | null;
   verificationTokenExpire?: number | null;
   verificationKind?: string | null;
+  claims?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -184,6 +195,8 @@ export interface Account {
   scope?: string | null;
   sub: string;
   access_token?: string | null;
+  refresh_token?: string | null;
+  expires_in?: number | null;
   passkey?: {
     credentialId: string;
     publicKey:
@@ -239,7 +252,10 @@ export interface Offer {
   name: string;
   icon: string;
   image?: (string | null) | Media;
+  banner?: (string | null) | Media;
   description: string;
+  titleLandingPage: string;
+  moreInfoShort: string;
   moreInfo: {
     root: {
       type: string;
@@ -974,6 +990,7 @@ export interface UsersSelect<T extends boolean = true> {
   verificationHash?: T;
   verificationTokenExpire?: T;
   verificationKind?: T;
+  claims?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -989,6 +1006,8 @@ export interface AccountsSelect<T extends boolean = true> {
   scope?: T;
   sub?: T;
   access_token?: T;
+  refresh_token?: T;
+  expires_in?: T;
   passkey?:
     | T
     | {
@@ -1028,7 +1047,10 @@ export interface OffersSelect<T extends boolean = true> {
   name?: T;
   icon?: T;
   image?: T;
+  banner?: T;
   description?: T;
+  titleLandingPage?: T;
+  moreInfoShort?: T;
   moreInfo?: T;
   usp?:
     | T
@@ -1494,6 +1516,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Setting {
   id: string;
   general?: {
+    logos?: {
+      logo?: (string | null) | Media;
+      logoAlternative?: (string | null) | Media;
+    };
     socialMedia?:
       | {
           socialMediaSelect:
@@ -1507,10 +1533,6 @@ export interface Setting {
         }[]
       | null;
   };
-  logos?: {
-    logo?: (string | null) | Media;
-    logoAlternative?: (string | null) | Media;
-  };
   SEO: {
     title: string;
     template: string;
@@ -1522,8 +1544,9 @@ export interface Setting {
         }[]
       | null;
   };
-  googleAnalytics?: {
-    trackingID?: string | null;
+  googleAnalytics: {
+    trackingID: string;
+    propertyID: string;
   };
   livreBlanc: {
     file: string | File;
@@ -1599,6 +1622,12 @@ export interface SettingsSelect<T extends boolean = true> {
   general?:
     | T
     | {
+        logos?:
+          | T
+          | {
+              logo?: T;
+              logoAlternative?: T;
+            };
         socialMedia?:
           | T
           | {
@@ -1606,12 +1635,6 @@ export interface SettingsSelect<T extends boolean = true> {
               socialMediaLink?: T;
               id?: T;
             };
-      };
-  logos?:
-    | T
-    | {
-        logo?: T;
-        logoAlternative?: T;
       };
   SEO?:
     | T
@@ -1630,6 +1653,7 @@ export interface SettingsSelect<T extends boolean = true> {
     | T
     | {
         trackingID?: T;
+        propertyID?: T;
       };
   livreBlanc?:
     | T

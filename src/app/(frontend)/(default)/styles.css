@@ -35,13 +35,13 @@ h1 {
 
   @media (max-width: 1024px) {
     margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
+    font-size: 40px;
+    line-height: 40px;
   }
 
   @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
+    font-size: 36px;
+    line-height: 36px;
   }
 
   @media (max-width: 400px) {
@@ -443,7 +443,7 @@ h1 {
 
 .client-carousel
 {
-  width: 100%;
+  width: 80%;
   background-color: transparent;
   overflow: hidden;
   padding: 60px 0;
@@ -455,6 +455,10 @@ h1 {
   {
     box-sizing: border-box;
   }
+
+  @media (max-width: 980px) {
+    width: 100%;
+}
 }
 
 .client-carousel::before, .client-carousel::after
@@ -470,14 +474,14 @@ h1 {
 .client-carousel::before
 {
   left: 0;
-  background: linear-gradient(to left, rgba(255,255,255,0), #F5F5f5);
+  background: linear-gradient(to left, rgba(255,255,255,0), var(--color-blue));
   
 }
 
 .client-carousel::after
 {
   right: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0), #F5F5f5);
+  background: linear-gradient(to right, rgba(255,255,255,0), var(--color-blue));
   
 }
 
@@ -486,7 +490,7 @@ h1 {
   
   display: inline-block;
   white-space: nowrap;
-  animation: 30s slide infinite linear;
+  animation: 20s slide infinite linear;
   gap: 80px;
   width: max-content;
 }
@@ -503,6 +507,7 @@ h1 {
   width: auto;
   aspect-ratio: initial;
   margin: 0 40px;
+  filter: grayscale(1);
 }
 
 @keyframes slide{
@@ -575,8 +580,6 @@ h1 {
   
 }
 
-.actualities-section
-{
   .article-card
   {
       height: 500px;
@@ -669,7 +672,7 @@ h1 {
           z-index: 1;
       }
   }
-}
+
 
 @media (max-width: 900px)
   {
