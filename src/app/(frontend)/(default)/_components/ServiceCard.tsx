@@ -1,5 +1,6 @@
 import Link from '@/components/ui/Link'
 import { Media, Offer } from '@/payload-types'
+import { imageLoader } from '@/utils/images/imagesLoader'
 import { faArrowRight, IconName, IconPrefix } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
@@ -25,6 +26,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           alt={banner.alt}
           width={banner.width as number}
           height={banner.height as number}
+          loader={imageLoader}
           className="max-h-[200px] w-full rounded-[5px]"
         />
       )}
