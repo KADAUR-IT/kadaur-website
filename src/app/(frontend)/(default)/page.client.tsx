@@ -3,17 +3,7 @@
 import React, { useRef } from 'react'
 
 import Image from 'next/image'
-import Button from '@/components/ui/Button'
-import SectionTitle from '@/components/ui/SectionTitle'
-import SectionSubtitle from '@/components/ui/SectionSubtitle'
-import OfferSlider from './_components/OfferSlider'
-import AvisSlider from './_components/AvisSlider'
 import { Article, Media, Offer } from '@/payload-types'
-import ScrollButton from './_components/ScrollButton'
-import MethodeSteps from './_components/MethodeComponents/MethodeSteps'
-import MethodeUseCases from './_components/MethodeComponents/MethodeUseCases'
-import MethodeCTA from './_components/MethodeComponents/MethodeCTA'
-import ValeursSlider from './_components/ValeursSlider'
 import Link from '@/components/ui/Link'
 import ClientSlider from './_components/ClientSlide'
 import ArticleCard from './resources/actualites/_components/ArticleCard'
@@ -83,9 +73,9 @@ export default function HomePageClient({
         <h2 className="text-center text-white text-md md:text-xl max-w-9/10 md:max-w-[1200px] font-normal!">
           Nous sécurisons les décisions et pilotons ceux qui la déploient dans votre intérêt
         </h2>
-        <div className="flex flex-col md:flex-row gap-1 md:gap-6 z-10 my-4 md:my-0">
-          <Link linkColor="gold" href="/contact" className="hover:scale-102 group">
-            Planifier un échange{' '}
+        <div className="flex flex-col md:flex-row gap-1 md:gap-6 z-10 my-4 mx-4 md:my-0">
+          <Link linkColor="gold" href="/contact" className="hover:scale-102 group text-center">
+            Échangeons sur votre contexte IT{' '}
             <FontAwesomeIcon
               className="group-hover:translate-x-0.5 transition-transform transition-300"
               icon={faArrowRight}
