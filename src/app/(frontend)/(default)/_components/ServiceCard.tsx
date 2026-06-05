@@ -19,13 +19,16 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
         <FontAwesomeIcon icon={['fas' as IconPrefix, service.icon as IconName]} />
         {service.description}
       </div>
-      <Image
-        src={banner.url as string}
-        alt={banner.alt}
-        width={banner.width as number}
-        height={banner.height as number}
-        className="max-h-[200px] w-full rounded-[5px]"
-      />
+      {banner && (
+        <Image
+          src={banner.url as string}
+          alt={banner.alt}
+          width={banner.width as number}
+          height={banner.height as number}
+          className="max-h-[200px] w-full rounded-[5px]"
+        />
+      )}
+
       <div className="text-white">
         <p className="font-bold uppercase">{service.titleLandingPage}</p>
         <p className="text-sm">{service.moreInfoShort}</p>
