@@ -14,10 +14,6 @@ export async function GET(req: Request) {
     where: {},
   })
 
-  /*console.log(mailInterne.docs)
-
-    console.log(searchParams)*/
-
   const form = await payload.findByID({
     collection: 'forms',
     id: searchParams.get('form-id') as string,
@@ -101,9 +97,17 @@ const getFileContent = async (templateID: string): Promise<string> => {
   let htmlContent = ''
 
   try {
-    const res = await fetch(`${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${templateID}`)
+    const res = await fetch(
+      `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/preview/mails/${templateID}`,
+      {
+        headers: {
+          'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET || '',
+        },
+      },
+    )
     if (!res.ok) {
-      throw new Error('Failed to fetch mail template')
+      const textError = await res.text()
+      throw new Error('Failed to fetch mail template' + textError)
     }
 
     htmlContent = await res.text()

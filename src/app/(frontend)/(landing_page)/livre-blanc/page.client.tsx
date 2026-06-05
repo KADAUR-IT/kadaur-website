@@ -69,20 +69,15 @@ export default function LivreBlancPageClient({ livreBlanc, formBlock }: LivreBla
     }
 
     try {
-      const req = await fetch('/api/leads', {
+      /*const req = await fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataToSend),
-      })
-
-      const res = await req.json()
-      const status = req.status
-
-      if (status == 200) {
-        const res = await handleMail(stringify({ 'form-id': form.id }))
-      }
+      })*/
+      const res = await handleMail(stringify({ 'form-id': form.id, ...dataToSend }))
+      const status = res.status
 
       const toastNotify = status === 200 ? toast.success : toast.error
       toastNotify(res.message, {
