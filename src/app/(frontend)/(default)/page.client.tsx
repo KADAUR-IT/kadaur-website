@@ -73,7 +73,7 @@ export default function HomePageClient({
           loader={imageLoader}
           className="absolute top-0 left-0 min-h-dvh min-w-full object-cover"
         />
-        <div className="absolute top-0 left-0 h-dvh w-full bg-radial-[at_50%_0%] from-(--color-blue)/0 to-(--color-blue) to-71%"></div>
+        <div className="absolute top-0 left-0 h-dvh w-full bg-radial-[at_50%_0%] from-(--color-blue)/40 to-(--color-blue) to-71%"></div>
         <h1 className="text-center text-(--color-white)! max-w-9/10 md:max-w-[1200px] md:m-0!">
           Gagnez en <span className="text-(--color-gold)">visibilité</span> ,{' '}
           <span className="text-(--color-gold)">maîtrise</span> et{' '}
@@ -142,38 +142,23 @@ export default function HomePageClient({
 
       <section className="flex flex-col items-center gap-10 py-20 px-6">
         <h2 className="text-[36px]! leading-[36px] text-(--color-white)! font-semibold! text-center md:w-[800px]">
-          Pourquoi choisir KADAUR ?
+          Ce qui change avec KADAUR
         </h2>
         <div className="flex flex-col md:grid md:grid-cols-2 md:max-w-[900px] gap-4 md:gap-[32px]">
           <WhyCard
-            title="Une expertise senior"
-            description="Nos intervenants sont des Product Owners hybrides certifiés et avec au minimum 10 ans d'expériences"
+            title="Une infrastructure enfin lisible"
+            description="Nous transformons une infrastructure complexe en un environnement compréhensible et pilotable."
             column={1}
           />
           <WhyCard
-            title="Vision 360°"
-            description="Deux regards. Une seule exigence. Chaque mission repose sur un binôme. Un référent de mission et un facilitateur."
+            title="Des décisions prises avec confiance"
+            description="Nous apportons la visibilité nécessaire pour arbitrer et faire évoluer votre infrastructure sereinement."
             column={1}
           />
           <WhyCard
-            title="De la clarté dans la complexité"
-            description="Nous aidons à prioriser, à structurer et à objectiver les choix techniques dans des environnements contraints."
-            column={1}
-          />
-          <WhyCard
-            title="La maîtrise des risques"
-            description="Nous identifions les zones de fragilité, anticipons les impacts et sécurisons la continuité des services."
-            column={1}
-          />
-          <WhyCard
-            title="Un accompagnement orienté décision"
-            description="Notre rôle est d'éclairer les décisions, d'accompagner les DSI et de renforcer la cohérence globale de l'infrastructure."
-            column={1}
-          />
-          <WhyCard
-            title="Tiers de confiance"
-            description="Nous ne remplaçons pas vos prestataires, nous vous aidons à mieux les piloter"
-            column={1}
+            title="Un partenaire indépendant"
+            description="Nous ne remplaçons pas vos prestataires. Nous vous aidons à garder la maîtrise de votre trajectoire IT"
+            column={2}
           />
         </div>
 
