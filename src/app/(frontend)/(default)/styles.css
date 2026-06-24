@@ -490,7 +490,7 @@ h1 {
   
   display: inline-block;
   white-space: nowrap;
-  animation: 20s slide infinite linear;
+  animation: 10s slide infinite linear;
   gap: 80px;
   width: max-content;
 }
@@ -507,7 +507,7 @@ h1 {
   width: auto;
   aspect-ratio: initial;
   margin: 0 40px;
-  filter: grayscale(1);
+  /*filter: grayscale(1);*/
 }
 
 @keyframes slide{
