@@ -34,6 +34,7 @@ export const MapsUserAnalyticsWidget: React.FC<{ path: string }> = ({ path }) =>
       try {
         const req = await fetch('/api/globals/settings/analytics/country', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },

@@ -83,9 +83,11 @@ function getClient(): BetaAnalyticsDataClient {
   return analyticsDataClientInstance
 }
 
-export const getAnalyticsData = async (req: PayloadRequest) => {
+export const getAnalyticsData = async (
+  req: PayloadRequest,
+): Promise<google.analytics.data.v1beta.IRunReportResponse | Response> => {
   if (!req.user) {
-    return Response.json({ message: 'Unauthorized' }, { status: 401 })
+    return Response.json({ error: 'Unauthorized: User must be logged in' }, { status: 401 })
   }
 
   const globalSettings = await req.payload.findGlobal({
@@ -93,7 +95,7 @@ export const getAnalyticsData = async (req: PayloadRequest) => {
   })
 
   if (!globalSettings) {
-    return Response.json({ message: 'Global settings not found' }, { status: 404 })
+    return Response.json({ error: 'Global settings not found' }, { status: 404 })
   }
 
   const propertyId =
@@ -102,19 +104,23 @@ export const getAnalyticsData = async (req: PayloadRequest) => {
     process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
   if (!propertyId) {
-    console.error('Google Analytics Property ID is missing in Settings or env vars.')
-    return null
+    return Response.json(
+      { error: 'Google Analytics Property ID is missing. Please configure it in Settings.' },
+      { status: 400 },
+    )
   }
 
   if (propertyId.startsWith('G-')) {
-    console.warn(
-      `Warning: Property ID "${propertyId}" appears to be a Measurement ID (gtag). Google Analytics Data API requires a numeric Property ID.`,
+    return Response.json(
+      {
+        error: `Invalid Property ID "${propertyId}". GA Data API requires a numeric Property ID (e.g. 487841575), not a Measurement ID (G-...). Please set Property ID in Settings.`,
+      },
+      { status: 400 },
     )
   }
 
   if (!req.json) {
-    console.error('Webhook Error: No data')
-    return Response.json({ error: 'Webhook Error' }, { status: 400 })
+    return Response.json({ error: 'Invalid request: No JSON body provided' }, { status: 400 })
   }
 
   const body = await req.json()
@@ -136,20 +142,24 @@ export const getAnalyticsData = async (req: PayloadRequest) => {
     })
 
     return response
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching analytics data:', error)
-    return null
+    return Response.json(
+      { error: error.message || 'Error fetching analytics data from Google API' },
+      { status: 500 },
+    )
   }
 }
 
 export const getViewsAndUsersAnalyticsData: PayloadHandler = async (req) => {
   try {
-    const response: google.analytics.data.v1beta.IRunReportResponse | null =
-      (await getAnalyticsData(req)) as google.analytics.data.v1beta.IRunReportResponse | null
+    const result = await getAnalyticsData(req)
 
-    if (!response) {
-      return Response.json({ error: 'Failed to fetch analytics data' }, { status: 500 })
+    if (result instanceof Response) {
+      return result
     }
+
+    const response = result as google.analytics.data.v1beta.IRunReportResponse
 
     const data = []
     const daysToFetch = 6
@@ -189,20 +199,21 @@ export const getViewsAndUsersAnalyticsData: PayloadHandler = async (req) => {
     }
 
     return Response.json({ data, message: 'Analytics endpoint is set up.' })
-  } catch (error) {
-    console.error('Error fetching analytics data:', error)
-    return Response.json({ error: 'Failed to fetch analytics data' }, { status: 500 })
+  } catch (error: any) {
+    console.error('Error fetching analytics views-and-users:', error)
+    return Response.json({ error: error.message || 'Failed to fetch analytics data' }, { status: 500 })
   }
 }
 
 export const getCountriesAnalyticsData: PayloadHandler = async (req) => {
   try {
-    const response: google.analytics.data.v1beta.IRunReportResponse | null =
-      (await getAnalyticsData(req)) as google.analytics.data.v1beta.IRunReportResponse | null
+    const result = await getAnalyticsData(req)
 
-    if (!response) {
-      return Response.json({ error: 'Failed to fetch analytics data' }, { status: 500 })
+    if (result instanceof Response) {
+      return result
     }
+
+    const response = result as google.analytics.data.v1beta.IRunReportResponse
 
     const countryName = response.rows?.map((row) => row.dimensionValues?.[0].value)
 
@@ -221,9 +232,9 @@ export const getCountriesAnalyticsData: PayloadHandler = async (req) => {
     }))
 
     return Response.json({ data, geoData: geoJson, message: 'Analytics endpoint is set up.' })
-  } catch (error) {
-    console.error('Error fetching analytics data:', error)
-    return Response.json({ error: 'Failed to fetch analytics data' }, { status: 500 })
+  } catch (error: any) {
+    console.error('Error fetching analytics country data:', error)
+    return Response.json({ error: error.message || 'Failed to fetch analytics data' }, { status: 500 })
   }
 }
 
