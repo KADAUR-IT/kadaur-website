@@ -34,6 +34,7 @@ export const AnalyticsWidget: React.FC<{ path: string }> = ({ path }) => {
       try {
         const req = await fetch('/api/globals/settings/analytics/views-and-users', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
