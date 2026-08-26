@@ -2,8 +2,86 @@ import { BetaAnalyticsDataClient } from '@google-analytics/data'
 import { google } from '@google-analytics/data/build/protos/protos'
 import { PayloadHandler, PayloadRequest } from 'payload'
 import { promises as fs } from 'fs'
+import fsSync from 'fs'
+import path from 'path'
 
-const analyticsDataClient = new BetaAnalyticsDataClient()
+function getAnalyticsDataClient(): BetaAnalyticsDataClient {
+  const options: Record<string, any> = {}
+
+  // 1. Prioritize separate client email & private key env vars (Best practice on Vercel)
+  if (process.env.GOOGLE_CLIENT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+    options.credentials = {
+      client_email: process.env.GOOGLE_CLIENT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    }
+    return new BetaAnalyticsDataClient(options)
+  }
+
+  // 2. Check for GOOGLE_APPLICATION_CREDENTIALS / GOOGLE_CREDENTIALS_JSON (Raw JSON string or Base64 or path)
+  const rawCreds =
+    process.env.GOOGLE_CREDENTIALS_JSON ||
+    process.env.GOOGLE_CREDENTIALS ||
+    process.env.GOOGLE_APPLICATION_CREDENTIALS
+
+  if (rawCreds) {
+    const trimmed = rawCreds.trim()
+
+    // A: Inline JSON string
+    if (trimmed.startsWith('{')) {
+      try {
+        const parsed = JSON.parse(trimmed)
+        options.credentials = {
+          client_email: parsed.client_email,
+          private_key: parsed.private_key?.replace(/\\n/g, '\n'),
+        }
+        return new BetaAnalyticsDataClient(options)
+      } catch (e) {
+        console.error('Failed to parse Google credentials JSON string from environment variable', e)
+      }
+    }
+
+    // B: Base64 encoded JSON string
+    try {
+      const decoded = Buffer.from(trimmed, 'base64').toString('utf8')
+      if (decoded.trim().startsWith('{')) {
+        const parsed = JSON.parse(decoded)
+        options.credentials = {
+          client_email: parsed.client_email,
+          private_key: parsed.private_key?.replace(/\\n/g, '\n'),
+        }
+        return new BetaAnalyticsDataClient(options)
+      }
+    } catch (e) {
+      // Not base64
+    }
+
+    // C: File path (for local dev)
+    const resolvedPath = path.isAbsolute(trimmed)
+      ? trimmed
+      : path.resolve(process.cwd(), trimmed)
+    if (fsSync.existsSync(resolvedPath)) {
+      options.keyFilename = resolvedPath
+      return new BetaAnalyticsDataClient(options)
+    }
+  }
+
+  // 3. Fallback to local .json keyfile in workspace root (local dev)
+  const defaultKeyPath = path.resolve(process.cwd(), 'kadaur-ec36d157f995.json')
+  if (fsSync.existsSync(defaultKeyPath)) {
+    options.keyFilename = defaultKeyPath
+  }
+
+  return new BetaAnalyticsDataClient(options)
+}
+
+let analyticsDataClientInstance: BetaAnalyticsDataClient | null = null
+
+function getClient(): BetaAnalyticsDataClient {
+  if (!analyticsDataClientInstance) {
+    analyticsDataClientInstance = getAnalyticsDataClient()
+  }
+  return analyticsDataClientInstance
+}
 
 export const getAnalyticsData = async (req: PayloadRequest) => {
   if (!req.user) {
@@ -19,7 +97,20 @@ export const getAnalyticsData = async (req: PayloadRequest) => {
   }
 
   const propertyId =
-    globalSettings.googleAnalytics?.propertyID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+    globalSettings.googleAnalytics?.propertyID ||
+    process.env.GA_PROPERTY_ID ||
+    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+
+  if (!propertyId) {
+    console.error('Google Analytics Property ID is missing in Settings or env vars.')
+    return null
+  }
+
+  if (propertyId.startsWith('G-')) {
+    console.warn(
+      `Warning: Property ID "${propertyId}" appears to be a Measurement ID (gtag). Google Analytics Data API requires a numeric Property ID.`,
+    )
+  }
 
   if (!req.json) {
     console.error('Webhook Error: No data')
@@ -27,12 +118,11 @@ export const getAnalyticsData = async (req: PayloadRequest) => {
   }
 
   const body = await req.json()
-  //console.log(body)
 
   try {
-    const [response] = await analyticsDataClient.runReport({
+    const client = getClient()
+    const [response] = await client.runReport({
       property: `properties/${propertyId}`,
-
       dateRanges: [
         {
           startDate: '7daysAgo',
@@ -64,11 +154,9 @@ export const getViewsAndUsersAnalyticsData: PayloadHandler = async (req) => {
     const data = []
     const daysToFetch = 6
 
-    // 1. Transformer les données de GA4 en un objet facilement consultable
-    // Clé: "20260310", Valeur: { users: 0, views: 0 }
     const gaData = response.rows?.reduce(
       (acc, row) => {
-        const dateStr = row.dimensionValues?.[0]?.value // ex: "20260310"
+        const dateStr = row.dimensionValues?.[0]?.value
         if (dateStr) {
           acc[dateStr] = {
             users: Number(row.metricValues?.[0]?.value || 0),
@@ -80,24 +168,21 @@ export const getViewsAndUsersAnalyticsData: PayloadHandler = async (req) => {
       {} as Record<string, { users: number; views: number }>,
     )
 
-    // On boucle de J-14 jusqu'à J-0 (aujourd'hui)
     for (let i = daysToFetch; i >= 0; i--) {
       const d = new Date()
       d.setDate(d.getDate() - i)
 
-      // Formater pour correspondre à la clé de GA4 (YYYYMMDD)
       const year = d.getFullYear()
       const month = String(d.getMonth() + 1).padStart(2, '0')
       const day = String(d.getDate()).padStart(2, '0')
       const gaDateString = `${year}${month}${day}`
 
-      // 3. Fusionner : Si GA4 a la donnée, on la prend. Sinon on force à 0.
       data.push({
         date: d.toLocaleDateString('fr-FR', {
           year: 'numeric',
           month: 'numeric',
           day: 'numeric',
-        }), // Format pour l'axe X du graphique
+        }),
         users: gaData?.[gaDateString]?.users || 0,
         views: gaData?.[gaDateString]?.views || 0,
       })
@@ -121,7 +206,8 @@ export const getCountriesAnalyticsData: PayloadHandler = async (req) => {
 
     const countryName = response.rows?.map((row) => row.dimensionValues?.[0].value)
 
-    const geoData = await fs.readFile(process.cwd() + '/src/geojson/custom.geo.json', 'utf8')
+    const geoFilePath = path.join(process.cwd(), 'src', 'geojson', 'custom.geo.json')
+    const geoData = await fs.readFile(geoFilePath, 'utf8')
     const geoJson = JSON.parse(geoData)
     const countries = geoJson.features.filter((features: any) =>
       countryName?.includes(features.properties.name_long),
@@ -148,3 +234,4 @@ const formatDimensionDate = (date: string) => {
   const day = chars.slice(6, 8).join('')
   return new Date(`${year}-${month}-${day}`)
 }
+
